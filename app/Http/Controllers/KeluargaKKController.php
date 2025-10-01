@@ -12,9 +12,9 @@ class KeluargaKKController extends Controller
     public function index()
     {
        $data = [
-            'kk_id'   => '001',
-            'kk_nomor' => '1234',
-            'kepala_keluarga_warga_id' => '012',
+            'kk_id'   => '1',
+            'kk_nomor' => '12345',
+            'kepala_keluarga_warga_id' => '001',
             'alamat' => 'Jalan Umban Sari',
             'rt'     => '012',
             'rw'     => '010'
