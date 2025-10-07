@@ -15,7 +15,7 @@ class KeluargaKKController extends Controller
             'kk_id'   => '1',
             'kk_nomor' => '12345',
             'kepala_keluarga_warga_id' => '001',
-            'alamat' => 'Jalan Umban Sari',
+            'alamat' => 'Jalan Riau',
             'rt'     => '012',
             'rw'     => '010'
         ];
