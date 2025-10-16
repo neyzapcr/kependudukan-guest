@@ -20,3 +20,5 @@ Route::get('/dashboard', function () {
     $username = session('username');
     return view('dashboard', compact('message', 'username'));
 })->name('dashboard');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
