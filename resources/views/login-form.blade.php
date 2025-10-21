@@ -13,7 +13,6 @@
       --muted: #94a3b8;
     }
 
-
     * {
       margin: 0;
       padding: 0;
@@ -160,7 +159,7 @@
       </div>
     @endif
 
-    <form method="POST" action="{{ url('/auth/login') }}">
+    <form method="POST" action="{{ route('login.post') }}">
       @csrf
       <div class="form-group">
         <label for="username">Nama Pengguna</label>
@@ -169,12 +168,16 @@
 
       <div class="form-group">
         <label for="password">Kata Sandi</label>
-        <input id="password" type="password" name="password">
+        <input id="password" type="password" name="password" required placeholder="Masukkan password">
       </div>
 
       <button type="submit" class="btn">Masuk</button>
     </form>
 
+    <div class="footer">
+      @ Sistem Kependudukan Desa Andromeda
+    </div>
   </div>
 </body>
 </html>
+    

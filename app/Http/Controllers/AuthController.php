@@ -12,7 +12,6 @@ class AuthController extends Controller
     public function index()
     {
         return view('login-form');
-
     }
 
     /**
@@ -28,23 +27,23 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-         $request->validate([
-        'username' => 'required',
-        'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
-    ], [
-        'username.required' => 'Username wajib diisi.',
-        'password.required' => 'Password wajib diisi.',
-        'password.min' => 'Password minimal 3 karakter.',
-        'password.regex' => 'Password harus mengandung huruf kapital.',
-    ]);
+        $request->validate([
+            'username' => 'required',
+            'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 3 karakter.',
+            'password.regex' => 'Password harus mengandung huruf kapital.',
+        ]);
 
-    $username = $request->input('username');
+        // Set session login
+        session(['is_logged_in' => true, 'username' => $request->username]);
 
-    return redirect()->route('dashboard')->with([
-        'success' => 'Login berhasil!',
-        'username' => $username
-    ]);
-
+        return redirect()->route('dashboard')->with([
+            'success' => 'Login berhasil!',
+            'username' => $request->username
+        ]);
     }
 
     /**
@@ -78,4 +77,11 @@ class AuthController extends Controller
     {
         //
     }
+
+    // Tambahkan method logout
+    public function logout(Request $request)
+{
+    session()->forget(['is_logged_in', 'username']);
+    return redirect('/login')->with('success', 'Logout berhasil!');
+}
 }
