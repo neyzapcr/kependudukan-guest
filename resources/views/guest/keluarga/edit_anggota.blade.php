@@ -27,7 +27,7 @@
         </div>
     @endif
 
-    <form action="{{ route('keluarga.anggota.update', [$kk->kk_id, $anggota->warga_id]) }}" method="POST">
+    <form action="{{ route('guest.keluarga.anggota.update', [$kk->kk_id, $anggota->warga_id]) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -75,8 +75,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-        <a href="{{ route('keluarga.anggota', $kk->kk_id) }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('guest.keluarga.anggota', $kk->kk_id) }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
-</body> 
+</body>
 </html>

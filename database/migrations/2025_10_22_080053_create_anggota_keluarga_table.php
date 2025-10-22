@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('anggota_keluarga', function (Blueprint $table) {
-            $table->id('anggota_id'); // Primary key
-            $table->foreignId('kk_id')->constrained('keluarga_kk')->onDelete('cascade'); // FK ke KK
-            $table->foreignId('warga_id')->constrained('warga')->onDelete('cascade'); // FK ke warga
-            $table->string('hubungan', 50); // Suami/Istri/Anak/Lainnya
+            $table->id('anggota_id');
+            $table->foreignId('kk_id')->constrained('keluarga_kk')->onDelete('cascade');
+            $table->foreignId('warga_id')->constrained('warga')->onDelete('cascade');
+            $table->string('hubungan', 50);
             $table->timestamps();
         });
     }

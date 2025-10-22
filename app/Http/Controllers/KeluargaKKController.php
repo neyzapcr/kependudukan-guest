@@ -15,14 +15,14 @@ class KeluargaKKController extends Controller
     {
         // Ambil semua data KK dari session
         $keluarga = Keluarga::with('kepalaKeluarga', 'anggotaKeluarga')->get();
-        return view('keluarga.index', compact('keluarga'));
+        return view('guest.keluarga.index', compact('keluarga'));
     }
     /**
      * Tampilkan form tambah KK
-     */
+     */ 
     public function create()
     {
-        return view('keluarga.create'); // form tambah KK + anggota
+        return view('guest.keluarga.create'); // form tambah KK + anggota
     }
 
     /**
@@ -84,7 +84,7 @@ class KeluargaKKController extends Controller
             foreach ($request->anggota as $anggota) {
                 $w = Warga::create([
                     'nama'          => $anggota['nama'],
-                    'no_ktp'        => $anggota['no_ktp'] ?? 'UNIQ' . time(),
+                    'no_ktp'        => $anggota['no_ktp'] ?? substr ('UNIQ' . uniqid(), 0, 16),
                     'jenis_kelamin' => $anggota['jenis_kelamin'] ?? 'L',
                     'agama'         => $anggota['agama'] ?? 'Islam',
                     'pekerjaan'     => $anggota['pekerjaan'] ?? 'Tidak Bekerja',
@@ -108,7 +108,7 @@ class KeluargaKKController extends Controller
     {
         $kk = Keluarga::with('anggotaKeluarga')->findOrFail($kk_id);
 
-        return view('keluarga.anggota', compact('kk'));
+        return view('guest.keluarga.anggota', compact('kk'));
     }
 
     /**

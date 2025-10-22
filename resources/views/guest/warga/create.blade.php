@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('warga.store') }}">
+<form method="POST" action="{{ route('guest.warga.store') }}">
     @csrf
 
     <div class="mb-3">

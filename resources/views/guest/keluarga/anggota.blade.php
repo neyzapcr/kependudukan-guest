@@ -49,11 +49,11 @@
                         <td>{{ $anggota->warga->email }}</td>
                         <td>{{ $anggota->hubungan }}</td>
                         <td>
-                            <a href="{{ route('keluarga.anggota.edit', ['id' => $kk->kk_id, 'anggota_id' => $anggota->warga_id]) }}"
+                            <a href="{{ route('guest.keluarga.anggota.edit', ['id' => $kk->kk_id, 'anggota_id' => $anggota->warga_id]) }}"
                                 class="btn btn-sm btn-warning">Edit</a>
 
                             <form
-                                action="{{ route('keluarga.anggota.destroy', ['id' => $kk->kk_id, 'anggota_id' => $anggota->warga_id]) }}"
+                                action="{{ route('guest.keluarga.anggota.destroy', ['id' => $kk->kk_id, 'anggota_id' => $anggota->warga_id]) }}"
                                 method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')

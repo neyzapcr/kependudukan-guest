@@ -33,27 +33,27 @@ Route::get('/tambah-data', function () {
         return redirect()->route('login.form')->with('error', 'Silakan login terlebih dahulu!');
     }
     return view('tambah-data.create');
-})->name('tambah.data');
+})->name('guest.tambah.data');
 
-Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
-Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
+Route::get('/warga/create', [WargaController::class, 'create'])->name('guest.warga.create');
+Route::post('/warga', [WargaController::class, 'store'])->name('guest.warga.store');
 
 Route::resource('keluarga', KeluargaKKController::class);
 
-Route::get('/keluarga/{kk}/anggota', [KeluargaKKController::class, 'showAnggota'])->name('keluarga.anggota');
+Route::get('/keluarga/{kk}/anggota', [KeluargaKKController::class, 'showAnggota'])->name('guest.keluarga.anggota');
 
-Route::get('/keluarga/{id}/anggota', [AnggotaKeluargaController::class, 'index'])->name('keluarga.anggota');
-Route::get('/keluarga/{id}/anggota/{anggota_id}/edit', [AnggotaKeluargaController::class, 'edit'])->name('keluarga.anggota.edit');
-Route::put('/keluarga/{id}/anggota/{anggota_id}', [AnggotaKeluargaController::class, 'update'])->name('keluarga.anggota.update');
-Route::delete('/keluarga/{id}/anggota/{anggota_id}', [AnggotaKeluargaController::class, 'destroy'])->name('keluarga.anggota.destroy');
+Route::get('/keluarga/{id}/anggota', [AnggotaKeluargaController::class, 'index'])->name('guest.keluarga.anggota');
+Route::get('/keluarga/{id}/anggota/{anggota_id}/edit', [AnggotaKeluargaController::class, 'edit'])->name('guest.keluarga.anggota.edit');
+Route::put('/keluarga/{id}/anggota/{anggota_id}', [AnggotaKeluargaController::class, 'update'])->name('guest.keluarga.anggota.update');
+Route::delete('/keluarga/{id}/anggota/{anggota_id}', [AnggotaKeluargaController::class, 'destroy'])->name('guest.keluarga.anggota.destroy');
 
 Route::put('/keluarga/{id}/anggota/{anggota_id}', [AnggotaKeluargaController::class, 'update'])
-    ->name('keluarga.anggota.update');
+    ->name('guest.keluarga.anggota.update');
 
     Route::delete('/keluarga/{kk_id}/anggota/{warga_id}', [AnggotaKeluargaController::class, 'destroy'])
-     ->name('keluarga.anggota.destroy');
+     ->name('guest.keluarga.anggota.destroy');
 
-Route::resource('keluarga.anggota', AnggotaKeluargaController::class)
+Route::resource('guest.keluarga.anggota', AnggotaKeluargaController::class)
     ->only(['index', 'edit', 'update', 'destroy']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

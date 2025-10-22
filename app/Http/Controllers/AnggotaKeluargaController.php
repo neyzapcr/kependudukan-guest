@@ -46,7 +46,7 @@ class AnggotaKeluargaController extends Controller
     {
         $kk      = Keluarga::findOrFail($keluargaId);
         $anggota = AnggotaKeluarga::with('warga')->where('warga_id', $anggotaId)->firstOrFail();
-        return view('keluarga.edit_anggota', compact('kk', 'anggota'));
+        return view('guest.keluarga.edit_anggota', compact('kk', 'anggota'));
     }
 
     /**
@@ -89,7 +89,7 @@ class AnggotaKeluargaController extends Controller
         ]);
 
         // Redirect balik ke daftar anggota
-        return redirect()->route('keluarga.anggota', $id)
+        return redirect()->route('guest.keluarga.anggota', $id)
             ->with('success', 'Data anggota berhasil diperbarui!');
     }
 
@@ -113,7 +113,7 @@ class AnggotaKeluargaController extends Controller
         // Hapus data anggota dari tabel pivot/relasi
         $anggota->delete();
 
-        return redirect()->route('keluarga.anggota', $kk_id)
+        return redirect()->route('guest.keluarga.anggota', $kk_id)
             ->with('success', 'Data anggota berhasil dihapus.');
     }
 }

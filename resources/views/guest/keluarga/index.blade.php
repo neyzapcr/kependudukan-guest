@@ -50,7 +50,7 @@
                     <td>{{ $kk->created_at }}</td>
                 </tr>
             @empty --}}
-            <a href="{{ route('keluarga.anggota', $kk->kk_id) }}" class="btn btn-sm btn-info">
+            <a href="{{ route('guest.keluarga.anggota', $kk->kk_id) }}" class="btn btn-sm btn-info">
                             Lihat Anggota
                         </a>
                     </td>

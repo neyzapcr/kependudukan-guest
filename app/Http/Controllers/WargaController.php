@@ -20,7 +20,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('warga.create');
+        return view('guest.warga.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class WargaController extends Controller
 
         Warga::create($request->all());
 
-        return redirect()->route('warga.create')->with('success', 'Data warga berhasil disimpan!');
+        return redirect()->route('guest.warga.create')->with('success', 'Data warga berhasil disimpan!');
     }
 
     /**

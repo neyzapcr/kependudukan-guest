@@ -20,7 +20,7 @@ class TambahDataController extends Controller
      */
     public function create()
     {
-        return view('tambah-data.create');
+        return view('guest.tambah-data.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class TambahDataController extends Controller
 
         Kelahiran::create($data);
 
-        return redirect()->route('tambah-data.create')
+        return redirect()->route('guest.tambah-data.create')
                          ->with('success', 'Data kelahiran berhasil disimpan!');
     }
 
