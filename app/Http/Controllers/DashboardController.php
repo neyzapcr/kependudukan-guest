@@ -1,36 +1,71 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Warga;
-use App\Models\Keluarga;
-use App\Models\Kelahiran;
-use App\Models\Kematian;
-use App\Models\Pindah;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $totalWarga = 0;
-        $kelahiranTahunIni = 0;
+        $tahunSekarang = now()->year;
+
+        // Total warga
+        $totalWarga = Warga::count();
+
+        // Kelahiran, kematian, pindah (dummy untuk sementara)
+        $kelahiranTahunIni = Warga::whereYear('created_at', $tahunSekarang)->count();
         $kematianTahunIni = 0;
         $pindahTahunIni = 0;
 
-        // Data list kosong (biar nggak error di foreach)
-        $laporanTerbaru = [];
-        $sebaranDusun = [];
-        $pengumuman = [];
+        // Grafik kelahiran per bulan (berdasarkan data warga baru)
+        $grafikKelahiran = Warga::select(
+                DB::raw('MONTH(created_at) as bulan'),
+                DB::raw('COUNT(*) as total')
+            )
+            ->whereYear('created_at', $tahunSekarang)
+            ->groupBy('bulan')
+            ->pluck('total', 'bulan')
+            ->toArray();
 
-        // Data dummy kosong buat grafik
-        $grafikKelahiran = [];
-        $grafikGender = ['L' => 0, 'P' => 0];
+        // Pastikan semua bulan ada walau 0
+        $grafikLengkap = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $grafikLengkap[$i] = $grafikKelahiran[$i] ?? 0;
+        }
+
+        // Grafik gender (ambil langsung dari warga)
+        $grafikGender = [
+            'L' => Warga::where('jenis_kelamin', 'L')->count(),
+            'P' => Warga::where('jenis_kelamin', 'P')->count(),
+        ];
+
+        // Grafik pertumbuhan penduduk (5 tahun terakhir)
         $grafikPertumbuhan = [];
+        for ($i = $tahunSekarang - 4; $i <= $tahunSekarang; $i++) {
+            $grafikPertumbuhan[$i] = Warga::whereYear('created_at', '<=', $i)->count();
+        }
 
-        // kirim semuanya ke view
+        // Data terbaru (5 warga terakhir)
+        $laporanTerbaru = Warga::latest()->take(5)->get();
+
+        // Sebaran per dusun (kalau ada kolom 'dusun')
+        // $sebaranDusun = Warga::select('dusun', DB::raw('COUNT(*) as jumlah'))
+        //     ->groupBy('dusun')
+        //     ->get()
+        //     ->map(fn($item) => [
+        //         'wilayah' => $item->dusun ?? 'Tidak diketahui',
+        //         'jumlah' => $item->jumlah
+        //     ]);
+            $sebaranDusun = collect();
+
+        // Pengumuman dummy
+        $pengumuman = [
+            'Pendataan ulang warga dimulai minggu depan.',
+            'Perbarui data keluarga sebelum akhir bulan.'
+        ];
+
         return view('dashboard', compact(
             'totalWarga',
             'kelahiranTahunIni',
@@ -39,11 +74,12 @@ class DashboardController extends Controller
             'laporanTerbaru',
             'sebaranDusun',
             'pengumuman',
-            'grafikKelahiran',
+            'grafikLengkap',
             'grafikGender',
             'grafikPertumbuhan'
         ));
     }
+
 
     /**
      * Show the form for creating a new resource.
