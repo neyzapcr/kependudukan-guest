@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         :root {
             --primary: #0b57a8;
@@ -61,43 +63,97 @@
             border-radius: 15px;
             padding: 30px;
         }
+
+        /* Animasi dropdown */
+        .dropdown-menu.animate-dropdown {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-menu.show.animate-dropdown {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark"
-        style="background: linear-gradient(135deg, var(--primary), var(--secondary));">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="fas fa-users me-2"></i>Sistem Kependudukan
-            </a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">
-                    <i class="fas fa-user me-1"></i> Guest
-                </span>
-                @if (!session('is_logged_in'))
-                    <a href="{{ route('login.form') }}" class="btn btn-outline-light btn-sm">
-                        Masuk
-                    </a>
-                @endif
-            </div>
-        </div>
-        </div>
-    </nav>
+    <!-- Navigation -->
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #0b57a8, #004E92);">
+    <div class="container">
 
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" href="#">
+            Sistem Kependudukan
+        </a>
+
+        <!-- Toggle untuk mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu + User Info -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Navigasi Tengah -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0" style="display:flex; justify-content:center; gap:30px;">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('keluarga.index') }}">Data Warga</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kelahiran</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kematian</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Perpindahan</a>
+                </li>
+            </ul>
+
+            <!-- User Info di Kanan -->
+            <ul class="navbar-nav ms-auto">
+                @if (!session()->has('is_logged_in'))
+                    <li class="nav-item">
+                        <a href="{{ route('login.form') }}" class="btn btn-outline-light btn-sm"
+                           style="padding: 6px 14px; border-radius: 6px;">Masuk</a>
+                    </li>
+                @else
+                    <li class="nav-item dropdown">
+                        <!-- Username sebagai tombol dropdown -->
+                        <a class="btn btn-outline-light btn-sm dropdown-toggle" href="#" role="button"
+                           id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                           style="padding: 6px 14px; border-radius: 6px;">
+                            {{ session()->get('username') }}
+                        </a>
+
+                        <!-- Dropdown menu dengan animasi -->
+                        <ul class="dropdown-menu dropdown-menu-end animate-dropdown" aria-labelledby="userDropdown">
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" class="px-3 py-2">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger w-100 btn-sm" style="border-radius:6px;">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </div>
+</nav>
     <div class="container py-4">
         <div class="row mb-4">
             @if (session('is_logged_in'))
                 <div class="col-md-3 mb-3">
                     <a href="{{ route('tambah-data.create') }}" class="btn btn-primary w-100">Tambah Data</a>
                 </div>
-               <div class="col-md-3 mb-3">
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-danger w-100">Logout</button>
-    </form>
-</div>
 
             @else
                 <div class="col-md-3 mb-3">
