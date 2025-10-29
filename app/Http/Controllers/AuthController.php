@@ -1,21 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display login form
      */
     public function index()
     {
-        return view('login-form');
+        return view('guest.login-form');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource (register form)
      */
     public function create()
     {
@@ -23,27 +24,55 @@ class AuthController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource (handle register)
      */
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required',
+            'email' => 'required|email',
             'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
-        ], [
-            'username.required' => 'Username wajib diisi.',
-            'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 3 karakter.',
-            'password.regex' => 'Password harus mengandung huruf kapital.',
         ]);
 
-        // Set session login
-        session(['is_logged_in' => true, 'username' => $request->username]);
+        // Cari user berdasarkan email
+        $user = User::where('email', $request->email)->first();
 
-        return redirect()->route('dashboard')->with([
-            'success' => 'Login berhasil!',
-            'username' => $request->username
-        ]);
+        // Check password
+        if ($user && Hash::check($request->password, $user->password)) {
+            \Log::info('=== LOGIN SUCCESS ===');
+            \Log::info('User: ' . $user->email);
+
+            // Set session login
+            session([
+                'is_logged_in' => true,
+                'username' => $user->name,
+                'email' => $user->email,
+                'user_id' => $user->id
+            ]);
+
+            \Log::info('Session after login:', session()->all());
+
+            // Test redirect langsung
+            \Log::info('Redirecting to: ' . route('guest.dashboard.index'));
+
+            return redirect()->route('guest.dashboard.index')->with([
+                'success' => 'Login berhasil!',
+                'username' => $user->name
+            ]);
+        }
+
+        // Login failed
+        return redirect('/login')->withErrors([
+            'email' => 'Email atau password tidak sesuai.',
+        ])->withInput($request->only('email'));
+    }
+
+    /**
+     * Handle logout request
+     */
+    public function logout(Request $request)
+    {
+        session()->flush();
+        return redirect('/login')->with('success', 'Logout berhasil!');
     }
 
     /**
@@ -78,10 +107,7 @@ class AuthController extends Controller
         //
     }
 
-    // Tambahkan method logout
-    public function logout(Request $request)
-{
-    session()->forget(['is_logged_in', 'username']);
-    return redirect('/login')->with('success', 'Logout berhasil!');
-}
+    /**
+     * Handle logout request
+     */
 }

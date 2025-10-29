@@ -1,25 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Data Kartu Keluarga')
+@section('title', 'Edit Data Kartu Keluarga')
 
 @section('content')
 <div class="main-content">
     <div class="container">
         <div class="page-header mb-4">
-            <h1 class="page-title">Tambah Data Kartu Keluarga</h1>
-            <p class="page-subtitle">Isi form berikut dengan data kartu keluarga yang valid</p>
+            <h1 class="page-title">Edit Data Kartu Keluarga</h1>
+            <p class="page-subtitle">Perbarui data kartu keluarga: {{ $keluarga->kk_nomor }}</p>
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-8">
                 <div class="keluarga-card">
                     <div class="keluarga-card-header">
                         <div class="keluarga-avatar">
-                            <i class="fas fa-plus"></i>
+                            <i class="fas fa-edit"></i>
                         </div>
                         <div class="keluarga-info">
-                            <div class="keluarga-name">Form Tambah Kartu Keluarga</div>
-                            <div class="keluarga-nomor">Lengkapi semua data dengan benar</div>
+                            <div class="keluarga-name">Form Edit Kartu Keluarga</div>
+                            <div class="keluarga-nomor">No. KK: {{ $keluarga->kk_nomor }}</div>
                         </div>
                     </div>
 
@@ -36,14 +36,15 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('keluarga.store') }}">
+                        <form method="POST" action="{{ route('keluarga.update', $keluarga->kk_id) }}">
                             @csrf
+                            @method('PUT')
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nomor KK</label>
                                     <input type="text" name="kk_nomor" class="form-control search-box"
-                                           value="{{ old('kk_nomor') }}" required>
+                                           value="{{ old('kk_nomor', $keluarga->kk_nomor) }}" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -51,7 +52,8 @@
                                     <select name="kepala_keluarga_warga_id" class="form-control search-box" required>
                                         <option value="">-- Pilih Kepala Keluarga --</option>
                                         @foreach($warga as $w)
-                                            <option value="{{ $w->warga_id }}" {{ old('kepala_keluarga_warga_id') == $w->warga_id ? 'selected' : '' }}>
+                                            <option value="{{ $w->warga_id }}"
+                                                {{ old('kepala_keluarga_warga_id', $keluarga->kepala_keluarga_warga_id) == $w->warga_id ? 'selected' : '' }}>
                                                 {{ $w->nama }} (NIK: {{ $w->no_ktp }})
                                             </option>
                                         @endforeach
@@ -61,20 +63,20 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Alamat</label>
-                                <textarea name="alamat" class="form-control search-box" rows="3" required>{{ old('alamat') }}</textarea>
+                                <textarea name="alamat" class="form-control search-box" rows="3" required>{{ old('alamat', $keluarga->alamat) }}</textarea>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-3 mb-3">
                                     <label class="form-label">RT</label>
                                     <input type="text" name="rt" class="form-control search-box"
-                                           value="{{ old('rt') }}" required>
+                                           value="{{ old('rt', $keluarga->rt) }}" required>
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label class="form-label">RW</label>
                                     <input type="text" name="rw" class="form-control search-box"
-                                           value="{{ old('rw') }}" required>
+                                           value="{{ old('rw', $keluarga->rw) }}" required>
                                 </div>
                             </div>
 
@@ -84,7 +86,7 @@
                                 </a>
                                 <div class="action-buttons">
                                     <button type="submit" class="btn-edit">
-                                        Simpan Data
+                                        Update Data
                                     </button>
                                 </div>
                             </div>

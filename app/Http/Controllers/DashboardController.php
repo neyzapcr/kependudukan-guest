@@ -65,8 +65,10 @@ class DashboardController extends Controller
             'Pendataan ulang warga dimulai minggu depan.',
             'Perbarui data keluarga sebelum akhir bulan.'
         ];
+        $warga = Warga::latest()->paginate(10);
 
-        return view('dashboard', compact(
+
+        return view('guest.dashboard', compact(
             'totalWarga',
             'kelahiranTahunIni',
             'kematianTahunIni',
@@ -75,8 +77,10 @@ class DashboardController extends Controller
             'sebaranDusun',
             'pengumuman',
             'grafikLengkap',
+            'grafikKelahiran',
             'grafikGender',
-            'grafikPertumbuhan'
+            'grafikPertumbuhan',
+            'warga'
         ));
     }
 

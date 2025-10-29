@@ -14,7 +14,7 @@ class Keluarga extends Model
 
     public function kepalaKeluarga()
     {
-        return $this->belongsTo(Warga::class, 'kepala_keluarga_warga_id');
+        return $this->belongsTo(Warga::class, 'kepala_keluarga_warga_id', 'warga_id');
     }
 
     public function anggotaKeluarga()

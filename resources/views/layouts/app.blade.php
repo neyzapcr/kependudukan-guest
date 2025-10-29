@@ -1,36 +1,79 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Sistem Kependudukan')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <title>@yield('title', 'Dashboard | Sistem Kependudukan')</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('assets-guest/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets-guest/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets-guest/css/templatemo-scholar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets-guest/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets-guest/css/animate.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- Navbar Styles -->
+    @include('layouts.navbar-css')
+
+    <!-- Warga Styles (LOAD DI SEMUA HALAMAN) -->
+    @include('layouts.css')
+
+    <!-- Custom Styles -->
+    @stack('styles')
+
+
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
-                <i class="fas fa-users me-2"></i>Sistem Kependudukan
-            </a>
-            <div class="navbar-nav ms-auto">
-                @if(session('is_logged_in'))
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                    </form>
-                @else
-                    <a href="{{ route('login.form') }}" class="btn btn-light btn-sm">Masuk</a>
-                @endif
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-    </nav>
-
-    <div class="container">
-        @yield('content')
     </div>
+    <!-- ***** Preloader End ***** -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Header -->
+    @include('layouts.header')
+
+    <!-- Main Content -->
+    <main>
+        @yield('content')
+    </main>
+
+    <!-- Footer -->
+    @include('layouts.footer')
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('assets-guest/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets-guest/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets-guest/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-guest/js/isotope.min.js') }}"></script>
+    <script src="{{ asset('assets-guest/js/owl-carousel.js') }}"></script>
+    <script src="{{ asset('assets-guest/js/counter.js') }}"></script>
+    <script src="{{ asset('assets-guest/js/custom.js') }}"></script>
+
+    <!-- Navbar JavaScript -->
+    @include('layouts.navbar-js')
+
+
+    <!-- Custom Scripts -->
+    @stack('scripts')
+
+
+    @include('layouts.js')
+
 </body>
 </html>

@@ -1,119 +1,102 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Keluarga;
 use App\Models\AnggotaKeluarga;
+use App\Models\Warga;
+use Illuminate\Http\Request;
 
 class AnggotaKeluargaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index($kk_id)
     {
-        //
+        $kk = Keluarga::findOrFail($kk_id);
+        $anggota = AnggotaKeluarga::where('kk_id', $kk_id)->get();
+
+        return view('guest.anggota.index', compact('kk', 'anggota'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create($kk_id)
     {
-        //
+        // Check jika belum login
+        if (!session('is_logged_in')) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk menambah anggota keluarga.');
+        }
+
+        $kk = Keluarga::findOrFail($kk_id);
+        $warga = Warga::all();
+        return view('guest.anggota.create', compact('kk', 'warga'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, $kk_id)
     {
-        //
-    }
+        // Check jika belum login
+        if (!session('is_logged_in')) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($keluargaId, $anggotaId)
-    {
-        $kk      = Keluarga::findOrFail($keluargaId);
-        $anggota = AnggotaKeluarga::with('warga')->where('warga_id', $anggotaId)->firstOrFail();
-        return view('guest.keluarga.edit_anggota', compact('kk', 'anggota'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id, $anggota_id)
-    {
-        // Validasi input
         $request->validate([
-            'nama'          => 'required|string|max:100',
-            'no_ktp'        => 'required|string|max:20',
-            'jenis_kelamin' => 'required|string|max:1',
-            'agama'         => 'required|string|max:50',
-            'pekerjaan'     => 'nullable|string|max:100',
-            'telp'          => 'nullable|string|max:20',
-            'email'         => 'nullable|email|max:100',
-            'hubungan'      => 'required|string|max:50',
+            'warga_id' => 'required|exists:warga,warga_id',
+            'hubungan' => 'required|string|max:50',
         ]);
 
-        // Ambil data anggota + relasi warga
-        $anggota = AnggotaKeluarga::with('warga')
-            ->where('kk_id', $id)
-            ->where('warga_id', $anggota_id)
-            ->firstOrFail();
-
-        // Update data di tabel warga
-        $anggota->warga->update([
-            'nama'          => $request->nama,
-            'no_ktp'        => $request->no_ktp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'agama'         => $request->agama,
-            'pekerjaan'     => $request->pekerjaan,
-            'telp'          => $request->telp,
-            'email'         => $request->email,
+        AnggotaKeluarga::create([
+            'kk_id' => $kk_id,
+            'warga_id' => $request->warga_id,
+            'hubungan' => $request->hubungan,
         ]);
 
-        // Update hubungan di tabel anggota_keluarga
+        return redirect()->route('anggota.index', $kk_id)
+                         ->with('success', 'Anggota berhasil ditambahkan!');
+    }
+
+    public function edit($anggota_id)
+    {
+        // Check jika belum login
+        if (!session('is_logged_in')) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk mengedit anggota keluarga.');
+        }
+
+        $anggota = AnggotaKeluarga::with(['warga', 'keluarga'])->findOrFail($anggota_id);
+        $kk = $anggota->keluarga;
+        $warga = Warga::all();
+
+        return view('guest.anggota.edit', compact('kk', 'anggota', 'warga'));
+    }
+
+    public function update(Request $request, $anggota_id)
+    {
+        // Check jika belum login
+        if (!session('is_logged_in')) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $request->validate([
+            'hubungan' => 'required|string|max:50',
+        ]);
+
+        $anggota = AnggotaKeluarga::with('warga')->findOrFail($anggota_id);
+
         $anggota->update([
             'hubungan' => $request->hubungan,
         ]);
 
-        // Redirect balik ke daftar anggota
-        return redirect()->route('guest.keluarga.anggota', $id)
-            ->with('success', 'Data anggota berhasil diperbarui!');
+        return redirect()->route('anggota.index', $anggota->kk_id)
+                         ->with('success', 'Data anggota berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($kk_id, $warga_id)
+    public function destroy($anggota_id)
     {
-        // Cari data anggota berdasarkan ID KK dan ID Warga
-        $anggota = AnggotaKeluarga::where('kk_id', $kk_id)
-            ->where('warga_id', $warga_id)
-            ->first();
-
-        if (! $anggota) {
-            return redirect()->back()->with('error', 'Data anggota tidak ditemukan.');
+        // Check jika belum login
+        if (!session('is_logged_in')) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        // Hapus juga data warga kalau kamu mau
-        $anggota->warga()->delete();
-
-        // Hapus data anggota dari tabel pivot/relasi
+        $anggota = AnggotaKeluarga::findOrFail($anggota_id);
+        $kk_id = $anggota->kk_id;
         $anggota->delete();
 
-        return redirect()->route('guest.keluarga.anggota', $kk_id)
-            ->with('success', 'Data anggota berhasil dihapus.');
+        return redirect()->route('anggota.index', $kk_id)
+                         ->with('success', 'Data anggota berhasil dihapus.');
     }
 }
