@@ -9,7 +9,7 @@
             <!-- Gambar di kiri -->
              <div class="col-lg-4 text-center mb-4 mb-lg-0">
                 <div class="about-image-wrapper">
-                    <img src="{{ asset('assets/image/about-us.png') }}" class="about-image large">
+                    <img src="{{ asset('assets/images/about-us.png') }}" class="about-image large">
                 </div>
             </div>
 
