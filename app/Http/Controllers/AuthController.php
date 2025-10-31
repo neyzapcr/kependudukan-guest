@@ -12,7 +12,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('guest.login-form');
+        return view('guest.auth.login-form');
     }
 
     /**

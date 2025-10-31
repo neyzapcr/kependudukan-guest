@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest.app')
 
 @section('title', 'Edit Anggota Keluarga')
 
@@ -26,10 +26,10 @@
                     <div class="anggota-card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <h5 class="alert-heading">Terjadi Kesalahan:</h5>
+                                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle me-1"></i>Terjadi Kesalahan:</h5>
                                 <ul class="mb-0">
                                     @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+                                        <li><i class="fas fa-circle-exclamation me-1"></i>{{ $error }}</li>
                                     @endforeach
                                 </ul>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -41,14 +41,14 @@
                             @method('PUT')
 
                             <div class="mb-3">
-                                <label class="form-label">Nama Anggota</label>
+                                <label class="form-label"><i class="fas fa-user me-1"></i>Nama Anggota</label>
                                 <input type="text" class="form-control search-box"
                                        value="{{ $anggota->warga->nama }}" disabled>
-                                <div class="form-text">Nama tidak dapat diubah</div>
+                                <div class="form-text"><i class="fas fa-info-circle me-1"></i>Nama tidak dapat diubah</div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label">Hubungan</label>
+                                <label class="form-label"><i class="fas fa-link me-1"></i>Hubungan</label>
                                 <input type="text" name="hubungan" class="form-control search-box"
                                        value="{{ old('hubungan', $anggota->hubungan_keluarga) }}"
                                        placeholder="Contoh: Anak, Istri, Suami, Cucu" required>
@@ -56,11 +56,11 @@
 
                             <div class="anggota-card-footer">
                                 <a href="{{ route('anggota.index', $kk->kk_id) }}" class="btn btn-secondary">
-                                    Kembali
+                                    <i class="fas fa-arrow-left me-1"></i>Kembali
                                 </a>
                                 <div class="action-buttons">
                                     <button type="submit" class="btn-edit">
-                                        Update Anggota
+                                        <i class="fas fa-save me-1"></i>Update Anggota
                                     </button>
                                 </div>
                             </div>
@@ -72,3 +72,4 @@
     </div>
 </div>
 @endsection
+

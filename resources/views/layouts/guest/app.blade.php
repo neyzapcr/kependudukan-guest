@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.1.0/css/all.min.css">
 
     <title>@yield('title', 'Dashboard | Sistem Kependudukan')</title>
 
@@ -18,20 +18,16 @@
     <link rel="stylesheet" href="{{ asset('assets-guest/css/animate.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-    <!-- Navbar Styles -->
-    @include('layouts.navbar-css')
-
-    <!-- Warga Styles (LOAD DI SEMUA HALAMAN) -->
-    @include('layouts.css')
+    @include('layouts.guest.navbar-css')
+    @include('layouts.guest.css')
 
     <!-- Custom Styles -->
     @stack('styles')
-
-
 </head>
 <body>
 
-    <!-- ***** Preloader Start ***** -->
+    <!-- Preloader -->
+<!-- ***** Preloader Start ***** -->
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
             <span class="dot"></span>
@@ -42,38 +38,40 @@
             </div>
         </div>
     </div>
-    <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
-    @include('layouts.header')
+    @include('layouts.guest.header')
 
     <!-- Main Content -->
     <main>
         @yield('content')
     </main>
 
+<!-- Floating WhatsApp Button -->
+<div class="wa-container">
+  <a href="https://wa.me/6289652437006" target="_blank" class="wa-float" title="Hubungi Kami di WhatsApp">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+    <span class="wa-text">Hubungi Kami</span>
+  </a>
+</div>
+
     <!-- Footer -->
-    @include('layouts.footer')
+    @include('layouts.guest.footer')
 
     <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('assets-guest/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets-guest/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets-guest/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets-guest/js/isotope.min.js') }}"></script>
     <script src="{{ asset('assets-guest/js/owl-carousel.js') }}"></script>
     <script src="{{ asset('assets-guest/js/counter.js') }}"></script>
     <script src="{{ asset('assets-guest/js/custom.js') }}"></script>
 
-    <!-- Navbar JavaScript -->
-    @include('layouts.navbar-js')
-
+    <!-- All JavaScript Functionality -->
+    @include('layouts.guest.js')
 
     <!-- Custom Scripts -->
     @stack('scripts')
 
-
-    @include('layouts.js')
-
 </body>
 </html>
+

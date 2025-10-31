@@ -11,9 +11,8 @@ use App\Http\Controllers\KeluargaKKController;
 use App\Http\Controllers\TambahDataController;
 use App\Http\Controllers\AnggotaKeluargaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// ==================== PUBLIC ROUTES ====================
+Route::get('/', [DashboardController::class, 'index'])->name('guest.dashboard.index');
 
 // ==================== AUTH ROUTES ====================
 // Login Routes (HAPUS DUPLIKASI - hanya satu set route login)
@@ -26,9 +25,6 @@ Route::post('/register', [UserController::class, 'store'])->name('register.post'
 
 // Logout Route
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// ==================== PUBLIC ROUTES ====================
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('guest.dashboard.index');
 
 // ==================== PROTECTED ROUTES (Manual Check Session) ====================
 
@@ -55,7 +51,7 @@ Route::get('/anggota/{kk}/create', [AnggotaKeluargaController::class, 'create'])
 Route::post('/anggota/{kk}/store', [AnggotaKeluargaController::class, 'store'])->name('anggota.store');
 Route::get('/anggota/{anggota}/edit', [AnggotaKeluargaController::class, 'edit'])->name('anggota.edit');
 Route::put('/anggota/{anggota}/update', [AnggotaKeluargaController::class, 'update'])->name('anggota.update');
-Route::delete('/anggota/{anggota}/destroy', [AnggotaKeluargaController::class, 'destroy'])->name('anggota.destroy');
+Route::delete('/anggota/{anggota}', [AnggotaKeluargaController::class, 'destroy'])->name('anggota.destroy');
 
 // User Management Routes
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
@@ -67,3 +63,8 @@ Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.de
 
 // ==================== FALLBACK ROUTES ====================
 Route::get('/home', [HomeController::class, 'index']);
+
+Route::get('/tentang-kami', function () {
+    return view('guest.about');
+})->name('guest.about');
+

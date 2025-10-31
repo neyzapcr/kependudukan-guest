@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('guest.register-form');
+        return view('guest.auth.register-form');
     }
 
     /**
@@ -86,9 +86,7 @@ class UserController extends Controller
      * Show the form for editing the specified user.
      */
     public function edit(User $user)
-    {if (!session('is_logged_in')) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
-        }
+    {
         return view('guest.user.edit', compact('user'));
     }
 
@@ -161,3 +159,4 @@ class UserController extends Controller
             ->with('success', 'User berhasil dihapus.');
     }
 }
+

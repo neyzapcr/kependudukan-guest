@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest.app')
 
 @section('title', 'Daftar - Sistem Kependudukan')
 
@@ -30,7 +30,7 @@
         @endif
 
         @if($errors->any())
-          <div class="alert">
+          <div class="alert-danger">
             @foreach($errors->all() as $error)
               <div>{{ $error }}</div>
             @endforeach
@@ -74,3 +74,4 @@
   </div>
 
 @endsection
+

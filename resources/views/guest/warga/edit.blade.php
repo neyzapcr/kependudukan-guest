@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest.app')
 
 @section('title', 'Edit Data Warga')
 
@@ -6,7 +6,7 @@
 <div class="main-content">
     <div class="container">
         <div class="page-header mb-4">
-            <h1 class="page-title">Edit Data Warga</h1>
+            <h1 class="page-title"> Edit Data Warga</h1>
             <p class="page-subtitle">Perbarui data warga: {{ $warga->nama }}</p>
         </div>
 
@@ -26,7 +26,7 @@
                     <div class="warga-card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <h5 class="alert-heading">Terjadi Kesalahan:</h5>
+                                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle me-1"></i>Terjadi Kesalahan:</h5>
                                 <ul class="mb-0">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -42,14 +42,14 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">No. KTP</label>
+                                    <label class="form-label"><i class="fas fa-id-card me-1"></i>No. KTP</label>
                                     <input type="text" name="no_ktp" class="form-control search-box"
                                            value="{{ old('no_ktp', $warga->no_ktp) }}"
                                            maxlength="16" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Nama Lengkap</label>
+                                    <label class="form-label"><i class="fas fa-user me-1"></i>Nama Lengkap</label>
                                     <input type="text" name="nama" class="form-control search-box"
                                            value="{{ old('nama', $warga->nama) }}" required>
                                 </div>
@@ -57,7 +57,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Jenis Kelamin</label>
+                                    <label class="form-label"><i class="fas fa-venus-mars me-1"></i>Jenis Kelamin</label>
                                     <select name="jenis_kelamin" class="form-control search-box" required>
                                         <option value="">-- Pilih --</option>
                                         <option value="L" {{ old('jenis_kelamin', $warga->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
@@ -66,7 +66,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Agama</label>
+                                    <label class="form-label"><i class="fas fa-praying-hands me-1"></i>Agama</label>
                                     <select name="agama" class="form-control search-box" required>
                                         <option value="">-- Pilih Agama --</option>
                                         <option value="Islam" {{ old('agama', $warga->agama) == 'Islam' ? 'selected' : '' }}>Islam</option>
@@ -81,39 +81,39 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Pekerjaan</label>
+                                    <label class="form-label"><i class="fas fa-briefcase me-1"></i>Pekerjaan</label>
                                     <input type="text" name="pekerjaan" class="form-control search-box"
                                            value="{{ old('pekerjaan', $warga->pekerjaan) }}" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">No. Telp</label>
+                                    <label class="form-label"><i class="fas fa-phone me-1"></i>No. Telp</label>
                                     <input type="text" name="telp" class="form-control search-box"
                                            value="{{ old('telp', $warga->telp) }}" maxlength="15" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Email</label>
+                                <label class="form-label"><i class="fas fa-envelope me-1"></i>Email</label>
                                 <input type="email" name="email" class="form-control search-box"
                                        value="{{ old('email', $warga->email) }}">
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label">Alamat Lengkap</label>
+                                <label class="form-label"><i class="fas fa-map-marker-alt me-1"></i>Alamat Lengkap</label>
                                 <textarea name="alamat" class="form-control search-box" rows="3">{{ old('alamat', $warga->alamat) }}</textarea>
                             </div>
 
                             <div class="warga-card-footer">
                                 <a href="{{ route('warga.index') }}" class="btn btn-secondary">
-                                    Kembali
+                                    <i class="fas fa-arrow-left me-1"></i>Kembali
                                 </a>
                                 <div class="action-buttons">
                                     <button type="button" class="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Hapus
+                                        <i class="fas fa-trash me-1"></i>Hapus
                                     </button>
                                     <button type="submit" class="btn-edit">
-                                        Update Data
+                                        <i class="fas fa-save me-1"></i>Simpan Perubahan
                                     </button>
                                 </div>
                             </div>
@@ -130,23 +130,28 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Konfirmasi Hapus</h5>
+                <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-1"></i>Konfirmasi Hapus</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <p>Apakah Anda yakin ingin menghapus data warga:</p>
                 <p><strong>{{ $warga->nama }}</strong> (NIK: {{ $warga->no_ktp }})</p>
-                <p class="text-danger">Data yang dihapus tidak dapat dikembalikan!</p>
+                <p class="text-danger"><i class="fas fa-exclamation-circle me-1"></i>Data yang dihapus tidak dapat dikembalikan!</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-times me-1"></i>Batal
+                </button>
                 <form action="{{ route('warga.destroy', $warga->warga_id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn-delete">Hapus</button>
+                    <button type="submit" class="btn-delete">
+                        <i class="fas fa-trash me-1"></i>Hapus Data
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 @endsection
+

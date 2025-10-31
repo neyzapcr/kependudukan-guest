@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest.app')
 
 @section('title', 'Edit Data Pengguna')
 
@@ -6,17 +6,10 @@
 <div class="main-content">
     <div class="container">
         <div class="page-header mb-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="page-title">
-                        <i class="fas fa-edit me-2"></i>Edit Data Pengguna
-                    </h1>
-                    <p class="page-subtitle">Perbarui data pengguna: {{ $user->name }}</p>
-                </div>
-                <a href="{{ route('user.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left me-1"></i>Kembali
-                </a>
-            </div>
+            <h1 class="page-title">
+                <i class="fas fa-edit me-2"></i>Edit Data Pengguna
+            </h1>
+            <p class="page-subtitle">Perbarui data pengguna: {{ $user->name }}</p>
         </div>
 
         <div class="row justify-content-center">
@@ -58,7 +51,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Nama Lengkap *</label>
+                                    <label class="form-label"><i class="fas fa-user me-1"></i>Nama Lengkap *</label>
                                     <input type="text" name="name" class="form-control search-box"
                                            value="{{ old('name', $user->name) }}"
                                            placeholder="Masukkan nama lengkap" required>
@@ -68,7 +61,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Email *</label>
+                                    <label class="form-label"><i class="fas fa-envelope me-1"></i>Email *</label>
                                     <input type="email" name="email" class="form-control search-box"
                                            value="{{ old('email', $user->email) }}"
                                            placeholder="Masukkan alamat email" required>
@@ -80,7 +73,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Password Baru</label>
+                                    <label class="form-label"><i class="fas fa-key me-1"></i>Password Baru</label>
                                     <input type="password" name="password" class="form-control search-box"
                                            placeholder="Kosongkan jika tidak ingin mengubah">
                                     <small class="text-muted">Password minimal 3 karakter dan mengandung huruf kapital</small>
@@ -90,7 +83,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Konfirmasi Password Baru</label>
+                                    <label class="form-label"><i class="fas fa-key me-1"></i>Konfirmasi Password Baru</label>
                                     <input type="password" name="password_confirmation" class="form-control search-box"
                                            placeholder="Konfirmasi password baru">
                                 </div>
@@ -98,13 +91,13 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Tanggal Dibuat</label>
+                                    <label class="form-label"><i class="fas fa-calendar-plus me-1"></i>Tanggal Dibuat</label>
                                     <input type="text" class="form-control search-box"
                                            value="{{ $user->created_at->format('d/m/Y H:i') }}" readonly disabled>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Terakhir Diupdate</label>
+                                    <label class="form-label"><i class="fas fa-calendar-check me-1"></i>Terakhir Diupdate</label>
                                     <input type="text" class="form-control search-box"
                                            value="{{ $user->updated_at->format('d/m/Y H:i') }}" readonly disabled>
                                 </div>
@@ -143,7 +136,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Konfirmasi Hapus</h5>
+                <h5 class="modal-title"><i class="fas fa-trash me-1"></i>Konfirmasi Hapus</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -152,7 +145,7 @@
                 <p class="text-danger">Data yang dihapus tidak dapat dikembalikan!</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-secondary"><i class="fas fa-times me-1"></i>Batal</button>
                 <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -166,3 +159,5 @@
 </div>
 @endif
 @endsection
+
+
