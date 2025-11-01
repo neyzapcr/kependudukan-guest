@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -27,53 +28,69 @@ class AuthController extends Controller
      * Store a newly created resource (handle register)
      */
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
+    ]);
+
+    // Cari user berdasarkan email
+    $user = User::where('email', $request->email)->first();
+
+    // Check password
+    if ($user && Hash::check($request->password, $user->password)) {
+        \Log::info('=== LOGIN SUCCESS ===');
+        \Log::info('User: ' . $user->email);
+
+        // **PERBAIKAN: Gunakan Auth::login() untuk session Laravel**
+        Auth::login($user);
+
+        // **OPTIONAL: Tambahkan session manual jika masih perlu**
+        session([
+            'is_logged_in' => true,
+            'username' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id
         ]);
 
-        // Cari user berdasarkan email
-        $user = User::where('email', $request->email)->first();
+        \Log::info('Session after login:', session()->all());
+        \Log::info('Auth check: ' . (Auth::check() ? 'true' : 'false'));
+        \Log::info('Auth user: ' . (Auth::user() ? Auth::user()->name : 'null'));
 
-        // Check password
-        if ($user && Hash::check($request->password, $user->password)) {
-            \Log::info('=== LOGIN SUCCESS ===');
-            \Log::info('User: ' . $user->email);
+        // Test redirect langsung
+        \Log::info('Redirecting to: ' . route('guest.dashboard.index'));
 
-            // Set session login
-            session([
-                'is_logged_in' => true,
-                'username' => $user->name,
-                'email' => $user->email,
-                'user_id' => $user->id
-            ]);
-
-            \Log::info('Session after login:', session()->all());
-
-            // Test redirect langsung
-            \Log::info('Redirecting to: ' . route('guest.dashboard.index'));
-
-            return redirect()->route('guest.dashboard.index')->with([
-                'success' => 'Login berhasil!',
-                'username' => $user->name
-            ]);
-        }
-
-        // Login failed
-        return redirect('/login')->withErrors([
-            'email' => 'Email atau password tidak sesuai.',
-        ])->withInput($request->only('email'));
+        return redirect()->route('guest.dashboard.index')->with([
+            'success' => 'Login berhasil! Selamat datang ' . $user->name,
+            'username' => $user->name
+        ]);
     }
+
+    // Login failed
+    return redirect('/login')->withErrors([
+        'email' => 'Email atau password tidak sesuai.',
+    ])->withInput($request->only('email'));
+}
 
     /**
      * Handle logout request
      */
     public function logout(Request $request)
-    {
-        session()->flush();
-        return redirect('/login')->with('success', 'Logout berhasil!');
-    }
+{
+    \Log::info('=== LOGOUT PROCESS ===');
+    \Log::info('Before logout - Auth check: ' . (Auth::check() ? 'true' : 'false'));
+
+    // Logout dari Auth
+    Auth::logout();
+
+    // Hapus session manual
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    \Log::info('After logout - Auth check: ' . (Auth::check() ? 'true' : 'false'));
+
+    return redirect('/login')->with('success', 'Logout berhasil!');
+}
 
     /**
      * Display the specified resource.

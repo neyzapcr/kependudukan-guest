@@ -35,9 +35,9 @@ Route::resource('kelahiran', KelahiranController::class)->except(['index', 'show
 
 // Warga Routes
 Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
-Route::get('/warga/create', [WargaController::class, 'create'])->name('guest.warga.create');
+Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
 Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
-Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('guest.warga.edit');
+Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('warga.edit');
 Route::put('/warga/{warga}', [WargaController::class, 'update'])->name('warga.update');
 Route::delete('/warga/{warga}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
