@@ -177,11 +177,6 @@
                             <i class="fas fa-users"></i>
                             <h4>Belum ada data warga</h4>
                             <p class="mb-4">Silakan tambahkan data warga terlebih dahulu</p>
-                            @if (session('is_logged_in'))
-                                <a href="{{ route('guest.warga.create') }}" class="btn btn-add">
-                                    <i class="fas fa-plus me-1"></i>Tambah Warga
-                                </a>
-                            @endif
                         </div>
                     </div>
                 </div>
