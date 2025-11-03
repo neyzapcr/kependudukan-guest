@@ -49,76 +49,55 @@
             });
         });
 
-        // === DELETE BUTTONS FUNCTIONALITY ===
-        // const deleteButtons = document.querySelectorAll('.btn-delete');
-        // deleteButtons.forEach(function(deleteBtn) {
-        //     deleteBtn.addEventListener('click', function(e) {
-        //         e.preventDefault();
-        //         e.stopPropagation();
+        //         // === DYNAMIC ANGGOTA KELUARGA FORM ===
+        // function initializeAnggotaForm() {
+        //     const container = document.getElementById('anggota-container');
+        //     const tambahBtn = document.getElementById('tambah-anggota-btn');
 
-        //         // Cari data dari card/table
-        //         const card = this.closest('.warga-card, .keluarga-card, .anggota-card');
-        //         let itemName = '';
-        //         let itemIdentifier = '';
-        //         let deleteUrl = '';
+        //     // Cek jika element ada (hanya di halaman keluarga/create)
+        //     if (!container || !tambahBtn) return;
 
-        //         if (card) {
-        //             // Untuk card view
-        //             if (card.classList.contains('warga-card')) {
-        //                 itemName = card.querySelector('.warga-name')?.textContent ||
-        //                 'warga ini';
-        //                 itemIdentifier = card.querySelector('.warga-nik')?.textContent || '';
-        //                 const wargaId = this.getAttribute('data-id') || this.closest(
-        //                     '[data-id]')?.getAttribute('data-id');
-        //                 deleteUrl = `{{ url('warga') }}/${wargaId}`;
-        //             } else if (card.classList.contains('keluarga-card')) {
-        //                 itemName = card.querySelector('.keluarga-name')?.textContent ||
-        //                     'keluarga ini';
-        //                 itemIdentifier = card.querySelector('.keluarga-nomor')?.textContent ||
-        //                     '';
-        //                 const keluargaId = this.getAttribute('data-id') || this.closest(
-        //                     '[data-id]')?.getAttribute('data-id');
-        //                 deleteUrl = `{{ url('keluarga') }}/${keluargaId}`;
-        //             } else if (card.classList.contains('anggota-card')) {
-        //                 itemName = card.querySelector('.anggota-name')?.textContent ||
-        //                     'anggota ini';
-        //                 itemIdentifier = card.querySelector('.anggota-kk')?.textContent || '';
-        //                 const anggotaId = card.getAttribute('data-id');
-        //                 deleteUrl = `{{ url('anggota') }}/${anggotaId}`;
-        //             }
+        //     let anggotaCount = 0;
 
-        //         }
+        //     tambahBtn.addEventListener('click', function() {
+        //         anggotaCount++;
 
-        //         const confirmation = confirm(
-        //             `Apakah Anda yakin ingin menghapus:\n\n${itemName}\n${itemIdentifier}\n\nData yang dihapus tidak dapat dikembalikan!`
-        //             );
+        //         const anggotaDiv = document.createElement('div');
+        //         anggotaDiv.className = 'anggota-field mb-3 p-3 border rounded';
+        //         anggotaDiv.innerHTML = `
+        //             <div class="row">
+        //                 <div class="col-md-6">
+        //                     <label class="form-label">Pilih Anggota Keluarga</label>
+        //                     <select name="anggota[${anggotaCount}][warga_id]" class="form-control search-box" required>
+        //                         <option value="">-- Pilih Anggota --</option>
+        //                         <!-- Data akan diisi manual oleh user -->
+        //                     </select>
+        //                     <small class="text-muted">Pilih dari daftar warga yang sudah terdaftar</small>
+        //                 </div>
+        //                 <div class="col-md-4">
+        //                     <label class="form-label">Hubungan</label>
+        //                     <input type="text" name="anggota[${anggotaCount}][hubungan]" class="form-control search-box"
+        //                            placeholder="Contoh: Istri, Anak, Cucu" required>
+        //                 </div>
+        //                 <div class="col-md-2 d-flex align-items-end">
+        //                     <button type="button" class="btn btn-outline-danger btn-sm hapus-anggota">
+        //                         <i class="fas fa-trash"></i>
+        //                     </button>
+        //                 </div>
+        //             </div>
+        //         `;
 
-        //         if (confirmation && deleteUrl) {
-        //             showLoading();
+        //         container.appendChild(anggotaDiv);
 
-        //             const form = document.createElement('form');
-        //             form.method = 'POST';
-        //             form.action = deleteUrl;
-
-        //             // CSRF token
-        //             const csrfToken = document.createElement('input');
-        //             csrfToken.type = 'hidden';
-        //             csrfToken.name = '_token';
-        //             csrfToken.value = '{{ csrf_token() }}';
-        //             form.appendChild(csrfToken);
-
-        //             // Method spoofing
-        //             const method = document.createElement('input');
-        //             method.type = 'hidden';
-        //             method.name = '_method';
-        //             method.value = 'DELETE';
-        //             form.appendChild(method);
-
-        //             document.body.appendChild(form);
-        //             form.submit();
-        //         }
+        //         // Event listener untuk hapus button
+        //         anggotaDiv.querySelector('.hapus-anggota').addEventListener('click', function() {
+        //             anggotaDiv.remove();
+        //         });
         //     });
-        // });
+        // }
+
+        // // Initialize dynamic anggota form
+        // initializeAnggotaForm();
 
         // === AUTO CLOSE ALERTS ===
         const alerts = document.querySelectorAll('.alert');
@@ -210,20 +189,3 @@
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 </script>
-
-<style>
-    .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        font-family: 'Poppins', sans-serif;
-    }
-</style>

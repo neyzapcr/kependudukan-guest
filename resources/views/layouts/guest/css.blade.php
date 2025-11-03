@@ -976,5 +976,56 @@ body:has(.login-horizontal-card) main {
     .page-title { font-size: 26px; }
 }
 
-</style>
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        font-family: 'Poppins', sans-serif;
+    }
 
+    /* CSS untuk dynamic anggota form */
+    /* CSS untuk button tambah anggota yang kecil dan elegan */
+.btn-tambah-anggota {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-tambah-anggota:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    color: white;
+}
+
+.btn-tambah-anggota:active {
+    transform: translateY(0);
+}
+
+/* Icon animation */
+.btn-tambah-anggota i {
+    transition: transform 0.3s ease;
+    font-size: 12px;
+}
+
+.btn-tambah-anggota:hover i {
+    transform: scale(1.1);
+}
+</style>
