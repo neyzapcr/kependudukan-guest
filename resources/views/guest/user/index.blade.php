@@ -164,11 +164,6 @@
                             <i class="fas fa-users"></i>
                             <h4>Belum ada data pengguna</h4>
                             <p class="mb-4">Silakan tambahkan data pengguna terlebih dahulu</p>
-                            @if (session('is_logged_in'))
-                                <a href="{{ route('user.create') }}" class="btn btn-add">
-                                    <i class="fas fa-plus me-1"></i>Tambah Pengguna
-                                </a>
-                            @endif
                         </div>
                     </div>
                 </div>
