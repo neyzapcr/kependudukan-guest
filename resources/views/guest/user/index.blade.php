@@ -72,7 +72,8 @@
                                     </div>
                                     <div class="warga-info">
                                         <div class="warga-name"><i class="fas fa-user me-1"></i>{{ $user->name }}</div>
-                                        <div class="warga-nik"><i class="fas fa-envelope me-1"></i>Email: {{ $user->email }}</div>
+                                        <div class="warga-nik"><i class="fas fa-envelope me-1"></i>Email:
+                                            {{ $user->email }}</div>
                                     </div>
                                 </div>
 
@@ -175,5 +176,3 @@
         </div>
     </div>
 @endsection
-
-

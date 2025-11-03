@@ -41,13 +41,7 @@
                                     </a>
                                 </li>
                             @endauth
-
-                            <li class="scroll-to-section">
-                                <a href="#team">
-                                    <i class="fas fa-people-group me-2"></i>Team
-                                </a>
-                            </li>
-
+                            
                             <!-- Auth Section -->
                             @auth
                                 <li class="nav-item dropdown">

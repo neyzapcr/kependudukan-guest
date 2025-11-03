@@ -11,41 +11,33 @@ use App\Http\Controllers\KeluargaKKController;
 use App\Http\Controllers\TambahDataController;
 use App\Http\Controllers\AnggotaKeluargaController;
 
-// ==================== PUBLIC ROUTES ====================
-Route::get('/', [DashboardController::class, 'index'])->name('guest.dashboard.index');
-
-// ==================== AUTH ROUTES ====================
-// Login Routes (HAPUS DUPLIKASI - hanya satu set route login)
+// Login
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
-// Register Routes menggunakan UserController
+// Register
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/register', [UserController::class, 'store'])->name('register.post');
 
-// Logout Route
+// Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// ==================== PROTECTED ROUTES (Manual Check Session) ====================
+// dashboard
+Route::get('/', [DashboardController::class, 'index'])->name('guest.dashboard.index');
 
-Route::resource('tambah-data', TambahDataController::class)->except(['index', 'show']);
-Route::resource('kelahiran', KelahiranController::class)->except(['index', 'show']);
-// Route::resource('kematian', KematianController::class)->except(['index', 'show']);
-// Route::resource('pindah', PindahController::class)->except(['index', 'show']);
-
-// Warga Routes
+// Warga
 Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
-Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
+Route::get('/warga/create', [WargaController::class, 'create'])->name('guest.warga.create');
 Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
-Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('warga.edit');
+Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('guest.warga.edit');
 Route::put('/warga/{warga}', [WargaController::class, 'update'])->name('warga.update');
 Route::delete('/warga/{warga}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
-// Keluarga Routes
+// Keluarga
 Route::resource('keluarga', KeluargaKKController::class);
 Route::get('keluarga/{keluarga}/edit', [KeluargaKKController::class, 'edit'])->name('keluarga.edit');
 
-// Anggota Keluarga Routes
+// Anggota Keluarga
 Route::get('/anggota/{kk}', [AnggotaKeluargaController::class, 'index'])->name('anggota.index');
 Route::get('/anggota/{kk}/create', [AnggotaKeluargaController::class, 'create'])->name('anggota.create');
 Route::post('/anggota/{kk}/store', [AnggotaKeluargaController::class, 'store'])->name('anggota.store');
@@ -53,7 +45,7 @@ Route::get('/anggota/{anggota}/edit', [AnggotaKeluargaController::class, 'edit']
 Route::put('/anggota/{anggota}/update', [AnggotaKeluargaController::class, 'update'])->name('anggota.update');
 Route::delete('/anggota/{anggota}', [AnggotaKeluargaController::class, 'destroy'])->name('anggota.destroy');
 
-// User Management Routes
+// User
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/user', [UserController::class, 'store'])->name('user.store');
@@ -61,10 +53,12 @@ Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edi
 Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
-// ==================== FALLBACK ROUTES ====================
-Route::get('/home', [HomeController::class, 'index']);
-
+// tentang kami
 Route::get('/tentang-kami', function () {
     return view('guest.about');
 })->name('guest.about');
 
+//kelahiran
+Route::resource('kelahiran', KelahiranController::class);
+Route::get('media/{media_id}/preview', [KelahiranController::class, 'previewFoto'])->name('media.preview');
+Route::delete('kelahiran/{id}/hapus-foto', [KelahiranController::class, 'hapusFoto'])->name('kelahiran.hapus-foto');

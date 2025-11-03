@@ -50,75 +50,75 @@
         });
 
         // === DELETE BUTTONS FUNCTIONALITY ===
-        const deleteButtons = document.querySelectorAll('.btn-delete');
-        deleteButtons.forEach(function(deleteBtn) {
-            deleteBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
+        // const deleteButtons = document.querySelectorAll('.btn-delete');
+        // deleteButtons.forEach(function(deleteBtn) {
+        //     deleteBtn.addEventListener('click', function(e) {
+        //         e.preventDefault();
+        //         e.stopPropagation();
 
-                // Cari data dari card/table
-                const card = this.closest('.warga-card, .keluarga-card, .anggota-card');
-                let itemName = '';
-                let itemIdentifier = '';
-                let deleteUrl = '';
+        //         // Cari data dari card/table
+        //         const card = this.closest('.warga-card, .keluarga-card, .anggota-card');
+        //         let itemName = '';
+        //         let itemIdentifier = '';
+        //         let deleteUrl = '';
 
-                if (card) {
-                    // Untuk card view
-                    if (card.classList.contains('warga-card')) {
-                        itemName = card.querySelector('.warga-name')?.textContent ||
-                        'warga ini';
-                        itemIdentifier = card.querySelector('.warga-nik')?.textContent || '';
-                        const wargaId = this.getAttribute('data-id') || this.closest(
-                            '[data-id]')?.getAttribute('data-id');
-                        deleteUrl = `{{ url('warga') }}/${wargaId}`;
-                    } else if (card.classList.contains('keluarga-card')) {
-                        itemName = card.querySelector('.keluarga-name')?.textContent ||
-                            'keluarga ini';
-                        itemIdentifier = card.querySelector('.keluarga-nomor')?.textContent ||
-                            '';
-                        const keluargaId = this.getAttribute('data-id') || this.closest(
-                            '[data-id]')?.getAttribute('data-id');
-                        deleteUrl = `{{ url('keluarga') }}/${keluargaId}`;
-                    } else if (card.classList.contains('anggota-card')) {
-                        itemName = card.querySelector('.anggota-name')?.textContent ||
-                            'anggota ini';
-                        itemIdentifier = card.querySelector('.anggota-kk')?.textContent || '';
-                        const anggotaId = card.getAttribute('data-id');
-                        deleteUrl = `{{ url('anggota') }}/${anggotaId}`;
-                    }
+        //         if (card) {
+        //             // Untuk card view
+        //             if (card.classList.contains('warga-card')) {
+        //                 itemName = card.querySelector('.warga-name')?.textContent ||
+        //                 'warga ini';
+        //                 itemIdentifier = card.querySelector('.warga-nik')?.textContent || '';
+        //                 const wargaId = this.getAttribute('data-id') || this.closest(
+        //                     '[data-id]')?.getAttribute('data-id');
+        //                 deleteUrl = `{{ url('warga') }}/${wargaId}`;
+        //             } else if (card.classList.contains('keluarga-card')) {
+        //                 itemName = card.querySelector('.keluarga-name')?.textContent ||
+        //                     'keluarga ini';
+        //                 itemIdentifier = card.querySelector('.keluarga-nomor')?.textContent ||
+        //                     '';
+        //                 const keluargaId = this.getAttribute('data-id') || this.closest(
+        //                     '[data-id]')?.getAttribute('data-id');
+        //                 deleteUrl = `{{ url('keluarga') }}/${keluargaId}`;
+        //             } else if (card.classList.contains('anggota-card')) {
+        //                 itemName = card.querySelector('.anggota-name')?.textContent ||
+        //                     'anggota ini';
+        //                 itemIdentifier = card.querySelector('.anggota-kk')?.textContent || '';
+        //                 const anggotaId = card.getAttribute('data-id');
+        //                 deleteUrl = `{{ url('anggota') }}/${anggotaId}`;
+        //             }
 
-                }
+        //         }
 
-                const confirmation = confirm(
-                    `Apakah Anda yakin ingin menghapus:\n\n${itemName}\n${itemIdentifier}\n\nData yang dihapus tidak dapat dikembalikan!`
-                    );
+        //         const confirmation = confirm(
+        //             `Apakah Anda yakin ingin menghapus:\n\n${itemName}\n${itemIdentifier}\n\nData yang dihapus tidak dapat dikembalikan!`
+        //             );
 
-                if (confirmation && deleteUrl) {
-                    showLoading();
+        //         if (confirmation && deleteUrl) {
+        //             showLoading();
 
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = deleteUrl;
+        //             const form = document.createElement('form');
+        //             form.method = 'POST';
+        //             form.action = deleteUrl;
 
-                    // CSRF token
-                    const csrfToken = document.createElement('input');
-                    csrfToken.type = 'hidden';
-                    csrfToken.name = '_token';
-                    csrfToken.value = '{{ csrf_token() }}';
-                    form.appendChild(csrfToken);
+        //             // CSRF token
+        //             const csrfToken = document.createElement('input');
+        //             csrfToken.type = 'hidden';
+        //             csrfToken.name = '_token';
+        //             csrfToken.value = '{{ csrf_token() }}';
+        //             form.appendChild(csrfToken);
 
-                    // Method spoofing
-                    const method = document.createElement('input');
-                    method.type = 'hidden';
-                    method.name = '_method';
-                    method.value = 'DELETE';
-                    form.appendChild(method);
+        //             // Method spoofing
+        //             const method = document.createElement('input');
+        //             method.type = 'hidden';
+        //             method.name = '_method';
+        //             method.value = 'DELETE';
+        //             form.appendChild(method);
 
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
-        });
+        //             document.body.appendChild(form);
+        //             form.submit();
+        //         }
+        //     });
+        // });
 
         // === AUTO CLOSE ALERTS ===
         const alerts = document.querySelectorAll('.alert');
@@ -227,4 +227,3 @@
         font-family: 'Poppins', sans-serif;
     }
 </style>
-

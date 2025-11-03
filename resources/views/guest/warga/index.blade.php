@@ -14,24 +14,28 @@
                         <p class="page-subtitle">Kelola data kependudukan warga</p>
                     </div>
 
-                    <!-- Tombol tambah warga - HANYA MUNCUL JIKA LOGIN -->
-                    @if(session()->has('is_logged_in'))
-                        <a href="{{ route('warga.create') }}" class="btn btn-add">
+                    <!-- Tombol tambah warga -->
+                    @if (session('is_logged_in'))
+                        <a href="{{ route('guest.warga.create') }}" class="btn btn-add">
                             <i class="fas fa-plus me-1"></i>Tambah Warga
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-add">
+                            <i class="fas fa-sign-in-alt me-1"></i>Tambah Warga
                         </a>
                     @endif
                 </div>
             </div>
 
             <!-- Alert Messages -->
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
-            @if(session('error'))
+            @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -61,9 +65,9 @@
             </div>
 
             <!-- Data Warga Cards -->
-            @if($warga->count() > 0)
+            @if ($warga->count() > 0)
                 <div class="row">
-                    @foreach($warga as $data)
+                    @foreach ($warga as $data)
                         <div class="col-xl-4 col-lg-6 mb-4">
                             <div class="warga-card">
                                 <div class="warga-card-header">
@@ -72,7 +76,8 @@
                                     </div>
                                     <div class="warga-info">
                                         <div class="warga-name"><i class="fas fa-user me-1"></i>{{ $data->nama }}</div>
-                                        <div class="warga-nik"><i class="fas fa-id-card me-1"></i>NIK: {{ $data->no_ktp }}</div>
+                                        <div class="warga-nik"><i class="fas fa-id-card me-1"></i>NIK: {{ $data->no_ktp }}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -80,8 +85,10 @@
                                     <div class="info-row">
                                         <div class="info-label"><i class="fas fa-venus-mars me-1"></i>Jenis Kelamin</div>
                                         <div class="info-value">
-                                            <span class="{{ $data->jenis_kelamin == 'L' ? 'gender-male' : 'gender-female' }}">
-                                                <i class="fas fa-{{ $data->jenis_kelamin == 'L' ? 'mars' : 'venus' }} me-1"></i>
+                                            <span
+                                                class="{{ $data->jenis_kelamin == 'L' ? 'gender-male' : 'gender-female' }}">
+                                                <i
+                                                    class="fas fa-{{ $data->jenis_kelamin == 'L' ? 'mars' : 'venus' }} me-1"></i>
                                                 {{ $data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
                                             </span>
                                         </div>
@@ -119,20 +126,19 @@
                                         {{ $data->created_at->format('d/m/Y') }}
                                     </small>
 
-                                    <!-- TOMBOL EDIT & HAPUS - HANYA MUNCUL JIKA LOGIN -->
-                                    @if(session()->has('is_logged_in'))
-                                        <div class="action-buttons">
-                                            <a href="{{ route('warga.edit', $data->warga_id) }}" class="btn btn-edit">
-                                                <i class="fas fa-edit me-1"></i>Edit
-                                            </a>
-                                            <form action="{{ route('warga.destroy', $data->warga_id) }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-delete" onclick="return confirm('Yakin ingin menghapus?')">
-                                                    <i class="fas fa-trash me-1"></i>Hapus
-                                                </button>
-                                            </form>
-                                        </div>
+                                    @if (session('is_logged_in'))
+                                        <a href="{{ route('guest.warga.edit', $data->warga_id) }}" class="btn btn-edit">
+                                            <i class="fas fa-edit me-1"></i>Edit
+                                        </a>
+                                        <form action="{{ route('warga.destroy', $data->warga_id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-delete"
+                                                onclick="return confirm('Yakin hapus data warga ini?')">
+                                                <i class="fas fa-trash me-1"></i>Hapus
+                                            </button>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
@@ -141,7 +147,7 @@
                 </div>
 
                 <!-- Pagination -->
-                @if($warga->hasPages())
+                @if ($warga->hasPages())
                     <div class="pagination-container mt-4">
                         <div class="d-flex justify-content-center align-items-center gap-3">
                             {{-- Previous --}}
@@ -171,9 +177,8 @@
                             <i class="fas fa-users"></i>
                             <h4>Belum ada data warga</h4>
                             <p class="mb-4">Silakan tambahkan data warga terlebih dahulu</p>
-                            <!-- TOMBOL TAMBAH - HANYA MUNCUL JIKA LOGIN -->
-                            @if(session()->has('is_logged_in'))
-                                <a href="{{ route('warga.create') }}" class="btn btn-add">
+                            @if (session('is_logged_in'))
+                                <a href="{{ route('guest.warga.create') }}" class="btn btn-add">
                                     <i class="fas fa-plus me-1"></i>Tambah Warga
                                 </a>
                             @endif
