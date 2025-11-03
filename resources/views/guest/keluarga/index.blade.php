@@ -150,15 +150,6 @@
                             <i class="fas fa-home"></i>
                             <h4>Belum ada data kartu keluarga</h4>
                             <p class="mb-4">Silakan tambahkan data kartu keluarga terlebih dahulu</p>
-                            @if (session('is_logged_in'))
-                                <a href="{{ route('keluarga.create') }}" class="btn btn-add">
-                                    <i class="fas fa-plus me-1"></i>Tambah KK
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="btn btn-add">
-                                    <i class="fas fa-sign-in-alt me-1"></i>Tambah KK
-                                </a>
-                            @endif
                         </div>
                     </div>
                 </div>
