@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="info-row">
-                                        <div class="info-label"><i class="fas fa-pray me-1"></i>Agama</div>
+                                        <div class="info-label"><i class="fas fa-praying-hands me-1"></i>Agama</div>
                                         <div class="info-value">{{ $anggota->warga->agama ?? '-' }}</div>
                                     </div>
                                     <div class="info-row">
