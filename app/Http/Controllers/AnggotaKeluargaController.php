@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Keluarga;
 use App\Models\AnggotaKeluarga;
+use App\Models\Keluarga;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ class AnggotaKeluargaController extends Controller
 {
     public function index($kk_id)
     {
-        $kk = Keluarga::findOrFail($kk_id);
+        $kk      = Keluarga::findOrFail($kk_id);
         $anggota = AnggotaKeluarga::where('kk_id', $kk_id)->get();
 
         return view('guest.anggota.index', compact('kk', 'anggota'));
@@ -19,19 +19,27 @@ class AnggotaKeluargaController extends Controller
     public function create($kk_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk menambah anggota keluarga.');
         }
 
         $kk = Keluarga::findOrFail($kk_id);
-        $warga = Warga::all();
+
+        // Hanya tampilkan warga yang BELUM menjadi anggota di keluarga ini
+        $warga = Warga::whereNotIn('warga_id', function ($query) use ($kk_id) {
+            $query->select('warga_id')
+                ->from('anggota_keluarga')
+                ->where('kk_id', $kk_id);
+        })->get();
+
         return view('guest.anggota.create', compact('kk', 'warga'));
     }
 
+    // Di AnggotaKeluargaController - store method
     public function store(Request $request, $kk_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
@@ -40,26 +48,35 @@ class AnggotaKeluargaController extends Controller
             'hubungan' => 'required|string|max:50',
         ]);
 
+        // Cek apakah warga sudah menjadi anggota di keluarga ini
+        $existing = AnggotaKeluarga::where('kk_id', $kk_id)
+            ->where('warga_id', $request->warga_id)
+            ->exists();
+
+        if ($existing) {
+            return back()->with('error', 'Warga ini sudah menjadi anggota keluarga!');
+        }
+
         AnggotaKeluarga::create([
-            'kk_id' => $kk_id,
+            'kk_id'    => $kk_id,
             'warga_id' => $request->warga_id,
             'hubungan' => $request->hubungan,
         ]);
 
         return redirect()->route('anggota.index', $kk_id)
-                         ->with('success', 'Anggota berhasil ditambahkan!');
+            ->with('success', 'Anggota berhasil ditambahkan!');
     }
 
     public function edit($anggota_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk mengedit anggota keluarga.');
         }
 
         $anggota = AnggotaKeluarga::with(['warga', 'keluarga'])->findOrFail($anggota_id);
-        $kk = $anggota->keluarga;
-        $warga = Warga::all();
+        $kk      = $anggota->keluarga;
+        $warga   = Warga::all();
 
         return view('guest.anggota.edit', compact('kk', 'anggota', 'warga'));
     }
@@ -67,7 +84,7 @@ class AnggotaKeluargaController extends Controller
     public function update(Request $request, $anggota_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
@@ -82,21 +99,21 @@ class AnggotaKeluargaController extends Controller
         ]);
 
         return redirect()->route('anggota.index', $anggota->kk_id)
-                         ->with('success', 'Data anggota berhasil diperbarui!');
+            ->with('success', 'Data anggota berhasil diperbarui!');
     }
 
     public function destroy($anggota_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
         $anggota = AnggotaKeluarga::findOrFail($anggota_id);
-        $kk_id = $anggota->kk_id;
+        $kk_id   = $anggota->kk_id;
         $anggota->delete();
 
         return redirect()->route('anggota.index', $kk_id)
-                         ->with('success', 'Data anggota berhasil dihapus.');
+            ->with('success', 'Data anggota berhasil dihapus.');
     }
 }

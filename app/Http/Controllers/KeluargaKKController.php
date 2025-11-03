@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\AnggotaKeluarga;
 use App\Models\Keluarga;
 use App\Models\Warga;
 use Illuminate\Http\Request;
@@ -18,20 +19,21 @@ class KeluargaKKController extends Controller
 
         // Jika ada pencarian
         if ($search) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('kk_nomor', 'like', "%{$search}%")
-                  ->orWhere('alamat', 'like', "%{$search}%")
-                  ->orWhere('rt', 'like', "%{$search}%")
-                  ->orWhere('rw', 'like', "%{$search}%")
-                  ->orWhereHas('kepalaKeluarga', function($q) use ($search) {
-                      $q->where('nama', 'like', "%{$search}%");
-                  });
+                    ->orWhere('alamat', 'like', "%{$search}%")
+                    ->orWhere('rt', 'like', "%{$search}%")
+                    ->orWhere('rw', 'like', "%{$search}%")
+                    ->orWhereHas('kepalaKeluarga', function ($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
             });
         }
 
         $kk = $query->get();
 
         return view('guest.keluarga.index', compact('kk', 'search'));
+
     }
 
     /**
@@ -40,7 +42,7 @@ class KeluargaKKController extends Controller
     public function create()
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk menambah data KK.');
         }
 
@@ -51,10 +53,11 @@ class KeluargaKKController extends Controller
     /**
      * Simpan KK baru
      */
+    // Di KeluargaKKController - store method
     public function store(Request $request)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
@@ -64,11 +67,56 @@ class KeluargaKKController extends Controller
             'alamat'                   => 'required|string',
             'rt'                       => 'required|string|max:3',
             'rw'                       => 'required|string|max:3',
+            'anggota'                  => 'sometimes|array',
+            'anggota.*.warga_id'       => 'required_with:anggota|exists:warga,warga_id',
+            'anggota.*.hubungan'       => 'required_with:anggota|string|max:50',
         ]);
 
-        Keluarga::create($validated);
+        try {
+            // 1. Simpan data keluarga
+            $keluarga = Keluarga::create($validated);
 
-        return redirect()->route('keluarga.index')->with('success', 'Data KK berhasil ditambahkan!');
+            // 2. Otomatis tambah kepala keluarga sebagai anggota pertama
+            AnggotaKeluarga::create([
+                'kk_id'    => $keluarga->kk_id,
+                'warga_id' => $validated['kepala_keluarga_warga_id'],
+                'hubungan' => 'Kepala Keluarga',
+            ]);
+
+            // 3. Tambah anggota lainnya jika ada (input manual)
+            if ($request->has('anggota')) {
+                foreach ($request->anggota as $anggotaData) {
+                    // Skip jika warga_id kosong
+                    if (empty($anggotaData['warga_id'])) {
+                        continue;
+                    }
+
+                    // Cek agar tidak duplikat dengan kepala keluarga
+                    if ($anggotaData['warga_id'] != $validated['kepala_keluarga_warga_id']) {
+                        AnggotaKeluarga::create([
+                            'kk_id'    => $keluarga->kk_id,
+                            'warga_id' => $anggotaData['warga_id'],
+                            'hubungan' => $anggotaData['hubungan'],
+                        ]);
+                    }
+                }
+            }
+
+            $message = 'Data KK berhasil ditambahkan!';
+            if ($request->has('anggota')) {
+                $anggotaCount = count(array_filter($request->anggota, function ($a) {
+                    return ! empty($a['warga_id']);
+                }));
+                if ($anggotaCount > 0) {
+                    $message .= " $anggotaCount anggota berhasil ditambahkan.";
+                }
+            }
+
+            return redirect()->route('keluarga.index')->with('success', $message);
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -77,7 +125,7 @@ class KeluargaKKController extends Controller
     public function edit($kk_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk mengedit data KK.');
         }
 
@@ -92,7 +140,7 @@ class KeluargaKKController extends Controller
     public function update(Request $request, $kk_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
@@ -117,7 +165,7 @@ class KeluargaKKController extends Controller
     public function destroy($kk_id)
     {
         // Check jika belum login
-        if (!session('is_logged_in')) {
+        if (! session('is_logged_in')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
