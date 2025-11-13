@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.1.0/css/all.min.css">
 
     <title>@yield('title', 'Dashboard | Sistem Kependudukan')</title>
@@ -24,10 +26,11 @@
     <!-- Custom Styles -->
     @stack('styles')
 </head>
+
 <body>
 
     <!-- Preloader -->
-<!-- ***** Preloader Start ***** -->
+    <!-- ***** Preloader Start ***** -->
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
             <span class="dot"></span>
@@ -47,13 +50,13 @@
         @yield('content')
     </main>
 
-<!-- Floating WhatsApp Button -->
-<div class="wa-container">
-  <a href="https://wa.me/6289652437006" target="_blank" class="wa-float" title="Hubungi Kami di WhatsApp">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
-    <span class="wa-text">Hubungi Kami</span>
-  </a>
-</div>
+    <!-- Floating WhatsApp Button -->
+    <div class="wa-container">
+        <a href="https://wa.me/6289652437006" target="_blank" class="wa-float" title="Hubungi Kami di WhatsApp">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+            <span class="wa-text">Hubungi Kami</span>
+        </a>
+    </div>
 
     <!-- Footer -->
     @include('layouts.guest.footer')
@@ -73,5 +76,5 @@
     @stack('scripts')
 
 </body>
-</html>
 
+</html>
