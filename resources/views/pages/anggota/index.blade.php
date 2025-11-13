@@ -110,15 +110,35 @@
                                                 class="btn btn-edit">
                                                 <i class="fas fa-edit me-1"></i>Edit
                                             </a>
-                                            <form action="{{ route('anggota.destroy', $anggota->anggota_id) }}"
-                                                method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-delete"
-                                                    onclick="return confirm('Yakin hapus data anggota ini?')">
-                                                    <i class="fas fa-trash me-1"></i>Hapus
-                                                </button>
-                                            </form>
+
+                                            @php
+                                                $isKepalaKeluarga = $anggota->hubungan == 'Kepala Keluarga';
+                                                $namaAnggota = $anggota->warga->nama ?? 'Anggota';
+                                            @endphp
+
+                                            @if ($isKepalaKeluarga)
+                                                {{-- TOMBOL HAPUS KHUSUS UNTUK KEPALA KELUARGA --}}
+                                                <form action="{{ route('anggota.destroy', $anggota->anggota_id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-delete warning"
+                                                        onclick="return confirm('⚠️ APAKAH ANDA YAKIN INGIN MENGHAPUS KEPALA KELUARGA?\n\nJika Anda menghapus Kepala Keluarga ini, Anda akan menghapus KK ini juga.\n\nTindakan ini tidak dapat dibatalkan!')">
+                                                        <i class="fas fa-trash me-1"></i>Hapus
+                                                    </button>
+                                                </form>
+                                            @else
+                                                {{-- TOMBOL HAPUS NORMAL UNTUK ANGGOTA BIASA --}}
+                                                <form action="{{ route('anggota.destroy', $anggota->anggota_id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-delete"
+                                                        onclick="return confirm('Yakin hapus data anggota {{ $namaAnggota }}?')">
+                                                        <i class="fas fa-trash me-1"></i>Hapus
+                                                    </button>
+                                                </form>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

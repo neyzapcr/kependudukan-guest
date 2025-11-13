@@ -109,11 +109,35 @@ class AnggotaKeluargaController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $anggota = AnggotaKeluarga::findOrFail($anggota_id);
-        $kk_id   = $anggota->kk_id;
-        $anggota->delete();
+        try {
+            $anggota          = AnggotaKeluarga::with(['warga', 'keluarga'])->findOrFail($anggota_id);
+            $isKepalaKeluarga = $anggota->hubungan == 'Kepala Keluarga';
+            $namaAnggota      = $anggota->warga->nama ?? 'Anggota';
+            $kk_id            = $anggota->kk_id;
 
-        return redirect()->route('anggota.index', $kk_id)
-            ->with('success', 'Data anggota berhasil dihapus.');
+            if ($isKepalaKeluarga) {
+                // HAPUS SELURUH KK BESERTA ANGGOTANYA
+                $keluarga = $anggota->keluarga;
+
+                // Hapus semua anggota keluarga dulu
+                $keluarga->anggotaKeluarga()->delete();
+
+                // Hapus KK-nya
+                $keluarga->delete();
+
+                return redirect()->route('keluarga.index')
+                    ->with('success', "Keluarga $namaAnggota dan semua anggota berhasil dihapus!");
+            } else {
+                // HAPUS ANGGOTA BIASA SAJA
+                $anggota->delete();
+
+                return redirect()->route('anggota.index', $kk_id)
+                    ->with('success', "Data anggota $namaAnggota berhasil dihapus.");
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->route('anggota.index', $anggota->kk_id ?? $kk_id)
+                ->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
     }
 }
