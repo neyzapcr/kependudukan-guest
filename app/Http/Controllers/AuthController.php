@@ -13,7 +13,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('guest.auth.login-form');
+        return view('pages.auth.login-form');
     }
 
     /**
@@ -58,9 +58,9 @@ class AuthController extends Controller
         \Log::info('Auth user: ' . (Auth::user() ? Auth::user()->name : 'null'));
 
         // Test redirect langsung
-        \Log::info('Redirecting to: ' . route('guest.dashboard.index'));
+        \Log::info('Redirecting to: ' . route('pages.dashboard.index'));
 
-        return redirect()->route('guest.dashboard.index')->with([
+        return redirect()->route('pages.dashboard.index')->with([
             'success' => 'Login berhasil! Selamat datang ' . $user->name,
             'username' => $user->name
         ]);

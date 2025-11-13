@@ -23,7 +23,7 @@ Route::post('/register', [UserController::class, 'store'])->name('register.post'
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // dashboard
-Route::get('/', [DashboardController::class, 'index'])->name('guest.dashboard.index');
+Route::get('/', [DashboardController::class, 'index'])->name('pages.dashboard.index');
 
 // Warga
 Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
@@ -55,8 +55,8 @@ Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.de
 
 // tentang kami
 Route::get('/tentang-kami', function () {
-    return view('guest.about');
-})->name('guest.about');
+    return view('pages.about');
+})->name('pages.about');
 
 //kelahiran
 Route::resource('kelahiran', KelahiranController::class);

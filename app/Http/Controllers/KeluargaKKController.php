@@ -32,7 +32,7 @@ class KeluargaKKController extends Controller
 
         $kk = $query->get();
 
-        return view('guest.keluarga.index', compact('kk', 'search'));
+        return view('pages.keluarga.index', compact('kk', 'search'));
 
     }
 
@@ -47,7 +47,7 @@ class KeluargaKKController extends Controller
         }
 
         $warga = Warga::all();
-        return view('guest.keluarga.create', compact('warga'));
+        return view('pages.keluarga.create', compact('warga'));
     }
 
     /**
@@ -131,7 +131,7 @@ class KeluargaKKController extends Controller
 
         $keluarga = Keluarga::findOrFail($kk_id);
         $warga    = Warga::all();
-        return view('guest.keluarga.edit', compact('keluarga', 'warga'));
+        return view('pages.keluarga.edit', compact('keluarga', 'warga'));
     }
 
     /**

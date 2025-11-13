@@ -27,7 +27,7 @@ class UserController extends Controller
         ->latest()
         ->paginate(9); // 9 items per page untuk layout 3 kolom
 
-        return view('guest.user.index', compact('users', 'search'));
+        return view('pages.user.index', compact('users', 'search'));
     }
 
     /**
@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('guest.auth.register-form');
+        return view('pages.auth.register-form');
     }
 
     /**
@@ -76,7 +76,7 @@ class UserController extends Controller
         // Set session
         session(['is_logged_in' => true, 'username' => $user->name, 'email' => $user->email]);
 
-        return redirect()->route('guest.dashboard.index')->with([
+        return redirect()->route('pages.dashboard.index')->with([
             'success' => 'Registrasi berhasil! Selamat datang.',
             'username' => $user->name
         ]);
@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('guest.user.edit', compact('user'));
+        return view('pages.user.edit', compact('user'));
     }
 
     /**

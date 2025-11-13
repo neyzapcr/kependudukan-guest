@@ -13,7 +13,7 @@ class AnggotaKeluargaController extends Controller
         $kk      = Keluarga::findOrFail($kk_id);
         $anggota = AnggotaKeluarga::where('kk_id', $kk_id)->get();
 
-        return view('guest.anggota.index', compact('kk', 'anggota'));
+        return view('pages.anggota.index', compact('kk', 'anggota'));
     }
 
     public function create($kk_id)
@@ -32,7 +32,7 @@ class AnggotaKeluargaController extends Controller
                 ->where('kk_id', $kk_id);
         })->get();
 
-        return view('guest.anggota.create', compact('kk', 'warga'));
+        return view('pages.anggota.create', compact('kk', 'warga'));
     }
 
     // Di AnggotaKeluargaController - store method
@@ -78,7 +78,7 @@ class AnggotaKeluargaController extends Controller
         $kk      = $anggota->keluarga;
         $warga   = Warga::all();
 
-        return view('guest.anggota.edit', compact('kk', 'anggota', 'warga'));
+        return view('pages.anggota.edit', compact('kk', 'anggota', 'warga'));
     }
 
     public function update(Request $request, $anggota_id)

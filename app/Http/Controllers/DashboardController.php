@@ -68,7 +68,7 @@ class DashboardController extends Controller
         $warga = Warga::latest()->paginate(10);
 
 
-        return view('guest.dashboard', compact(
+        return view('pages.dashboard', compact(
             'totalWarga',
             'kelahiranTahunIni',
             'kematianTahunIni',

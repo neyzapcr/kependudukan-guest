@@ -22,7 +22,7 @@ class WargaController extends Controller
 
         $warga = $query->orderBy('created_at', 'desc')->paginate(9);
 
-        return view('guest.warga.index', compact('warga'));
+        return view('pages.warga.index', compact('warga'));
     }
 
     public function create()
@@ -34,7 +34,7 @@ class WargaController extends Controller
             ]);
         }
 
-        return view('guest.warga.create');
+        return view('pages.warga.create');
     }
 
     public function store(Request $request)
@@ -71,7 +71,7 @@ class WargaController extends Controller
             ]);
         }
 
-        return view('guest.warga.edit', compact('warga'));
+        return view('pages.warga.edit', compact('warga'));
     }
 
     public function update(Request $request, Warga $warga)

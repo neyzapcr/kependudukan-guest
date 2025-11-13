@@ -68,7 +68,7 @@
       </form>
 
       <div class="footer-copyright">
-        <small><center>Copyright © 2024 Bina Desa. All Rights Reserved.</center></small>
+        <small><center>Copyright © 2025 Bina Desa. All Rights Reserved.</center></small>
       </div>
     </div>
   </div>

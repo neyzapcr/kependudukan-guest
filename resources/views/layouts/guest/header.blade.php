@@ -4,7 +4,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="{{ route('guest.dashboard.index') }}" class="logo">
+                        <a href="{{ route('pages.dashboard.index') }}" class="logo">
                             <i class="fas fa-home me-2"></i>
                             <h1>Bina Desa</h1>
                         </a>
@@ -26,8 +26,8 @@
                             </li>
 
                             <li class="scroll-to-section">
-                                <a href="{{ route('guest.about') }}"
-                                class="{{ request()->routeIs('guest.about') ? 'active' : '' }}">
+                                <a href="{{ route('pages.about') }}"
+                                class="{{ request()->routeIs('pages.about') ? 'active' : '' }}">
                                     <i class="fas fa-info-circle me-2"></i>Tentang Kami
                                 </a>
                             </li>
@@ -41,7 +41,7 @@
                                     </a>
                                 </li>
                             @endauth
-                            
+
                             <!-- Auth Section -->
                             @auth
                                 <li class="nav-item dropdown">
