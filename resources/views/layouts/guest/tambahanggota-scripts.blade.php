@@ -1,4 +1,3 @@
-{{-- resources/views/layouts/guest/tambahscript.blade.php --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('anggota-container');

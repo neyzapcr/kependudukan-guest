@@ -53,7 +53,7 @@
     <button type="submit" class="btn-search">Masuk</button>
 
     <div style="text-align: center; margin-top: 20px;">
-        <a href="{{ route('guest.dashboard.index') }}" class="back-link">
+        <a href="{{ route('pages.dashboard.index') }}" class="back-link">
             <i class="fas fa-arrow-left"></i> Kembali ke Beranda
         </a>
         |
