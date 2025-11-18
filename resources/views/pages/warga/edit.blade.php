@@ -1,6 +1,6 @@
 @extends('layouts.guest.app')
 
-@section('title', 'Edit Data Warga')
+@section('title', 'Edit Data Warga | Sistem Kependudukan')
 
 @section('content')
     <div class="main-content">

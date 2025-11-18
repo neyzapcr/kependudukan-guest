@@ -1,5 +1,7 @@
 @extends('layouts.guest.app')
 
+@section('title', 'Tambah Data Warga | Sistem Kependudukan')
+
 @section('content')
 <div class="main-content">
     <div class="container">

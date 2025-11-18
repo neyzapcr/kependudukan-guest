@@ -1,6 +1,6 @@
 @extends('layouts.guest.app')
 
-@section('title', 'Edit Data Pengguna')
+@section('title', 'Edit Data Pengguna | Sistem Kependudukan')
 
 @section('content')
 <div class="main-content">

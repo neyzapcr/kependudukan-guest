@@ -1,6 +1,6 @@
 @extends('layouts.guest.app')
 
-@section('title', 'Dashboard - Sistem Kependudukan')
+@section('title', 'Dashboard | Sistem Kependudukan')
 
 @section('content')
     <!-- Main Banner Section -->

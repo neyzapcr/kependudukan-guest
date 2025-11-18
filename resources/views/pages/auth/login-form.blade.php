@@ -1,6 +1,6 @@
 @extends('layouts.guest.app')
 
-@section('title', 'Login - Sistem Kependudukan')
+@section('title', 'Login | Sistem Kependudukan')
 
 @section('content')
 <div class="bg-bubble"></div>

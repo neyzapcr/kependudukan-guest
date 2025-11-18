@@ -82,7 +82,7 @@
    MAIN BANNER
    ============================== */
     .main-banner {
-        background: linear-gradient(135deg, #1e40af, #3b82f6);
+        background: #1e40af 100%;
     }
 
     .main-banner .item {
@@ -100,7 +100,7 @@
         font-weight: 700;
         color: #fff;
         line-height: 50px;
-        width: 80%;
+        width: 90%;
         margin-bottom: 40px;
     }
 

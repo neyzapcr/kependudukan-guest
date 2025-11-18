@@ -1,6 +1,6 @@
 @extends('layouts.guest.app')
 
-@section('title', 'Tambah Anggota Keluarga')
+@section('title', 'Tambah Anggota Keluarga | Sistem Kependudukan')
 
 @section('content')
     <div class="main-content">

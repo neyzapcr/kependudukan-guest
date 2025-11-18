@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('assets-guest/css/animate.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-    @include('layouts.guest.navbar-css')
+    {{-- @include('layouts.guest.navbar-css') --}}
     @include('layouts.guest.css')
 
     <!-- Custom Styles -->
