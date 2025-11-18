@@ -42,12 +42,6 @@
                                 </li>
                             @endauth
 
-                            <li class="scroll-to-section">
-                                <a href="{{ route('kelahiran.index') }}"
-                                    class="{{ request()->routeIs('kelahiran.*') ? 'active' : '' }}">
-                                        <i class="fas fa-user-cog me-2"></i>Kelahiran
-                                    </a>
-                            </li>
 
                             <!-- Auth Section -->
                             @auth
