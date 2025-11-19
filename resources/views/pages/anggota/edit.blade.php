@@ -49,9 +49,18 @@
 
                             <div class="mb-4">
                                 <label class="form-label"><i class="fas fa-link me-1"></i>Hubungan</label>
-                                <input type="text" name="hubungan" class="form-control search-box"
-                                       value="{{ old('hubungan', $anggota->hubungan_keluarga) }}"
-                                       placeholder="Contoh: Anak, Istri, Suami, Cucu" required>
+                                <select name="hubungan" class="form-control search-box" required>
+                                    <option value="">-- Pilih Hubungan --</option>
+                                    <option value="Suami" {{ old('hubungan') == 'Suami' ? 'selected' : '' }}>Suami</option>
+                                    <option value="Istri" {{ old('hubungan') == 'Istri' ? 'selected' : '' }}>Istri</option>
+                                    <option value="Anak" {{ old('hubungan') == 'Anak' ? 'selected' : '' }}>Anak</option>
+                                    <option value="Menantu" {{ old('hubungan') == 'Menantu' ? 'selected' : '' }}>Menantu</option>
+                                    <option value="Cucu" {{ old('hubungan') == 'Cucu' ? 'selected' : '' }}>Cucu</option>
+                                    <option value="Orang Tua" {{ old('hubungan') == 'Orang Tua' ? 'selected' : '' }}>Orang Tua</option>
+                                    <option value="Mertua" {{ old('hubungan') == 'Mertua' ? 'selected' : '' }}>Mertua</option>
+                                    <option value="Famili Lain" {{ old('hubungan') == 'Famili Lain' ? 'selected' : '' }}>Famili Lain</option>
+                                    <option value="Lainnya" {{ old('hubungan') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                </select>
                             </div>
 
                             <div class="anggota-card-footer">
