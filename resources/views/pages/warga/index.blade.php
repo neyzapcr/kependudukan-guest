@@ -5,7 +5,7 @@
 @section('content')
     <div class="main-content">
         <div class="container">
-            <div class="page-header mb-4">
+            <div class="page-header mb-1">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h1 class="page-title">
@@ -16,7 +16,7 @@
 
                     <!-- Tombol tambah warga -->
                     @if (session('is_logged_in'))
-                        <a href="{{ route('guest.warga.create') }}" class="btn btn-add">
+                        <a href="{{ route('pages.warga.create') }}" class="btn btn-add">
                             <i class="fas fa-plus me-1"></i>Tambah Warga
                         </a>
                     @else
@@ -42,29 +42,81 @@
                 </div>
             @endif
 
-            <!-- Search and Filter Section -->
+            {{-- HEADER DI ATAS CARD --}}
+            <div class="d-flex justify-content-end mb-2">
+                <span class="text-muted">Total: {{ $warga->total() }} warga</span>
+            </div>
+
+            <!-- Search and Filter Section - DIUBAH -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <form action="{{ route('warga.index') }}" method="GET">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control search-box"
-                                        placeholder="Cari nama, NIK, atau alamat..." value="{{ request('search') }}">
+                                        placeholder="Cari nama, NIK, atau alamat..." value="{{ request('search') }}"
+                                        onchange="this.form.submit()">
                                     <button class="btn btn-search" type="submit">
                                         <i class="fas fa-search me-1"></i>Cari
                                     </button>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-4 text-end">
-                            <span class="text-muted">Total: {{ $warga->count() }} warga</span>
+                        <div class="col-md-6">
+                            <form action="{{ route('warga.index') }}" method="GET" class="d-flex gap-2">
+                                <!-- Hidden field untuk menjaga search value -->
+                                @if (request('search'))
+                                    <input type="hidden" name="search" value="{{ request('search') }}">
+                                @endif
+
+                                <select name="jenis_kelamin" class="form-select form-select-sm"
+                                    onchange="this.form.submit()">
+                                    <option value="">Semua Jenis Kelamin</option>
+                                    <option value="L" {{ request('jenis_kelamin') == 'L' ? 'selected' : '' }}>
+                                        Laki-laki</option>
+                                    <option value="P" {{ request('jenis_kelamin') == 'P' ? 'selected' : '' }}>
+                                        Perempuan</option>
+                                </select>
+
+                                <select name="agama" class="form-select form-select-sm" onchange="this.form.submit()">
+                                    <option value="">Semua Agama</option>
+                                    <option value="Islam" {{ request('agama') == 'Islam' ? 'selected' : '' }}>Islam
+                                    </option>
+                                    <option value="Kristen" {{ request('agama') == 'Kristen' ? 'selected' : '' }}>
+                                        Kristen</option>
+                                    <option value="Katolik" {{ request('agama') == 'Katolik' ? 'selected' : '' }}>
+                                        Katolik</option>
+                                    <option value="Hindu" {{ request('agama') == 'Hindu' ? 'selected' : '' }}>Hindu
+                                    </option>
+                                    <option value="Buddha" {{ request('agama') == 'Buddha' ? 'selected' : '' }}>Buddha
+                                    </option>
+                                    <option value="Konghucu" {{ request('agama') == 'Konghucu' ? 'selected' : '' }}>
+                                        Konghucu</option>
+                                </select>
+
+                                <input type="text" name="pekerjaan" class="form-control form-control-sm"
+                                    placeholder="Pekerjaan" value="{{ request('pekerjaan') }}"
+                                    onchange="this.form.submit()">
+
+                                @if (request('jenis_kelamin') || request('agama') || request('pekerjaan') || request('search'))
+                                    <a href="{{ route('warga.index') }}"
+                                        class="btn btn-outline-secondary btn-sm rounded-0 ms-1" title="Reset semua filter">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                @endif
+                            </form>
                         </div>
+                    </div>
+                    <div class="row mt-2">
+                        {{-- <div class="col-md-12 text-end">
+                                <span class="text-muted">Total: {{ $warga->total() }} warga</span>
+                            </div> --}}
                     </div>
                 </div>
             </div>
 
-            <!-- Data Warga Cards -->
+            <!-- Data Warga Cards - TIDAK DIUBAH -->
             @if ($warga->count() > 0)
                 <div class="row">
                     @foreach ($warga as $data)
@@ -75,15 +127,18 @@
                                         {{ substr($data->nama, 0, 1) }}{{ substr(strstr($data->nama, ' ') ?: '', 1, 1) }}
                                     </div>
                                     <div class="warga-info">
-                                        <div class="warga-name"><i class="fas fa-user me-1"></i>{{ $data->nama }}</div>
-                                        <div class="warga-nik"><i class="fas fa-id-card me-1"></i>NIK: {{ $data->no_ktp }}
+                                        <div class="warga-name"><i class="fas fa-user me-1"></i>{{ $data->nama }}
+                                        </div>
+                                        <div class="warga-nik"><i class="fas fa-id-card me-1"></i>NIK:
+                                            {{ $data->no_ktp }}
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="warga-card-body">
                                     <div class="info-row">
-                                        <div class="info-label"><i class="fas fa-venus-mars me-1"></i>Jenis Kelamin</div>
+                                        <div class="info-label"><i class="fas fa-venus-mars me-1"></i>Jenis Kelamin
+                                        </div>
                                         <div class="info-value">
                                             <span
                                                 class="{{ $data->jenis_kelamin == 'L' ? 'gender-male' : 'gender-female' }}">
@@ -127,18 +182,22 @@
                                     </small>
 
                                     @if (session('is_logged_in'))
-                                        <a href="{{ route('guest.warga.edit', $data->warga_id) }}" class="btn btn-edit">
-                                            <i class="fas fa-edit me-1"></i>Edit
-                                        </a>
-                                        <form action="{{ route('warga.destroy', $data->warga_id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-delete"
-                                                onclick="return confirm('Yakin hapus data warga ini?')">
-                                                <i class="fas fa-trash me-1"></i>Hapus
-                                            </button>
-                                        </form>
+                                        <div class="d-flex gap-2"> {{-- ini yang ngatur jarak tombol --}}
+                                            <a href="{{ route('pages.warga.edit', $data->warga_id) }}"
+                                                class="btn btn-edit">
+                                                <i class="fas fa-edit me-1"></i>Edit
+                                            </a>
+
+                                            <form action="{{ route('warga.destroy', $data->warga_id) }}" method="POST"
+                                                class="m-0">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-delete"
+                                                    onclick="return confirm('Yakin hapus data warga ini?')">
+                                                    <i class="fas fa-trash me-1"></i>Hapus
+                                                </button>
+                                            </form>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -146,7 +205,7 @@
                     @endforeach
                 </div>
 
-                <!-- Pagination -->
+                <!-- Pagination - TIDAK DIUBAH -->
                 @if ($warga->hasPages())
                     <div class="pagination-container mt-4">
                         <div class="d-flex justify-content-center align-items-center gap-3">
@@ -170,7 +229,7 @@
                     </div>
                 @endif
             @else
-                <!-- Empty State -->
+                <!-- Empty State - TIDAK DIUBAH -->
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="empty-state">
