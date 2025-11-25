@@ -5,7 +5,7 @@
 @section('content')
     <div class="main-content">
         <div class="container">
-            <div class="page-header mb-4">
+            <div class="page-header mb-1">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h1 class="page-title">
@@ -40,22 +40,61 @@
                 </div>
             @endif
 
+            {{-- HEADER DI ATAS CARD --}}
+            <div class="d-flex justify-content-end mb-2">
+                <span class="text-muted">Total: {{ $users->total() }} pengguna</span>
+            </div>
+
+            <!-- Search and Filter Section - DIUBAH MIRIP WARGA.INDEX -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <form action="{{ route('user.index') }}" method="GET">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control search-box"
-                                        placeholder="Cari nama atau email..." value="{{ request('search') }}">
+                                        placeholder="Cari nama atau email..." value="{{ request('search') }}"
+                                        onchange="this.form.submit()">
                                     <button class="btn btn-search" type="submit">
                                         <i class="fas fa-search me-1"></i>Cari
                                     </button>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-4 text-end">
-                            <span class="text-muted">Total: {{ $users->count() }} pengguna</span>
+                        <div class="col-md-6">
+                            <form action="{{ route('user.index') }}" method="GET" class="d-flex gap-2">
+                                <!-- Hidden field untuk menjaga search value -->
+                                @if (request('search'))
+                                    <input type="hidden" name="search" value="{{ request('search') }}">
+                                @endif
+
+                                <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+                                    <option value="">--  Urutkan berdasarkan  --</option>
+
+                                    <option value="created_at_desc"
+                                        {{ request('sort') == 'created_at_desc' ? 'selected' : '' }}>
+                                        Tanggal Terbaru
+                                    </option>
+                                    <option value="created_at_asc"
+                                        {{ request('sort') == 'created_at_asc' ? 'selected' : '' }}>
+                                        Tanggal Terlama
+                                    </option>
+
+                                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>
+                                        Nama A-Z
+                                    </option>
+                                    <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>
+                                        Nama Z-A
+                                    </option>
+                                </select>
+
+                                @if (request('search') || request('sort'))
+                                    <a href="{{ route('user.index') }}"
+                                        class="btn btn-outline-secondary btn-sm rounded-0 ms-1" title="Reset semua filter">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                @endif
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -114,19 +153,19 @@
                                     </small>
 
                                     @if (session('is_logged_in'))
-                                        <div class="action-buttons">
+                                        <div class="d-flex gap-2"> {{-- ini yang ngatur jarak tombol --}}
                                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-edit">
                                                 <i class="fas fa-edit me-1"></i>Edit
                                             </a>
 
                                             @if (Auth::id() !== $user->id)
                                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST"
-                                                    style="display:inline;">
+                                                    class="m-0">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-delete btn-sm"
+                                                    <button type="submit" class="btn btn-delete"
                                                         onclick="return confirm('Yakin ingin menghapus pengguna ini?')">
-                                                        <i class="fas fa-trash me-1"></i> Hapus
+                                                        <i class="fas fa-trash me-1"></i>Hapus
                                                     </button>
                                                 </form>
                                             @endif
@@ -136,28 +175,33 @@
                             </div>
                         </div>
                     @endforeach
-
-                    @if ($users->hasPages())
-                        <div class="pagination-container mt-4">
-                            <div class="d-flex justify-content-center align-items-center gap-3">
-                                <a href="{{ $users->previousPageUrl() }}"
-                                    class="btn btn-outline-primary btn-sm {{ $users->onFirstPage() ? 'disabled' : '' }}">
-                                    <i class="fas fa-arrow-left me-1"></i>Sebelumnya
-                                </a>
-
-                                <span class="text-muted small">
-                                    Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}
-                                </span>
-
-                                <a href="{{ $users->nextPageUrl() }}"
-                                    class="btn btn-outline-primary btn-sm {{ !$users->hasMorePages() ? 'disabled' : '' }}">
-                                    Selanjutnya <i class="fas fa-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    @endif
                 </div>
+
+                <!-- Pagination - MIRIP WARGA.INDEX -->
+                @if ($users->hasPages())
+                    <div class="pagination-container mt-4">
+                        <div class="d-flex justify-content-center align-items-center gap-3">
+                            {{-- Previous --}}
+                            <a href="{{ $users->previousPageUrl() }}"
+                                class="btn btn-outline-primary btn-sm {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                                <i class="fas fa-arrow-left me-1"></i>Sebelumnya
+                            </a>
+
+                            {{-- Page Info --}}
+                            <span class="text-muted small">
+                                Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}
+                            </span>
+
+                            {{-- Next --}}
+                            <a href="{{ $users->nextPageUrl() }}"
+                                class="btn btn-outline-primary btn-sm {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                Selanjutnya <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                @endif
             @else
+                <!-- Empty State - MIRIP WARGA.INDEX -->
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="empty-state">

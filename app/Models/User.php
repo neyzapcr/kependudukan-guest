@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -45,4 +46,39 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    /**
+     * Scope untuk pencarian dan filter
+     */
+   public function scopeSearchAndFilter(
+        Builder $query,
+        ?string $search = null,
+        array $filters = []
+    ): Builder
+    {
+        // search name/email
+        $query->when($search, function (Builder $q) use ($search) {
+            $q->where(function (Builder $qq) use ($search) {
+                $qq->where('name', 'like', "%{$search}%")
+                   ->orWhere('email', 'like', "%{$search}%");
+            });
+        });
+
+        return $query;
+    }
+
+    /**
+     * SORT builder (case-insensitive untuk text)
+     */
+    public function scopeSort($query, $sortBy = null, $sortOrder = null)
+{
+    if ($sortBy && $sortOrder) {
+        if (in_array($sortBy, ['name', 'email'])) {
+            return $query->orderByRaw("LOWER($sortBy) $sortOrder");
+        }
+        return $query->orderBy($sortBy, $sortOrder);
+    }
+
+    return $query->orderBy('created_at', 'desc');
+}
+
 }

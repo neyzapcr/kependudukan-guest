@@ -14,22 +14,39 @@ class UserController extends Controller
      * Display a listing of the users.
      */
     public function index(Request $request)
-    {
-        if (!session('is_logged_in')) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
-        }
-        $search = $request->get('search');
-
-        $users = User::when($search, function($query) use ($search) {
-            $query->where('name', 'like', '%'.$search.'%')
-                  ->orWhere('email', 'like', '%'.$search.'%');
-        })
-        ->latest()
-        ->paginate(9); // 9 items per page untuk layout 3 kolom
-
-        return view('pages.user.index', compact('users', 'search'));
+{
+    if (!session('is_logged_in')) {
+        return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
     }
 
+    $search = $request->search;
+
+    $sort = $request->sort;
+    $sortBy = null;
+    $sortOrder = null;
+
+    if ($sort) {
+        $parts = explode('_', $sort);
+        $sortOrder = array_pop($parts);   // ambil paling belakang: asc/desc
+        $sortBy = implode('_', $parts);   // sisanya jadi field (created_at)
+    }
+
+    // optional guard biar aman
+    $allowedSortBy = ['created_at', 'name', 'email'];
+    $allowedOrder  = ['asc', 'desc'];
+
+    if (!in_array($sortBy, $allowedSortBy) || !in_array($sortOrder, $allowedOrder)) {
+        $sortBy = null;
+        $sortOrder = null;
+    }
+
+    $users = User::searchAndFilter($search)
+                ->sort($sortBy, $sortOrder)
+                ->paginate(9)
+                ->withQueryString();
+
+    return view('pages.user.index', compact('users'));
+}
     /**
      * Show the form for creating a new user (Registration Form).
      */
@@ -159,4 +176,3 @@ class UserController extends Controller
             ->with('success', 'User berhasil dihapus.');
     }
 }
-
