@@ -17,7 +17,6 @@ class WargaController extends Controller
         return view('pages.warga.index', compact('warga'));
     }
 
-    // METHOD LAINNYA TETAP SAMA, TIDAK DIUBAH
     public function create()
     {
         return view('pages.warga.create');
