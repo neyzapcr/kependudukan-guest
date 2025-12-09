@@ -69,3 +69,17 @@ Route::resource('kelahiran', KelahiranController::class);
 // DOWNLOAD FILE
 Route::get('/kelahiran/file/{id}/download', [KelahiranController::class, 'downloadFile'])
     ->name('kelahiran.downloadFile');
+
+        // PROFIL SENDIRI (SEMUA USER LOGIN BOLEH)
+Route::get('/profil', [UserController::class, 'editProfile'])->name('user.profile.edit');
+Route::put('/profil', [UserController::class, 'updateProfile'])->name('user.profile.update');
+
+// User (KHUSUS SUPER-ADMIN)
+Route::middleware('checkrole:super-admin')->group(function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+});

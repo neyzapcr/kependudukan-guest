@@ -39,13 +39,21 @@ class AuthController extends Controller
 
     // Check password
     if ($user && Hash::check($request->password, $user->password)) {
+
+        // ✅ CEK STATUS AKTIF / NONAKTIF
+        if (!$user->is_active) {
+            return redirect('/login')->withErrors([
+                'email' => 'Akun Anda nonaktif. Silakan hubungi admin.',
+            ])->withInput($request->only('email'));
+        }
+
         \Log::info('=== LOGIN SUCCESS ===');
         \Log::info('User: ' . $user->email);
 
-        // **PERBAIKAN: Gunakan Auth::login() untuk session Laravel**
+        // Gunakan Auth::login() untuk session Laravel
         Auth::login($user);
 
-        // **OPTIONAL: Tambahkan session manual jika masih perlu**
+        // OPTIONAL session manual
         session([
             'is_logged_in' => true,
             'username' => $user->name,
@@ -56,9 +64,6 @@ class AuthController extends Controller
         \Log::info('Session after login:', session()->all());
         \Log::info('Auth check: ' . (Auth::check() ? 'true' : 'false'));
         \Log::info('Auth user: ' . (Auth::user() ? Auth::user()->name : 'null'));
-
-        // Test redirect langsung
-        \Log::info('Redirecting to: ' . route('pages.dashboard.index'));
 
         return redirect()->route('pages.dashboard.index')->with([
             'success' => 'Login berhasil! Selamat datang ' . $user->name,
@@ -71,6 +76,7 @@ class AuthController extends Controller
         'email' => 'Email atau password tidak sesuai.',
     ])->withInput($request->only('email'));
 }
+
 
     /**
      * Handle logout request

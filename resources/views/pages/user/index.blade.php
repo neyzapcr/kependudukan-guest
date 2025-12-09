@@ -69,7 +69,7 @@
                                 @endif
 
                                 <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
-                                    <option value="">--  Urutkan berdasarkan  --</option>
+                                    <option value="">-- Urutkan berdasarkan --</option>
 
                                     <option value="created_at_desc"
                                         {{ request('sort') == 'created_at_desc' ? 'selected' : '' }}>
@@ -127,14 +127,29 @@
                                         <div class="info-value">{{ $user->email }}</div>
                                     </div>
 
+                                    {{-- ROLE (TEKS BIASA) --}}
+                                    <div class="info-row">
+                                        <div class="info-label"><i class="fas fa-user-shield me-1"></i>Role</div>
+                                        <div class="info-value">
+                                            {{ ucwords(str_replace('-', ' ', $user->role)) }}
+                                        </div>
+                                    </div>
+
                                     <div class="info-row">
                                         <div class="info-label"><i class="fas fa-check-circle me-1"></i>Status</div>
                                         <div class="info-value">
-                                            <span class="badge bg-success">
-                                                <i class="fas fa-check-circle me-1"></i>Aktif
-                                            </span>
+                                            @if ($user->is_active)
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check-circle me-1"></i>Aktif
+                                                </span>
+                                            @else
+                                                <span class="badge bg-secondary">
+                                                    <i class="fas fa-ban me-1"></i>Nonaktif
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
+
 
                                     <div class="info-row">
                                         <div class="info-label"><i class="fas fa-calendar-plus me-1"></i>Terdaftar</div>
@@ -201,7 +216,7 @@
                     </div>
                 @endif
             @else
-                <!-- Empty State - MIRIP WARGA.INDEX -->
+
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="empty-state">

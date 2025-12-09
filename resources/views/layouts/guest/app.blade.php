@@ -73,6 +73,7 @@
     @include('layouts.guest.js')
 
     <!-- Custom Scripts -->
+    @include('layouts.guest.media-preview')
     @stack('scripts')
 
 </body>

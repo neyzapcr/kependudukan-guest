@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_active',
     ];
 
     /**
@@ -59,7 +61,8 @@ class User extends Authenticatable
         $query->when($search, function (Builder $q) use ($search) {
             $q->where(function (Builder $qq) use ($search) {
                 $qq->where('name', 'like', "%{$search}%")
-                   ->orWhere('email', 'like', "%{$search}%");
+                   ->orWhere('email', 'like', "%{$search}%")
+                   ->orWhere('role', 'like', "%{$search}%");
             });
         });
 

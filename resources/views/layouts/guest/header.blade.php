@@ -14,13 +14,13 @@
                         <ul class="nav">
                             <li class="scroll-to-section">
                                 <a href="{{ route('warga.index') }}"
-                                class="{{ request()->routeIs('warga.*') ? 'active' : '' }}">
+                                    class="{{ request()->routeIs('warga.*') ? 'active' : '' }}">
                                     <i class="fas fa-users me-2"></i>Data Warga
                                 </a>
                             </li>
                             <li class="scroll-to-section">
                                 <a href="{{ route('keluarga.index') }}"
-                                class="{{ request()->routeIs('keluarga.*') ? 'active' : '' }}">
+                                    class="{{ request()->routeIs('keluarga.*') ? 'active' : '' }}">
                                     <i class="fas fa-house-user me-2"></i>Data Keluarga
                                 </a>
                             </li>
@@ -32,9 +32,24 @@
                                 </a>
                             </li>
 
+                            {{-- <li class="scroll-to-section">
+                                <a href="#"
+                                {{-- {{ route('kematian.index') }} --}}
+                            {{-- class="{{ request()->routeIs('kematian.*') ? 'active' : '' }}">
+                                    <i class="fas fa-cross me-2"></i>Data Kematian
+                                </a>
+                            </li> --}}
+
+                            {{-- <li class="scroll-to-section">
+                                <a href="#" {{-- {{ route('pindah.index') }} --}}
+                            {{-- class="{{ request()->routeIs('perpindahan.*') ? 'active' : '' }}">
+                                    <i class="fas fa-people-arrows me-2"></i>Data Perpindahan
+                                </a>
+                            </li> --}}
+
                             <li class="scroll-to-section">
                                 <a href="{{ route('pages.about') }}"
-                                class="{{ request()->routeIs('pages.about') ? 'active' : '' }}">
+                                    class="{{ request()->routeIs('pages.about') ? 'active' : '' }}">
                                     <i class="fas fa-info-circle me-2"></i>Tentang Kami
                                 </a>
                             </li>
@@ -43,7 +58,7 @@
                             @auth
                                 <li class="scroll-to-section">
                                     <a href="{{ route('user.index') }}"
-                                    class="{{ request()->routeIs('user.*') ? 'active' : '' }}">
+                                        class="{{ request()->routeIs('user.*') ? 'active' : '' }}">
                                         <i class="fas fa-user-cog me-2"></i>Data User
                                     </a>
                                 </li>
@@ -53,8 +68,9 @@
                             <!-- Auth Section -->
                             @auth
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                        style="cursor: pointer;">
                                         <i class="fa-regular fa-circle-user me-1" style="color: #4882e5;"></i>
                                         <span class="username">{{ Auth::user()->name }}</span>
                                     </a>
@@ -65,18 +81,24 @@
                                                 {{ Auth::user()->name }}
                                             </div>
                                         </li>
-                                        <li><hr class="dropdown-divider m-0"></li>
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('user.edit', ['user' => auth()->id()]) }}" style="color: #333 !important;">
+                                            <hr class="dropdown-divider m-0">
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('user.profile.edit') }}"
+                                                style="color: #333 !important;">
                                                 <i class="fas fa-user-edit me-2"></i>Edit Profil
                                             </a>
                                         </li>
 
-                                        <li><hr class="dropdown-divider m-0"></li>
+                                        <li>
+                                            <hr class="dropdown-divider m-0">
+                                        </li>
                                         <li>
                                             <form action="{{ route('logout') }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="dropdown-item text-danger logout-btn" style="border: none; background: none; width: 100%; text-align: left;">
+                                                <button type="submit" class="dropdown-item text-danger logout-btn"
+                                                    style="border: none; background: none; width: 100%; text-align: left;">
                                                     <i class="fas fa-sign-out-alt me-2"></i>Logout
                                                 </button>
                                             </form>
@@ -84,19 +106,19 @@
                                     </ul>
                                 </li>
                             @else
-                                <li class="scroll-to-section auth-links">
+                                <li class="auth-links">
                                     <a href="{{ route('login') }}" class="btn-login">
-                                        <i class="fas fa-sign-in-alt me-1"></i>Masuk
+                                        <i class="fas fa-sign-in-alt me-1"></i> Masuk
                                     </a>
-                                    <span class="separator">|</span>
+
                                     <a href="{{ route('register') }}" class="btn-register">
-                                        <i class="fas fa-user-plus me-1"></i>Daftar
+                                        <i class="fas fa-user-plus me-1"></i> Daftar
                                     </a>
                                 </li>
                             @endauth
                         </ul>
                         <button class='menu-trigger'>
-                          <span></span>
+                            <span></span>
                         </button>
                         <!-- ***** Menu End ***** -->
                     </nav>
