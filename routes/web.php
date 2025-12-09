@@ -27,9 +27,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('pages.dashboard.in
 
 // Warga
 Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
-Route::get('/warga/create', [WargaController::class, 'create'])->name('guest.warga.create');
+Route::get('/warga/create', [WargaController::class, 'create'])->name('pages.warga.create');
 Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
-Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('guest.warga.edit');
+Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('pages.warga.edit');
 Route::put('/warga/{warga}', [WargaController::class, 'update'])->name('warga.update');
 Route::delete('/warga/{warga}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
@@ -46,12 +46,12 @@ Route::put('/anggota/{anggota}/update', [AnggotaKeluargaController::class, 'upda
 Route::delete('/anggota/{anggota}', [AnggotaKeluargaController::class, 'destroy'])->name('anggota.destroy');
 
 // User
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
-Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
-Route::post('/user', [UserController::class, 'store'])->name('user.store');
-Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
-Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+// Route::get('/user', [UserController::class, 'index'])->name('user.index');
+// Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+// Route::post('/user', [UserController::class, 'store'])->name('user.store');
+// Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+// Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+// Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
 // tentang kami
 Route::get('/tentang-kami', function () {
@@ -59,11 +59,15 @@ Route::get('/tentang-kami', function () {
 })->name('pages.about');
 
 //kelahiran
+// HAPUS FILE
 Route::delete('/kelahiran/hapus-foto/{media_id}',
     [KelahiranController::class, 'hapusFoto']
 )->name('kelahiran.hapusFoto');
 
+// web.php
 Route::resource('kelahiran', KelahiranController::class);
+
+/// PREVIEW FILE LANGSUNG TAMPIL DI TAB YANG SAMA
 
 // DOWNLOAD FILE
 Route::get('/kelahiran/file/{id}/download', [KelahiranController::class, 'downloadFile'])
