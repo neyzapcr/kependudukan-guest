@@ -161,7 +161,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($validator)
+                ->withErrors($passwordValidator)
                 ->withInput();
         }
 
@@ -179,6 +179,9 @@ class UserController extends Controller
         return redirect()->route('user.index')
             ->with('success', 'Data user berhasil diperbarui.');
     }
+
+    
+
 
     /**
      * Remove the specified user from storage.

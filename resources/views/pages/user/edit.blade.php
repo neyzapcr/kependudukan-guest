@@ -78,6 +78,50 @@
                                         <div class="text-danger small mt-1">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="row">
+    {{-- ROLE --}}
+    <div class="col-md-6 mb-3">
+        <label class="form-label"><i class="fas fa-user-shield me-1"></i>Role *</label>
+        <select name="role" class="form-select search-box" required>
+            <option value="">-- Pilih Role --</option>
+            <option value="super-admin" {{ old('role', $user->role) == 'super-admin' ? 'selected' : '' }}>
+                Super Admin
+            </option>
+            <option value="administrator" {{ old('role', $user->role) == 'administrator' ? 'selected' : '' }}>
+                Administrator
+            </option>
+            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>
+                Admin
+            </option>
+            <option value="petugas" {{ old('role', $user->role) == 'petugas' ? 'selected' : '' }}>
+                Petugas
+            </option>
+            <option value="warga" {{ old('role', $user->role) == 'warga' ? 'selected' : '' }}>
+                Warga
+            </option>
+        </select>
+        @error('role')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
+    {{-- STATUS --}}
+    <div class="col-md-6 mb-3">
+        <label class="form-label"><i class="fas fa-toggle-on me-1"></i>Status *</label>
+        <select name="is_active" class="form-select search-box" required>
+            <option value="1" {{ old('is_active', $user->is_active) == 1 ? 'selected' : '' }}>
+                Aktif
+            </option>
+            <option value="0" {{ old('is_active', $user->is_active) == 0 ? 'selected' : '' }}>
+                Nonaktif
+            </option>
+        </select>
+        @error('is_active')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
                             </div>
 
                             {{-- ROLE + STATUS (SUPER ADMIN ONLY) --}}
