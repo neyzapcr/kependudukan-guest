@@ -22,5 +22,4 @@ class CheckRole
 
       return abort('403','Akses ditolak. Anda tidak punya izin.');
     }
-
 }

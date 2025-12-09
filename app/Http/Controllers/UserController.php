@@ -161,7 +161,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($passwordValidator)
+                ->withErrors($validator)
                 ->withInput();
         }
 

@@ -1,3 +1,5 @@
+css
+
 <style>
     /* ==============================
    GLOBAL / AUTH PAGE FIXES
@@ -931,6 +933,7 @@
         transform: scale(1.1);
     }
 
+
     /* ==============================
    RESPONSIVE DESIGN
    ============================== */
@@ -1043,4 +1046,5 @@
             justify-content: center;
         }
     }
+
 </style>

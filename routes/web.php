@@ -63,7 +63,6 @@ Route::delete('/kelahiran/hapus-foto/{media_id}',
     [KelahiranController::class, 'hapusFoto']
 )->name('kelahiran.hapusFoto');
 
-
 Route::resource('kelahiran', KelahiranController::class);
 
 // DOWNLOAD FILE
