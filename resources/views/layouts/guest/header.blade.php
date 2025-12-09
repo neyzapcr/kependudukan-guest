@@ -26,6 +26,13 @@
                             </li>
 
                             <li class="scroll-to-section">
+                                <a href="{{ route('kelahiran.index') }}"
+                                    class="{{ request()->routeIs('kelahiran.*') ? 'active' : '' }}">
+                                    <i class="fas fa-house-user me-2"></i>Data Kelahiran
+                                </a>
+                            </li>
+
+                            <li class="scroll-to-section">
                                 <a href="{{ route('pages.about') }}"
                                 class="{{ request()->routeIs('pages.about') ? 'active' : '' }}">
                                     <i class="fas fa-info-circle me-2"></i>Tentang Kami

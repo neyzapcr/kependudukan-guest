@@ -59,6 +59,13 @@ Route::get('/tentang-kami', function () {
 })->name('pages.about');
 
 //kelahiran
+Route::delete('/kelahiran/hapus-foto/{media_id}',
+    [KelahiranController::class, 'hapusFoto']
+)->name('kelahiran.hapusFoto');
+
+
 Route::resource('kelahiran', KelahiranController::class);
-Route::get('media/{media_id}/preview', [KelahiranController::class, 'previewFoto'])->name('media.preview');
-Route::delete('kelahiran/{id}/hapus-foto', [KelahiranController::class, 'hapusFoto'])->name('kelahiran.hapus-foto');
+
+// DOWNLOAD FILE
+Route::get('/kelahiran/file/{id}/download', [KelahiranController::class, 'downloadFile'])
+    ->name('kelahiran.downloadFile');
