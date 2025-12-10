@@ -139,7 +139,7 @@
                                         <i class="fas fa-camera me-1"></i>Foto Akta (Opsional)
                                     </label>
                                     <input type="file" name="foto_akta[]" class="form-control search-box"  accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.rar" multiple>
-                                    <small class="text-muted">Format: JPG / PNG, maksimal 2MB.</small>
+                                    <small class="text-muted">Format: JPG / PNG, maksimal 5MB.</small>
                                 </div>
 
                                 {{-- FOOTER --}}

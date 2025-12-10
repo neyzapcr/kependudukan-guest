@@ -1,5 +1,4 @@
 <?php
-// app/Http/Controllers/KelahiranController.php
 
 namespace App\Http\Controllers;
 
@@ -20,7 +19,7 @@ class KelahiranController extends Controller
         ->search($request->search) // scope search dari model
         ->filter($request->only(['tempat_lahir', 'tahun', 'bulan'])) // scope filter dari model
         ->orderBy('tgl_lahir', 'desc')
-        ->paginate(10);
+        ->paginate(6);
 
     foreach ($kelahiran as $item) {
         $item->media = Media::where('ref_table', 'peristiwa_kelahiran')
@@ -30,7 +29,6 @@ class KelahiranController extends Controller
 
     return view('pages.kelahiran.index', compact('kelahiran'));
 }
-
 
     /**
      * Show the form for creating a new resource.
