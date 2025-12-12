@@ -1,246 +1,220 @@
 @extends('layouts.guest.app')
 
-@section('title', 'Edit Data Pengguna | Sistem Kependudukan')
+@section('title', 'Edit Pengguna | Sistem Kependudukan')
 
 @section('content')
 <div class="main-content">
-    <div class="container">
-        <div class="page-header mb-4">
-            <h1 class="page-title">
-                <i class="fas fa-edit me-2"></i>Edit Data Pengguna
-            </h1>
-            <p class="page-subtitle">Perbarui data pengguna: {{ $user->name }}</p>
+  <div class="container">
+
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="page-title">
+            <i class="fas fa-user-edit me-2"></i>Edit Pengguna
+          </h1>
+          <p class="page-subtitle">Perbarui data pengguna sistem</p>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="warga-card">
-                    <div class="warga-card-header">
-                        <div class="warga-avatar">
-                            <i class="fas fa-user-edit"></i>
-                        </div>
-                        <div class="warga-info">
-                            <div class="warga-name">Form Edit Data Pengguna</div>
-                            <div class="warga-nik">Perbarui data dengan informasi yang valid</div>
-                        </div>
-                    </div>
-
-                    <div class="warga-card-body">
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <h5 class="alert-heading">Terjadi Kesalahan:</h5>
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
-
-                        <form method="POST"
-                              action="{{ Auth::user()->role === 'super-admin'
-                                            ? route('user.update', $user->id)
-                                            : route('user.profile.update') }}">
-                            @csrf
-                            @method('PUT')
-
-                            {{-- NAME + EMAIL --}}
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-user me-1"></i>Nama Lengkap *
-                                    </label>
-                                    <input type="text" name="name" class="form-control search-box"
-                                           value="{{ old('name', $user->name) }}"
-                                           placeholder="Masukkan nama lengkap" required>
-                                    @error('name')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-envelope me-1"></i>Email *
-                                    </label>
-                                    <input type="email" name="email" class="form-control search-box"
-                                           value="{{ old('email', $user->email) }}"
-                                           placeholder="Masukkan alamat email" required>
-                                    @error('email')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            {{-- ROLE + STATUS (SUPER ADMIN ONLY) --}}
-                            @if (Auth::user()->role === 'super-admin')
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">
-                                            <i class="fas fa-user-shield me-1"></i>Role *
-                                        </label>
-                                        <select name="role" class="form-select search-box" required>
-                                            <option value="">-- Pilih Role --</option>
-                                            <option value="super-admin" {{ old('role', $user->role) == 'super-admin' ? 'selected' : '' }}>
-                                                Super Admin
-                                            </option>
-                                            <option value="administrator" {{ old('role', $user->role) == 'administrator' ? 'selected' : '' }}>
-                                                Administrator
-                                            </option>
-                                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>
-                                                Admin
-                                            </option>
-                                            <option value="petugas" {{ old('role', $user->role) == 'petugas' ? 'selected' : '' }}>
-                                                Petugas
-                                            </option>
-                                            <option value="warga" {{ old('role', $user->role) == 'warga' ? 'selected' : '' }}>
-                                                Warga
-                                            </option>
-                                        </select>
-                                        @error('role')
-                                            <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">
-                                            <i class="fas fa-toggle-on me-1"></i>Status *
-                                        </label>
-                                        <select name="is_active" class="form-select search-box" required>
-                                            <option value="1" {{ old('is_active', $user->is_active) == 1 ? 'selected' : '' }}>
-                                                Aktif
-                                            </option>
-                                            <option value="0" {{ old('is_active', $user->is_active) == 0 ? 'selected' : '' }}>
-                                                Nonaktif
-                                            </option>
-                                        </select>
-                                        @error('is_active')
-                                            <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endif
-
-                            {{-- PASSWORD --}}
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-key me-1"></i>Password Baru
-                                    </label>
-                                    <input type="password" name="password" class="form-control search-box"
-                                           placeholder="Kosongkan jika tidak ingin mengubah">
-                                    <small class="text-muted">
-                                        Password minimal 3 karakter dan mengandung huruf kapital
-                                    </small>
-                                    @error('password')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-key me-1"></i>Konfirmasi Password Baru
-                                    </label>
-                                    <input type="password" name="password_confirmation" class="form-control search-box"
-                                           placeholder="Konfirmasi password baru">
-                                </div>
-                            </div>
-
-                            {{-- CREATED / UPDATED --}}
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-calendar-plus me-1"></i>Tanggal Dibuat
-                                    </label>
-                                    <input type="text" class="form-control search-box"
-                                           value="{{ $user->created_at->format('d/m/Y H:i') }}" readonly disabled>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-calendar-check me-1"></i>Terakhir Diupdate
-                                    </label>
-                                    <input type="text" class="form-control search-box"
-                                           value="{{ $user->updated_at->format('d/m/Y H:i') }}" readonly disabled>
-                                </div>
-                            </div>
-
-                            {{-- FOOTER BUTTONS --}}
-                            <div class="warga-card-footer">
-                                <a href="{{ Auth::user()->role === 'super-admin'
-                                            ? route('user.index')
-                                            : route('pages.dashboard.index') }}"
-                                   class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left me-1"></i>Kembali
-                                </a>
-
-                                <div class="action-buttons">
-                                    @if (Auth::user()->role === 'super-admin')
-                                        @if (session('user_id') != $user->id)
-                                            <button type="button" class="btn-delete" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal">
-                                                <i class="fas fa-trash me-1"></i>Hapus
-                                            </button>
-                                        @else
-                                            <button type="button" class="btn-delete" disabled
-                                                    title="Tidak dapat menghapus akun sendiri">
-                                                <i class="fas fa-trash me-1"></i>Hapus
-                                            </button>
-                                        @endif
-                                    @endif
-
-                                    <button type="submit" class="btn-edit">
-                                        <i class="fas fa-save me-1"></i>Update Data
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div> {{-- warga-card-body --}}
-                </div> {{-- warga-card --}}
-            </div>
-        </div>
+        <a href="{{ route('user.index') }}" class="btn btn-outline-secondary">
+          <i class="fas fa-arrow-left me-1"></i>Kembali
+        </a>
+      </div>
     </div>
+
+    @if (session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    @endif
+
+    @if ($errors->any())
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>Mohon periksa kembali inputan kamu.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    @endif
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+
+        <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+
+          <div class="row g-4">
+
+            {{-- KOLOM KIRI: FOTO PROFIL --}}
+            <div class="col-md-4">
+              <div class="p-3 rounded border bg-light">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="overflow-hidden d-flex align-items-center justify-content-center"
+                       style="width:96px;height:96px;border-radius:50%;background:#fff;">
+                    @if (!empty($user->photo_profile) && file_exists(public_path('storage/'.$user->photo_profile)))
+                      <img id="photoPreview"
+                           src="{{ asset('storage/'.$user->photo_profile) }}"
+                           alt="Foto Profil {{ $user->name }}"
+                           style="width:100%;height:100%;object-fit:cover;display:block;">
+                    @else
+                      <img id="photoPreview"
+                           src="{{ asset('assets/img/placeholder.webp') }}"
+                           alt="Placeholder Foto Profil"
+                           style="width:100%;height:100%;object-fit:cover;display:block;opacity:.85;">
+                    @endif
+                  </div>
+
+                  <div>
+                    <div class="fw-bold">{{ $user->name }}</div>
+                    <div class="text-muted small">{{ $user->email }}</div>
+                    <div class="text-muted small mt-1">ID: {{ $user->id }}</div>
+                  </div>
+                </div>
+
+                <hr class="my-3">
+
+                <label class="form-label fw-semibold">Ganti Foto Profil (Opsional)</label>
+                <input type="file"
+                       name="photo_profile"
+                       id="photoInput"
+                       class="form-control @error('photo_profile') is-invalid @enderror"
+                       accept="image/*">
+                @error('photo_profile')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+
+                <div class="text-muted small mt-2">
+                  Format: JPG/PNG/WEBP. Maks: 2MB.
+                </div>
+              </div>
+            </div>
+
+            {{-- KOLOM KANAN: DATA USER --}}
+            <div class="col-md-8">
+
+              <div class="row g-3">
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Nama Lengkap</label>
+                  <input type="text"
+                         name="name"
+                         class="form-control @error('name') is-invalid @enderror"
+                         value="{{ old('name', $user->name) }}"
+                         placeholder="Masukkan nama lengkap">
+                  @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Email</label>
+                  <input type="email"
+                         name="email"
+                         class="form-control @error('email') is-invalid @enderror"
+                         value="{{ old('email', $user->email) }}"
+                         placeholder="Masukkan email">
+                  @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Role</label>
+                  <select name="role" class="form-select @error('role') is-invalid @enderror">
+                    @php
+                      $roles = [
+                        'super-admin'   => 'Super Admin',
+                        'administrator' => 'Administrator',
+                        'admin'         => 'Admin',
+                        'petugas'       => 'Petugas',
+                        'warga'         => 'Warga',
+                      ];
+                      $selectedRole = old('role', $user->role);
+                    @endphp
+
+                    @foreach ($roles as $val => $label)
+                      <option value="{{ $val }}" {{ $selectedRole === $val ? 'selected' : '' }}>
+                        {{ $label }}
+                      </option>
+                    @endforeach
+                  </select>
+                  @error('role')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Status</label>
+                  @php $selectedStatus = old('is_active', $user->is_active); @endphp
+                  <select name="is_active" class="form-select @error('is_active') is-invalid @enderror">
+                    <option value="1" {{ (string)$selectedStatus === '1' ? 'selected' : '' }}>Aktif</option>
+                    <option value="0" {{ (string)$selectedStatus === '0' ? 'selected' : '' }}>Nonaktif</option>
+                  </select>
+                  @error('is_active')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Password Baru (Opsional)</label>
+                  <input type="password"
+                         name="password"
+                         class="form-control @error('password') is-invalid @enderror"
+                         placeholder="Isi jika ingin mengganti">
+                  @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+                  <div class="text-muted small mt-1">Minimal 3 karakter & mengandung huruf kapital.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Konfirmasi Password</label>
+                  <input type="password"
+                         name="password_confirmation"
+                         class="form-control"
+                         placeholder="Ulangi password baru">
+                </div>
+
+              </div>
+
+              <hr class="my-4">
+
+              <div class="d-flex justify-content-end gap-2">
+                <a href="{{ route('user.index') }}" class="btn btn-outline-secondary">
+                  Batal
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save me-1"></i>Simpan Perubahan
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
 </div>
 
-{{-- DELETE MODAL (SUPER ADMIN ONLY & NOT SELF) --}}
-@if (Auth::user()->role === 'super-admin' && session('user_id') != $user->id)
-    <div class="modal fade" id="deleteModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-trash me-1"></i>Konfirmasi Hapus
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data pengguna:</p>
-                    <p><strong>{{ $user->name }}</strong> (Email: {{ $user->email }})</p>
-                    <p class="text-danger">Data yang dihapus tidak dapat dikembalikan!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-times me-1"></i>Batal
-                    </button>
-                    <form action="{{ route('user.destroy', $user->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash me-1"></i>Hapus
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
+{{-- Preview foto sebelum submit --}}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("photoInput");
+    const preview = document.getElementById("photoPreview");
+    if (!input || !preview) return;
+
+    input.addEventListener("change", function (e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      // validasi ringan di client (tetap validasi server wajib)
+      if (!file.type.startsWith("image/")) return;
+
+      const url = URL.createObjectURL(file);
+      preview.src = url;
+      preview.style.opacity = "1";
+    });
+  });
+</script>
 @endsection

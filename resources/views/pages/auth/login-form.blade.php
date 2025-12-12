@@ -11,8 +11,9 @@
     <div class="login-left-section">
       <div class="login-welcome">
         <div class="login-avatar">
-          <i class="fas fa-user"></i>
-        </div>
+  <img src="{{ asset('assets/images/logo-vertikal.png') }}" alt="Avatar" class="avatar-img">
+</div>
+
         <h2>Selamat Datang!</h2>
         <p>Silakan masuk ke akun Anda</p>
         <p><small>Sistem Informasi Kependudukan Desa Andromeda</small></p>

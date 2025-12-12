@@ -30,6 +30,7 @@
         background-size: cover;
         position: relative;
         overflow-x: hidden;
+        overflow: hidden;
     }
 
     /* Background bubbles effect */
@@ -76,6 +77,7 @@
         margin: 0;
         position: relative;
         z-index: 2;
+        overflow: hidden;
     }
 
     /* ==============================
@@ -1044,5 +1046,340 @@
             justify-content: center;
         }
     }
+
+.login-avatar{
+  width: 120px;                 /* ukuran lingkaran */
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;             /* kunci biar bulat */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.35);
+}
+
+.login-avatar .avatar-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* 🔑 POTONG otomatis */
+  object-position: center;      /* fokus tengah gambar */
+  border-radius: 40%;
+  display: block;
+}
+
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* 2 kolom */
+  gap: 14px 16px;                  /* jarak antar field */
+}
+
+/* Biar hint password ga bikin layout berantakan */
+.form-grid .password-hint{
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Responsive: kalau layar kecil jadi 1 kolom */
+@media (max-width: 768px){
+  .form-grid{
+    grid-template-columns: 1fr;
+  }
+}
+.login-form-horizontal .btn-search{
+  display: block;
+  width: 220px;          /* atur lebar tombol */
+  margin: 18px auto 0;   /* auto = tengah */
+  text-align: center;
+}
+
+.chart-card{
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  padding: 16px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-title{
+  text-align: center;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+}
+
+/* area chart dibuat tinggi fix (biar gak gepeng) */
+.chart-box{
+  height: 260px;          /* ✅ ini yang ngontrol tinggi chart */
+  max-height: 260px;
+  position: relative;
+  margin-top: 6px;
+}
+
+/* canvas ngikut box */
+.chart-box canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* ==============================
+   PENGEMBANG (LENGKAP + ANIMASI)
+   ============================== */
+
+/* Card utama */
+.developer-card{
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(59,130,246,0.14);
+  border: 1px solid rgba(59,130,246,0.10);
+  overflow: hidden;
+  display: flex;
+  gap: 22px;
+  padding: 22px;
+  position: relative;
+}
+
+/* background halus */
+.developer-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(59,130,246,0.10), transparent 55%),
+    radial-gradient(circle at 85% 12%, rgba(30,64,175,0.08), transparent 45%);
+  pointer-events:none;
+}
+
+/* animasi masuk */
+.dev-animate{
+  animation: devFadeUp .65s ease-out both;
+}
+@keyframes devFadeUp{
+  from{ opacity:0; transform: translateY(14px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+/* Kolom kiri */
+.dev-left{
+  width: 220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Foto portrait (memanjang ke bawah) */
+.dev-photo-wrap{
+  width: 190px;               /* lebar */
+  height: 280px;              /* ✅ tinggi > lebar (portrait) */
+  border-radius: 22px;
+  padding: 5px;
+  background: linear-gradient(135deg, rgba(30,64,175,0.9), rgba(59,130,246,0.9));
+  box-shadow: 0 14px 34px rgba(30,64,175,0.25);
+  transition: transform .25s ease;
+}
+
+.dev-photo{
+  width: 100%;
+  height: 100%;
+  border-radius: 17px;
+  object-fit: cover;
+  object-position: center;
+  display:block;
+  background: #f3f4f6;
+}
+
+/* Kolom kanan */
+.dev-right{
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+/* Badge */
+.dev-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(59,130,246,0.10);
+  color: #1e40af;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Nama + sub */
+.dev-name{
+  margin: 12px 0 6px 0;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  color: #111827;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.dev-sub{
+  margin: 0 0 12px 0;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Meta list */
+.dev-meta{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: nowrap;           /* ✅ desktop sebaris */
+  margin: 10px 0 12px;
+}
+
+.dev-meta-item{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid rgba(15,23,42,0.06);
+  color: #334155;
+  font-size: 14px;
+  white-space: nowrap;         /* ✅ desktop tidak turun */
+}
+
+.dev-meta-item i{
+  color: #1e40af;
+}
+
+/* Social */
+.dev-social{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.dev-social-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  background: #eef2ff;
+  border: 1px solid rgba(59,130,246,0.25);
+  color: #1e40af;
+  font-size: 18px;
+
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.dev-social-btn:hover{
+  transform: translateY(-2px);
+  background: #dbeafe;
+  border-color: rgba(59,130,246,0.35);
+  box-shadow: 0 10px 22px rgba(59,130,246,0.18);
+}
+
+.dev-social-btn:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.dev-social-btn i{
+  line-height: 1;
+}
+
+/* Note */
+.dev-note{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  background: rgba(16,185,129,0.10);
+  border: 1px solid rgba(16,185,129,0.18);
+  color: #065f46;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.dev-note i{
+  margin-top: 2px;
+  font-size: 16px;
+}
+
+/* Hover efek */
+.developer-card:hover .dev-photo-wrap{
+  transform: rotate(-1deg) scale(1.03);
+}
+
+/* ==============================
+   RESPONSIVE (HP)
+   ============================== */
+@media (max-width: 768px){
+  .developer-card{
+    flex-direction: column;
+    text-align: center;
+    padding: 18px;
+  }
+
+  .dev-left{
+    width: 100%;
+  }
+
+  .dev-photo-wrap{
+    width: 175px;
+    height: 245px;            /* tetap portrait */
+  }
+
+  .dev-right{
+    text-align: center;       /* ✅ nama dll center */
+  }
+
+  .dev-badge{
+    margin: 0 auto;           /* badge ikut center */
+  }
+
+  .dev-name{
+    font-size: 20px;
+  }
+
+  .dev-sub{
+    font-size: 14px;
+  }
+
+  /* Meta: HP boleh wrap biar ga kepotong */
+  .dev-meta{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .dev-meta-item{
+    white-space: normal;
+    text-align: center;
+  }
+
+  .dev-social{
+    justify-content: center;
+  }
+
+  .dev-note{
+    justify-content: center;
+    text-align: center;
+  }
+}
 
 </style>

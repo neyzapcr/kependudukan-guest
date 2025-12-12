@@ -4,11 +4,10 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="{{ route('pages.dashboard.index') }}" class="logo">
-                            {{-- Logo gambar --}}
-                            <img src="{{ asset('assets/image/logoku.png') }}" alt="Logo" class="logo-img">
-                            <h1>BINA DESA</h1>
+                        <a href="{{ route('pages.dashboard.index') }}" class="logo logo-only">
+                            <img src="{{ asset('assets/images/logo-horizontal.png') }}" alt="Logo" class="logo-img">
                         </a>
+
                         <!-- ***** Logo End ***** -->
 
 

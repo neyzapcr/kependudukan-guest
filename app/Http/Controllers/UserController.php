@@ -66,57 +66,48 @@ class UserController extends Controller
      * Store a newly created user in storage (Handle Registration).
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name'      => 'required|string|max:255',
-            'email'     => 'required|string|email|max:255|unique:users',
-            'password'  => 'required|string|min:3|confirmed|regex:/[A-Z]/',
+{
+    $validator = Validator::make($request->all(), [
+        'name'      => 'required|string|max:255',
+        'email'     => 'required|string|email|max:255|unique:users',
+        'password'  => 'required|string|min:3|confirmed|regex:/[A-Z]/',
+        'role'      => 'nullable|in:super-admin,administrator,admin,petugas,warga',
+        'is_active' => 'nullable|boolean',
 
-            // role & status OPTIONAL
-            'role'      => 'nullable|in:super-admin,administrator,admin,petugas,warga',
-            'is_active' => 'nullable|boolean',
-        ], [
-            'name.required'      => 'Nama lengkap harus diisi',
-            'email.required'     => 'Email harus diisi',
-            'email.email'        => 'Format email tidak valid',
-            'email.unique'       => 'Email sudah terdaftar',
-            'password.required'  => 'Password harus diisi',
-            'password.min'       => 'Password minimal 3 karakter',
-            'password.confirmed' => 'Konfirmasi password tidak sesuai',
-            'password.regex'     => 'Password harus mengandung huruf kapital',
+        // foto profil (optional)
+        'photo_profile' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+    ], [
+        // ... pesan error kamu boleh tetap
+    ]);
 
-            'role.in'            => 'Role tidak valid',
-            'is_active.boolean'  => 'Status tidak valid',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $user = User::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => Hash::make($request->password),
-            // kalau role gak dikirim, default = warga
-            'role'      => $request->role ?? 'warga',
-
-            // kalau status gak dikirim, default aktif
-            'is_active' => $request->is_active ?? 1,
-        ]);
-
-        // Auto login setelah registrasi
-        Auth::login($user);
-
-        // Set session
-        session(['is_logged_in' => true, 'username' => $user->name, 'email' => $user->email]);
-
-        return redirect()->route('pages.dashboard.index')->with([
-            'success'  => 'Registrasi berhasil! Selamat datang.',
-            'username' => $user->name,
-        ]);
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    $data = [
+        'name'      => $request->name,
+        'email'     => $request->email,
+        'password'  => Hash::make($request->password),
+        'role'      => $request->role ?? 'warga',
+        'is_active' => $request->is_active ?? 1,
+    ];
+
+    if ($request->hasFile('photo_profile')) {
+        $path = $request->file('photo_profile')->store('user-photos', 'public');
+        $data['photo_profile'] = $path;
+    }
+
+    $user = User::create($data);
+
+    Auth::login($user);
+    session(['is_logged_in' => true, 'username' => $user->name, 'email' => $user->email]);
+
+    return redirect()->route('pages.dashboard.index')->with([
+        'success'  => 'Registrasi berhasil! Selamat datang.',
+        'username' => $user->name,
+    ]);
+}
+
 
     /**
      * Show the form for editing the specified user.
@@ -140,6 +131,8 @@ class UserController extends Controller
             'email'     => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'role'      => 'required|in:super-admin,administrator,admin,petugas,warga',
             'is_active' => 'required|boolean',
+            'photo_profile' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
         ], [
             'name.required'      => 'Nama lengkap harus diisi',
             'email.required'     => 'Email harus diisi',
@@ -181,6 +174,17 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
+
+        if ($request->hasFile('photo_profile')) {
+    // hapus foto lama kalau ada
+    if ($user->photo_profile) {
+        Storage::disk('public')->delete($user->photo_profile);
+    }
+
+    $path = $request->file('photo_profile')->store('user-photos', 'public');
+    $user->photo_profile = $path;
+}
+
 
         $user->save();
 
