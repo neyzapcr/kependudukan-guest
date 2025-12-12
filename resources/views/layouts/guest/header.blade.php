@@ -5,10 +5,12 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="{{ route('pages.dashboard.index') }}" class="logo">
-                            <i class="fas fa-home me-2"></i>
-                            <h1>Bina Desa</h1>
+                            {{-- Logo gambar --}}
+                            <img src="{{ asset('assets/image/logoku.png') }}" alt="Logo" class="logo-img">
+                            <h1>BINA DESA</h1>
                         </a>
                         <!-- ***** Logo End ***** -->
+
 
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -32,20 +34,19 @@
                                 </a>
                             </li>
 
-                            {{-- <li class="scroll-to-section">
-                                <a href="#"
-                                {{-- {{ route('kematian.index') }} --}}
-                            {{-- class="{{ request()->routeIs('kematian.*') ? 'active' : '' }}">
+                            <li class="scroll-to-section">
+                                <a href="  {{ route('kematian.index') }}"
+                                    class="{{ request()->routeIs('kematian.*') ? 'active' : '' }}">
                                     <i class="fas fa-cross me-2"></i>Data Kematian
                                 </a>
-                            </li> --}}
+                            </li>
 
-                            {{-- <li class="scroll-to-section">
-                                <a href="#" {{-- {{ route('pindah.index') }} --}}
-                            {{-- class="{{ request()->routeIs('perpindahan.*') ? 'active' : '' }}">
+                            <li class="scroll-to-section">
+                                <a href="{{ route('pindah.index') }}"
+                                    class="{{ request()->routeIs('pindah.*') ? 'active' : '' }}">
                                     <i class="fas fa-people-arrows me-2"></i>Data Perpindahan
                                 </a>
-                            </li> --}}
+                            </li>
 
                             <li class="scroll-to-section">
                                 <a href="{{ route('pages.about') }}"

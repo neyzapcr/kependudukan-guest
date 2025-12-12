@@ -335,8 +335,8 @@ Header Style
 
 /* Logo Styling */
 .header-area .main-nav .logo {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
   text-decoration: none;
   margin-right: auto;
   flex-direction: row !important;
@@ -349,8 +349,14 @@ Header Style
   transition: all 0.3s ease 0s;
 }
 
+.header-area .main-nav .logo img {
+  height: 40px !important;   /* atur ukuran kecil */
+  width: auto !important;
+  object-fit: contain;
+  gap: 0.25px;
+}
 .header-area .main-nav .logo h1 {
-  font-size: 24px !important;
+  font-size: 20px !important;
   text-transform: uppercase;
   color: #fff;
   font-weight: 700;
@@ -371,10 +377,11 @@ Header Style
 /* Navigation Menu */
 .header-area .main-nav .nav {
   display: flex;
-  align-items: center;
+  align-items: center !important;
   margin: 0;
   padding: 0;
   list-style: none;
+  flex-wrap: nowrap !important;
 }
 
 .header-area .main-nav .nav li {
@@ -385,12 +392,12 @@ Header Style
 
 .header-area .main-nav .nav li a {
   display: block;
-  padding: 0 10px;
+  padding: 0 7px;
   border-radius: 16px;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   height: 36px;
-  line-height: 36px;
+  line-height: 40px;
   text-transform: capitalize;
   color: #fff;
   -webkit-transition: all 0.4s ease 0s;
@@ -400,6 +407,60 @@ Header Style
   border: 1px solid transparent;
   letter-spacing: .25px;
   text-decoration: none;
+}
+
+@media (max-width: 992px) {
+  /* Container tombol */
+  .header-area .main-nav .nav li.auth-links {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important; /* sejajar kiri-kanan */
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px; /* jarak antara Masuk & Daftar */
+    margin-top: 15px;
+  }
+
+  /* Style tombol */
+  .header-area .main-nav .nav li.auth-links a {
+    flex: 1;                  /* biar ukurannya seimbang */
+    max-width: 160px;         /* tidak terlalu panjang */
+    text-align: center !important;
+    padding: 10px 0 !important;
+    height: auto !important;
+    line-height: normal !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 992px) {
+  body {
+    padding-top: 70px;   /* sama tinggi dengan header mobile */
+  }
+}
+
+
+
+@media (min-width: 993px) {
+  .header-area .main-nav .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  .header-area .main-nav .nav li {
+    flex-shrink: 0;
+  }
+
+  .header-area .main-nav .nav li a {
+    white-space: nowrap;
+  }
 }
 
 .header-area .main-nav .nav li .username {
@@ -430,8 +491,8 @@ Header Style
   align-items: center;
   text-decoration: none;
   color: #fff !important;
-  height: 38px;
-  line-height: 38px !important;
+  height: 30px;
+  line-height: 30px !important;
   background: transparent !important;
   white-space: nowrap;
 }
@@ -709,6 +770,11 @@ Services Style
 .services .service-item {
   position: relative;
   margin-top: 95px;
+  transition: all .3s ease-in-out;
+}
+
+.services .service-item:hover {
+  transform: translateY(-5px);
 }
 
 .services .service-item .icon {
@@ -722,6 +788,8 @@ Services Style
   position: absolute;
   right: 0;
   top: -95px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: all .3s ease;
 }
 
 .services .service-item .icon img {
@@ -736,6 +804,12 @@ Services Style
   margin-bottom: 30px;
   margin-right: 80px;
   transition: all .4s;
+  border: 1px solid #e0e0ff;
+}
+
+.services .service-item:hover .main-content {
+  background: #ffffff;
+  box-shadow: 0px 8px 25px rgba(59,130,246,0.20);
 }
 
 .services .service-item h4 {

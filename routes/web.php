@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
+use App\Http\Controllers\PindahController;
+use App\Http\Controllers\KematianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelahiranController;
 use App\Http\Controllers\KeluargaKKController;
@@ -86,3 +88,29 @@ Route::middleware('checkrole:super-admin')->group(function () {
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
+// Kematian
+Route::delete('/kematian/hapus-foto/{media_id}',
+    [KematianController::class, 'hapusFoto']
+)->name('kematian.hapusFoto');
+
+Route::resource('kematian', KematianController::class);
+
+Route::get('/kematian/file/{id}/download', [KematianController::class, 'downloadFile'])
+    ->name('kematian.downloadFile');
+
+Route::get('/kematian/file/{id}/preview', [KematianController::class, 'previewFile'])
+    ->name('kematian.previewFile');
+
+// PINDAH
+Route::delete('/pindah/hapus-foto/{media_id}', [PindahController::class, 'hapusFoto'])
+    ->name('pindah.hapusFoto');
+
+Route::resource('pindah', PindahController::class);
+
+Route::get('/pindah/file/{id}/preview', [PindahController::class, 'previewFile'])
+    ->name('pindah.previewFile');
+
+Route::get('/pindah/file/{id}/download', [PindahController::class, 'downloadFile'])
+    ->name('pindah.downloadFile');
+
