@@ -3,86 +3,100 @@
 namespace App\Http\Controllers;
 
 use App\Models\Warga;
+use App\Models\Kelahiran;
+use App\Models\Kematian;
+use App\Models\Pindah;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $tahunSekarang = now()->year;
+        $tahun = now()->year;
 
-        // Total warga
-        $totalWarga = Warga::count();
+        // ===============================
+        // 1. TOTAL WARGA & GENDER
+        // ===============================
+        $totalWarga       = Warga::count();
+        $jumlahLaki       = Warga::where('jenis_kelamin', 'L')->count();
+        $jumlahPerempuan  = Warga::where('jenis_kelamin', 'P')->count();
 
-        // Kelahiran, kematian, pindah (dummy untuk sementara)
-        $kelahiranTahunIni = Warga::whereYear('created_at', $tahunSekarang)->count();
-        $kematianTahunIni = 0;
-        $pindahTahunIni = 0;
+        // ===============================
+        // 2. PERISTIWA TAHUN INI
+        // ===============================
+        $kelahiranTahunIni = Kelahiran::whereYear('tgl_lahir', $tahun)->count();
+        $kematianTahunIni  = Kematian::whereYear('tgl_meninggal', $tahun)->count();
+        $pindahTahunIni    = Pindah::whereYear('tgl_pindah', $tahun)->count();
 
-        // Grafik kelahiran per bulan (berdasarkan data warga baru)
-        $grafikKelahiran = Warga::select(
-                DB::raw('MONTH(created_at) as bulan'),
+        // 3. GRAFIK KELAHIRAN PER BULAN
+        // ===============================
+        $kelahiranPerBulan = Kelahiran::select(
+                DB::raw('MONTH(tgl_lahir) as bulan'),
                 DB::raw('COUNT(*) as total')
             )
-            ->whereYear('created_at', $tahunSekarang)
+            ->whereYear('tgl_lahir', $tahun)
             ->groupBy('bulan')
             ->pluck('total', 'bulan')
             ->toArray();
 
-        // Pastikan semua bulan ada walau 0
-        $grafikLengkap = [];
+        // Fix bulan kosong
+        $grafikKelahiran = [];
         for ($i = 1; $i <= 12; $i++) {
-            $grafikLengkap[$i] = $grafikKelahiran[$i] ?? 0;
+            $grafikKelahiran[$i] = $kelahiranPerBulan[$i] ?? 0;
         }
 
-        // Grafik gender (ambil langsung dari warga)
+        // ===============================
+        // 4. GRAFIK GENDER
+        // ===============================
         $grafikGender = [
-            'L' => Warga::where('jenis_kelamin', 'L')->count(),
-            'P' => Warga::where('jenis_kelamin', 'P')->count(),
+            'Laki-laki'  => $jumlahLaki,
+            'Perempuan'  => $jumlahPerempuan,
         ];
 
-        // Grafik pertumbuhan penduduk (5 tahun terakhir)
-        $grafikPertumbuhan = [];
-        for ($i = $tahunSekarang - 4; $i <= $tahunSekarang; $i++) {
-            $grafikPertumbuhan[$i] = Warga::whereYear('created_at', '<=', $i)->count();
+        // ===============================
+        // 5. TREN DATA 5 TAHUN
+        // ===============================
+        $tahunGrafik      = [];
+        $grafikPenduduk   = [];
+        $grafikLahir      = [];
+        $grafikMati       = [];
+        $grafikPindah     = [];
+
+        for ($i = $tahun - 4; $i <= $tahun; $i++) {
+
+            $tahunGrafik[]    = $i;
+            $grafikPenduduk[] = Warga::whereYear('created_at', '<=', $i)->count();
+            $grafikLahir[]    = Kelahiran::whereYear('tgl_lahir', $i)->count();
+            $grafikMati[]     = Kematian::whereYear('tgl_meninggal', $i)->count();
+            $grafikPindah[]   = Pindah::whereYear('tgl_pindah', $i)->count();
         }
 
-        // Data terbaru (5 warga terakhir)
-        $laporanTerbaru = Warga::latest()->take(5)->get();
-
-        // Sebaran per dusun (kalau ada kolom 'dusun')
-        // $sebaranDusun = Warga::select('dusun', DB::raw('COUNT(*) as jumlah'))
-        //     ->groupBy('dusun')
-        //     ->get()
-        //     ->map(fn($item) => [
-        //         'wilayah' => $item->dusun ?? 'Tidak diketahui',
-        //         'jumlah' => $item->jumlah
-        //     ]);
-            $sebaranDusun = collect();
-
-        // Pengumuman dummy
+        // ===============================
+        // 6. PENGUMUMAN
+        // ===============================
         $pengumuman = [
-            'Pendataan ulang warga dimulai minggu depan.',
-            'Perbarui data keluarga sebelum akhir bulan.'
+            "Pendataan ulang warga akan dimulai minggu depan.",
+            "Pastikan data keluarga telah diperbarui sebelum akhir bulan.",
         ];
-        $warga = Warga::latest()->paginate(10);
 
-
-        return view('pages.dashboard', compact(
-            'totalWarga',
-            'kelahiranTahunIni',
-            'kematianTahunIni',
-            'pindahTahunIni',
-            'laporanTerbaru',
-            'sebaranDusun',
-            'pengumuman',
-            'grafikLengkap',
-            'grafikKelahiran',
-            'grafikGender',
-            'grafikPertumbuhan',
-            'warga'
+        return view("pages.dashboard", compact(
+            "totalWarga",
+            "jumlahLaki",
+            "jumlahPerempuan",
+            "kelahiranTahunIni",
+            "kematianTahunIni",
+            "pindahTahunIni",
+            "grafikKelahiran",
+            "grafikGender",
+            "tahunGrafik",
+            "grafikPenduduk",
+            "grafikLahir",
+            "grafikMati",
+            "grafikPindah",
+            "pengumuman"
         ));
     }
+
 
 
     /**

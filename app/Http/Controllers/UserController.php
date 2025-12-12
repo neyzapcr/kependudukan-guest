@@ -13,39 +13,47 @@ class UserController extends Controller
      * Display a listing of the users.
      */
     public function index(Request $request)
-    {
-        if (! session('is_logged_in')) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
-        }
+{
+    if (! session('is_logged_in')) {
+        return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+    }
 
-        $search = $request->search;
+    // ambil variabel pencarian
+    $search = $request->search;
 
-        $sort      = $request->sort;
+    // ambil filter status
+    $filters = [
+        'status' => $request->status,
+    ];
+
+    // handle sorting
+    $sort      = $request->sort;
+    $sortBy    = null;
+    $sortOrder = null;
+
+    if ($sort) {
+        $parts     = explode('_', $sort);
+        $sortOrder = array_pop($parts);
+        $sortBy    = implode('_', $parts);
+    }
+
+    $allowedSortBy = ['created_at', 'name', 'email'];
+    $allowedOrder  = ['asc', 'desc'];
+
+    if (! in_array($sortBy, $allowedSortBy) || ! in_array($sortOrder, $allowedOrder)) {
         $sortBy    = null;
         $sortOrder = null;
-
-        if ($sort) {
-            $parts     = explode('_', $sort);
-            $sortOrder = array_pop($parts);    // ambil paling belakang: asc/desc
-            $sortBy    = implode('_', $parts); // sisanya jadi field (created_at)
-        }
-
-        // optional guard biar aman
-        $allowedSortBy = ['created_at', 'name', 'email'];
-        $allowedOrder  = ['asc', 'desc'];
-
-        if (! in_array($sortBy, $allowedSortBy) || ! in_array($sortOrder, $allowedOrder)) {
-            $sortBy    = null;
-            $sortOrder = null;
-        }
-
-        $users = User::searchAndFilter($search)
-            ->sort($sortBy, $sortOrder)
-            ->paginate(9)
-            ->withQueryString();
-
-        return view('pages.user.index', compact('users'));
     }
+
+    // 🔥 gunakan scopeSearchAndFilter + sort
+    $users = User::searchAndFilter($search, $filters)
+        ->sort($sortBy, $sortOrder)
+        ->paginate(9)
+        ->withQueryString();
+
+    return view('pages.user.index', compact('users'));
+}
+
     /**
      * Show the form for creating a new user (Registration Form).
      */
@@ -179,9 +187,6 @@ class UserController extends Controller
         return redirect()->route('user.index')
             ->with('success', 'Data user berhasil diperbarui.');
     }
-
-    
-
 
     /**
      * Remove the specified user from storage.

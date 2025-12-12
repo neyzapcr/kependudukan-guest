@@ -52,22 +52,32 @@ class User extends Authenticatable
      * Scope untuk pencarian dan filter
      */
    public function scopeSearchAndFilter(
-        Builder $query,
-        ?string $search = null,
-        array $filters = []
-    ): Builder
-    {
-        // search name/email
-        $query->when($search, function (Builder $q) use ($search) {
-            $q->where(function (Builder $qq) use ($search) {
-                $qq->where('name', 'like', "%{$search}%")
-                   ->orWhere('email', 'like', "%{$search}%")
-                   ->orWhere('role', 'like', "%{$search}%");
-            });
-        });
+    Builder $query,
+    ?string $search = null,
+    array $filters = []
+): Builder {
 
-        return $query;
-    }
+    // search name/email
+    $query->when($search, function (Builder $q) use ($search) {
+        $q->where(function (Builder $qq) use ($search) {
+            $qq->where('name', 'like', "%{$search}%")
+               ->orWhere('email', 'like', "%{$search}%")
+               ->orWhere('role', 'like', "%{$search}%");
+        });
+    });
+
+    // filter status aktif / nonaktif
+    $query->when($filters['status'] ?? null, function (Builder $q) use ($filters) {
+        if ($filters['status'] === 'aktif') {
+            $q->where('is_active', 1);
+        } elseif ($filters['status'] === 'nonaktif') {
+            $q->where('is_active', 0);
+        }
+    });
+
+    return $query;
+}
+
 
     /**
      * SORT builder (case-insensitive untuk text)

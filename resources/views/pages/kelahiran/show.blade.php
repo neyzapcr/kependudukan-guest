@@ -191,7 +191,22 @@
                                     </div>
                                 @else
                                     <div class="text-muted mb-2">Belum ada dokumen / foto akta yang diunggah.</div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{{ asset('assets/images/placeholder_.jpg') }}" alt="Placeholder dokumen"
+                                            class="rounded border"
+                                            style="
+        width:120px;
+        height:120px;
+        object-fit:contain;
+        opacity:.75;
+        background: transparent;
+        box-shadow: none;
+      ">
+                                    </div>
                                 @endif
+
+
                             </div>
 
 

@@ -88,7 +88,16 @@
                                     </option>
                                 </select>
 
-                                @if (request('search') || request('sort'))
+                                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                    <option value="">-- Status --</option>
+                                    <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif
+                                    </option>
+                                    <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>
+                                        Nonaktif</option>
+                                </select>
+
+
+                                @if (request('search') || request('sort') || request('status'))
                                     <a href="{{ route('user.index') }}"
                                         class="btn btn-outline-secondary btn-sm rounded-0 ms-1" title="Reset semua filter">
                                         <i class="fas fa-times"></i>
@@ -216,7 +225,6 @@
                     </div>
                 @endif
             @else
-
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="empty-state">
