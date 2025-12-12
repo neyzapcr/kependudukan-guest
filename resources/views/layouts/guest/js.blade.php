@@ -49,56 +49,6 @@
             });
         });
 
-        //         // === DYNAMIC ANGGOTA KELUARGA FORM ===
-        // function initializeAnggotaForm() {
-        //     const container = document.getElementById('anggota-container');
-        //     const tambahBtn = document.getElementById('tambah-anggota-btn');
-
-        //     // Cek jika element ada (hanya di halaman keluarga/create)
-        //     if (!container || !tambahBtn) return;
-
-        //     let anggotaCount = 0;
-
-        //     tambahBtn.addEventListener('click', function() {
-        //         anggotaCount++;
-
-        //         const anggotaDiv = document.createElement('div');
-        //         anggotaDiv.className = 'anggota-field mb-3 p-3 border rounded';
-        //         anggotaDiv.innerHTML = `
-        //             <div class="row">
-        //                 <div class="col-md-6">
-        //                     <label class="form-label">Pilih Anggota Keluarga</label>
-        //                     <select name="anggota[${anggotaCount}][warga_id]" class="form-control search-box" required>
-        //                         <option value="">-- Pilih Anggota --</option>
-        //                         <!-- Data akan diisi manual oleh user -->
-        //                     </select>
-        //                     <small class="text-muted">Pilih dari daftar warga yang sudah terdaftar</small>
-        //                 </div>
-        //                 <div class="col-md-4">
-        //                     <label class="form-label">Hubungan</label>
-        //                     <input type="text" name="anggota[${anggotaCount}][hubungan]" class="form-control search-box"
-        //                            placeholder="Contoh: Istri, Anak, Cucu" required>
-        //                 </div>
-        //                 <div class="col-md-2 d-flex align-items-end">
-        //                     <button type="button" class="btn btn-outline-danger btn-sm hapus-anggota">
-        //                         <i class="fas fa-trash"></i>
-        //                     </button>
-        //                 </div>
-        //             </div>
-        //         `;
-
-        //         container.appendChild(anggotaDiv);
-
-        //         // Event listener untuk hapus button
-        //         anggotaDiv.querySelector('.hapus-anggota').addEventListener('click', function() {
-        //             anggotaDiv.remove();
-        //         });
-        //     });
-        // }
-
-        // // Initialize dynamic anggota form
-        // initializeAnggotaForm();
-
         // === AUTO CLOSE ALERTS ===
         const alerts = document.querySelectorAll('.alert');
         alerts.forEach(alert => {
@@ -176,11 +126,7 @@
 
     function formatDate(dateString) {
         if (!dateString) return '-';
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('id-ID', options);
     }
 
@@ -188,4 +134,17 @@
         if (!number) return '-';
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
+
+    // === FUNGSI HAPUS DOKUMEN (untuk kelahiran & kematian) ===
+    // dipasang di window supaya bisa dipanggil dari onclick="hapusDokumen(id)"
+    window.hapusDokumen = function(mediaId) {
+        if (confirm('Hapus dokumen ini?')) {
+            const form = document.getElementById('hapusDokumen' + mediaId);
+            if (form) {
+                form.submit();
+            } else {
+                console.error('Form hapus dokumen dengan ID', mediaId, 'tidak ditemukan');
+            }
+        }
+    };
 </script>

@@ -1,5 +1,3 @@
-css
-
 <style>
     /* ==============================
    GLOBAL / AUTH PAGE FIXES

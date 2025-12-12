@@ -65,6 +65,8 @@
     <script src="{{ asset('assets-guest/js/owl-carousel.js') }}"></script>
     <script src="{{ asset('assets-guest/js/counter.js') }}"></script>
     <script src="{{ asset('assets-guest/js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <!-- All JavaScript Functionality -->
         @include('layouts.guest.js')
