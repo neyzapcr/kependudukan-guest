@@ -80,14 +80,14 @@ Route::get('/profil', [UserController::class, 'editProfile'])->name('user.profil
 Route::put('/profil', [UserController::class, 'updateProfile'])->name('user.profile.update');
 
 // User (KHUSUS SUPER-ADMIN)
-// Route::middleware('checkrole:super-admin')->group(function () {
+Route::middleware('checkrole:super-admin')->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/user', [UserController::class, 'store'])->name('user.store');
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-// });
+});
 
 // Kematian
 Route::delete('/kematian/hapus-foto/{media_id}',
