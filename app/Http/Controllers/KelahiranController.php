@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/KelahiranController.php
 
 namespace App\Http\Controllers;
 
@@ -14,21 +15,21 @@ class KelahiranController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $kelahiran = Kelahiran::with(['warga', 'ayah', 'ibu'])
-        ->search($request->search) // scope search dari model
-        ->filter($request->only(['tempat_lahir', 'tahun', 'bulan'])) // scope filter dari model
-        ->orderBy('tgl_lahir', 'desc')
-        ->paginate(6);
+    {
+        $kelahiran = Kelahiran::with(['warga', 'ayah', 'ibu'])
+            ->search($request->search)                                   // scope search dari model
+            ->filter($request->only(['tempat_lahir', 'tahun', 'bulan'])) // scope filter dari model
+            ->orderBy('tgl_lahir', 'desc')
+            ->paginate(10);
 
-    foreach ($kelahiran as $item) {
-        $item->media = Media::where('ref_table', 'peristiwa_kelahiran')
-            ->where('ref_id', $item->kelahiran_id)
-            ->first();
+        foreach ($kelahiran as $item) {
+            $item->media = Media::where('ref_table', 'peristiwa_kelahiran')
+                ->where('ref_id', $item->kelahiran_id)
+                ->first();
+        }
+
+        return view('pages.kelahiran.index', compact('kelahiran'));
     }
-
-    return view('pages.kelahiran.index', compact('kelahiran'));
-}
 
     /**
      * Show the form for creating a new resource.
@@ -134,10 +135,17 @@ class KelahiranController extends Controller
 
         // Data dropdown
         $warga = Warga::all();
-        $ayah  = Warga::where('jenis_kelamin', 'L')->get();
-        $ibu   = Warga::where('jenis_kelamin', 'P')->get();
+        // Ambil old value jika exist, kalau tidak pakai value dari database
+        $selectedAyah = old('ayah_warga_id', $kelahiran->ayah_warga_id);
+        $selectedIbu  = old('ibu_warga_id', $kelahiran->ibu_warga_id);
 
-        return view('pages.kelahiran.edit', compact('kelahiran', 'warga', 'ayah', 'ibu', 'media'));
+// Ambil daftar ayah & ibu (tetap laki/perempuan)
+        $ayah = Warga::where('jenis_kelamin', 'L')->get();
+        $ibu  = Warga::where('jenis_kelamin', 'P')->get();
+
+// Kirim juga selected ke blade
+        return view('pages.kelahiran.edit', compact('kelahiran', 'warga', 'ayah', 'ibu', 'media', 'selectedAyah', 'selectedIbu'));
+
     }
 
     /**

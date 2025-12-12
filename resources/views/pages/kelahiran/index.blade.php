@@ -83,7 +83,7 @@
 
                                 {{-- FILTER BULAN --}}
                                 <select name="bulan" class="form-select form-select-sm flex-grow-0"
-                                    style="max-width: 150px;">
+                                    style="max-width: 150px;" onchange="this.form.submit()">
                                     <option value="">Semua Bulan</option>
                                     @for ($month = 1; $month <= 12; $month++)
                                         <option value="{{ $month }}"
@@ -92,6 +92,7 @@
                                         </option>
                                     @endfor
                                 </select>
+
 
                                 {{-- RESET --}}
                                 @if (request('search') || request('tempat_lahir') || request('tahun') || request('bulan'))

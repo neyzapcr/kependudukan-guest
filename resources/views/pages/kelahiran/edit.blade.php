@@ -54,8 +54,8 @@
                             @if ($media->count())
                                 @foreach ($media as $item)
                                     <form id="hapusDokumen{{ $item->media_id }}"
-                                          action="{{ route('kelahiran.hapusFoto', $item->media_id) }}"
-                                          method="POST" style="display: none;">
+                                        action="{{ route('kelahiran.hapusFoto', $item->media_id) }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -148,6 +148,7 @@
                                         </label>
 
                                         {{-- LIST DOKUMEN YANG SUDAH TERUPLOAD --}}
+                                        {{-- LIST DOKUMEN YANG SUDAH TERUPLOAD --}}
                                         @if ($media->count())
                                             <div class="list-group mb-2">
                                                 @foreach ($media as $item)
@@ -164,41 +165,42 @@
                                                             'webp',
                                                         ]);
                                                         $isPdf = $ext === 'pdf';
+                                                        $displayName = $item->original_name ?: $item->file_name;
                                                     @endphp
 
                                                     <div
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <div class="d-flex align-items-center gap-2">
-                                                            {{-- preview kecil kalau gambar --}}
+
+                                                            {{-- thumbnail kecil kalau gambar --}}
                                                             @if ($isImage)
                                                                 <img src="{{ $url }}"
                                                                     style="width:40px;height:40px;object-fit:cover;border-radius:6px;">
+                                                            @elseif($isPdf)
+                                                                <i class="fas fa-file-pdf fa-lg text-danger"></i>
+                                                            @else
+                                                                <i class="fas fa-file-alt fa-lg text-secondary"></i>
                                                             @endif
 
-                                                            {{-- nama file / tombol lihat --}}
-                                                            @if ($isPdf)
-                                                                <a href="{{ $url }}" target="_blank">
-                                                                    <i class="fas fa-file-pdf me-1 text-danger"></i>
-                                                                    {{ $item->original_name ?: $item->file_name }}
+                                                            <div>
+                                                                {{-- PREVIEW: buka di tab baru, mirip detail --}}
+                                                                <a href="{{ $url }}" target="_blank"
+                                                                    class="d-block fw-semibold text-decoration-none">
+                                                                    {{ $displayName }}
                                                                 </a>
-                                                            @elseif($isImage)
-                                                                <a href="{{ $url }}" target="_blank">
-                                                                    {{ $item->original_name ?: $item->file_name }}
-                                                                </a>
-                                                            @else
-                                                                <a
-                                                                    href="{{ route('kelahiran.downloadFile', $item->media_id) }}">
-                                                                    <i class="fas fa-file me-1"></i>
-                                                                    {{ $item->original_name ?: $item->file_name }}
-                                                                </a>
-                                                            @endif
+                                                                <small class="text-muted">
+                                                                    {{ strtoupper($ext) }}
+                                                                </small>
+                                                            </div>
                                                         </div>
 
-                                                        {{-- tombol hapus dokumen ini saja --}}
-                                                        <button type="button" class="btn btn-sm btn-danger"
-                                                                onclick="hapusDokumen({{ $item->media_id }})">
-                                                            <i class="fas fa-trash me-1"></i>Hapus
-                                                        </button>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            {{-- HAPUS DOKUMEN INI SAJA --}}
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                onclick="if (confirm('Hapus dokumen ini?')) document.getElementById('hapusDokumen{{ $item->media_id }}').submit();">
+                                                                <i class="fas fa-trash me-1"></i>Hapus
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -206,14 +208,14 @@
                                             <div class="text-muted mb-2">Belum ada dokumen / foto akta yang diunggah.</div>
                                         @endif
 
+
                                         {{-- INPUT UNTUK TAMBAH DOKUMEN BARU --}}
                                         <input type="file" name="foto_akta[]" class="form-control"
                                             accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.rar"
                                             multiple>
 
                                         <small class="text-muted">
-                                            Tambahkan dokumen baru jika diperlukan. File lama tidak akan terhapus
-                                            kecuali kamu klik tombol "Hapus". Maks 5 MB per file.
+                                            Maks 5 MB per file.
                                         </small>
                                     </div>
                                 </div>
@@ -273,14 +275,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-<script>
-    function hapusDokumen(mediaId) {
-        if (confirm('Hapus dokumen ini?')) {
-            // Submit form hapus dokumen yang spesifik
-            document.getElementById('hapusDokumen' + mediaId).submit();
-        }
-    }
-</script>
-@endpush
