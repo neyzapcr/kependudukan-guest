@@ -13,7 +13,7 @@
                         <div class="item item-1">
                             <div class="header-text">
                                 <span class="category">Sistem Kependudukan</span>
-                                <h2>Selamat datang di Sistem Data Penduduk Desa </h2>
+                                <h2>Selamat Datang di Sistem Data Penduduk Desa </h2>
                                 <p>Platform digital untuk mengelola dan menyajikan informasi kependudukan secara akurat dan terintegrasi.</p>
                             </div>
                         </div>
