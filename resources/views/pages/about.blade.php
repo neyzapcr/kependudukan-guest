@@ -54,10 +54,17 @@
 </div>
 
 
-        {{-- GAMBAR DI BAWAH --}}
-        <div class="about-image-bottom-wrap about-fadeup-delay">
-            <img src="{{ asset('assets/images/about-us.png') }}" class="about-image-bottom" alt="Tentang Kami">
-        </div>
+        {{-- GAMBAR DUA KOLOM --}}
+<div class="about-images-row">
+    <div class="about-img-box animate-left">
+        <img src="{{ asset('assets/images/about-us-1.jpg') }}" alt="Tentang Kami 1">
+    </div>
+
+    <div class="about-img-box animate-right">
+        <img src="{{ asset('assets/images/about-us-2.jpg') }}" alt="Tentang Kami 2">
+    </div>
+</div>
+
 
     </div>
 </div>

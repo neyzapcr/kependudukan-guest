@@ -733,116 +733,175 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
-
-    /* ==============================
+/* ==============================
    ABOUT / PAGE LAYOUT STYLES
    ============================== */
-    .about-row {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
-    }
+.about-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
 
-    .about-image-wrapper {
-        flex: 1;
-        min-width: 300px;
-    }
+.about-image-wrapper {
+    flex: 1;
+    min-width: 300px;
+}
 
-    .about-image {
-        width: 100%;
-        max-width: 100%;
-        height: 500px;
-        object-fit: cover;
-        border-radius: 12px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        animation: fadeIn 1s ease-in-out 0.3s forwards;
-    }
+.about-image {
+    width: 100%;
+    max-width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out 0.3s forwards;
+}
 
-    .about-text {
-        flex: 1;
-        min-width: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        opacity: 0;
-        transform: translateX(30px);
-        animation: slideIn 0.8s ease-out 0.6s forwards;
-    }
+.about-text {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slideIn 0.8s ease-out 0.6s forwards;
+}
 
-    .page-teks {
-        color: #4a5568;
-        font-size: 16px;
-        line-height: 1.15;
-        padding: 0px 0px 10px 0px;
-        margin-bottom: 10px;
-    }
+.page-teks {
+    color: #4a5568;
+    font-size: 16px;
+    line-height: 1.15;
+    padding: 0px 0px 10px 0px;
+    margin-bottom: 10px;
+}
 
-    .about-content {
-        border-radius: 12px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        padding: 30px 20px;
-        background: white;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 0.8s ease-out 0.9s forwards;
-    }
+.about-content {
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    background: white;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease-out 0.9s forwards;
+}
 
-    .about-content p {
-        margin-bottom: 20px;
-        font-size: 16px;
-        line-height: 1.15;
-        text-align: center;
-    }
+.about-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.15;
+    text-align: center;
+}
 
-    .about-image:hover {
-        transform: scale(1.02);
-        transition: transform 0.3s ease;
-    }
+.about-image:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
 
-    .about-content:hover {
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        transition: box-shadow 0.3s ease;
-    }
+.about-content:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+}
 
-    /* ==============================
+/* ==============================
+   ABOUT – 2 GAMBAR SAMPINGAN
+   ============================== */
+.about-images-row{
+    max-width: 980px;
+    margin: 14px auto 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/* Box gambar */
+.about-img-box{
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+    background: #fff;
+    opacity: 0;
+}
+
+/* Gambar */
+.about-img-box img{
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    transition: transform .35s ease;
+}
+
+/* Hover */
+.about-img-box:hover img{
+    transform: scale(1.04);
+}
+
+/* Animasi kiri */
+.animate-left{
+    transform: translateX(-36px);
+    animation: aboutSlideLeft .75s ease-out .15s forwards;
+}
+
+/* Animasi kanan */
+.animate-right{
+    transform: translateX(36px);
+    animation: aboutSlideRight .75s ease-out .15s forwards;
+}
+
+/* ==============================
    ANIMATIONS
    ============================== */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
-        to {
-            opacity: 1;
-        }
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes aboutSlideLeft{
+    from{ opacity: 0; transform: translateX(-36px); }
+    to  { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes aboutSlideRight{
+    from{ opacity: 0; transform: translateX(36px); }
+    to  { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px){
+    .about-images-row{
+        grid-template-columns: 1fr;
     }
 
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateX(30px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    .about-img-box img{
+        height: 240px;
     }
-
-    @keyframes fadeUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+}
 
     /* ==============================
    UTILITY CLASSES
