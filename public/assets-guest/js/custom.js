@@ -1,5 +1,5 @@
 (function ($) {
-	
+
 	"use strict";
 
 	// Page loading animation
@@ -57,21 +57,34 @@
 
 
 	$('.owl-banner').owlCarousel({
-		center: true,
-      items:1,
-      loop:true,
-      nav: true,
-	  navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-      margin:30,
-      responsive:{
-        992:{
-            items:1
-        },
-		1200:{
-			items:1
-		}
-      }
-	});
+  center: true,
+  items: 1,
+  loop: true,
+  nav: true,
+  navText: [
+    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+  ],
+  margin: 30,
+
+  autoplay: true,            // 🔥 auto jalan
+  autoplayTimeout: 5000,     // 5 detik
+  autoplayHoverPause: true,  // pause saat hover
+  smartSpeed: 1000,          // animasi halus
+
+  responsive:{
+    0:{
+      items:1
+    },
+    992:{
+      items:1
+    },
+    1200:{
+      items:1
+    }
+  }
+});
+
 
 	$('.owl-testimonials').owlCarousel({
 	  center: true,
@@ -93,7 +106,7 @@
 
 	// Menu Dropdown Toggle
 	if($('.menu-trigger').length){
-		$(".menu-trigger").on('click', function() {	
+		$(".menu-trigger").on('click', function() {
 			$(this).toggleClass('active');
 			$('.header-area .nav').slideToggle(200);
 		});
@@ -109,8 +122,8 @@
 				var width = $(window).width();
 				if(width < 767) {
 					$('.menu-trigger').removeClass('active');
-					$('.header-area .nav').slideUp(200);	
-				}				
+					$('.header-area .nav').slideUp(200);
+				}
 				$('html,body').animate({
 					scrollTop: (target.offset().top) - 80
 				}, 700);
@@ -121,17 +134,17 @@
 
 	$(document).ready(function () {
 	    $(document).on("scroll", onScroll);
-	    
+
 	    //smoothscroll
 	    $('.scroll-to-section a[href^="#"]').on('click', function (e) {
 	        e.preventDefault();
 	        $(document).off("scroll");
-	        
+
 	        $('.scroll-to-section a').each(function () {
 	            $(this).removeClass('active');
 	        })
 	        $(this).addClass('active');
-	      
+
 	        var target = this.hash,
 	        menu = target;
 	       	var target = $(this.hash);
