@@ -181,8 +181,8 @@
 
                                         {{-- DETAIL --}}
                                         <a href="{{ route('kelahiran.show', $data->kelahiran_id) }}"
-                                            class="btn btn-info btn-sm">
-                                            <i class="fas fa-eye me-1"></i>Detail
+                                            class="btn btn-detail btn-sm">
+                                            <i class="fas fa-eye"></i>Detail
                                         </a>
 
                                         {{-- Edit / Hapus hanya untuk login --}}
