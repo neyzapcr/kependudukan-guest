@@ -3,7 +3,7 @@
 @section('title', 'Detail Data Pindah | Sistem Kependudukan')
 
 @section('content')
-    <div class="main-content">
+    <div class="main-content pindah-show-page">
         <div class="container">
 
             {{-- PAGE HEADER --}}
@@ -219,6 +219,11 @@
                                     <div class="text-muted mb-2">
                                         Belum ada dokumen / file pendukung yang diunggah.
                                     </div>
+                                    <div class="d-flex justify-content-center">
+                                            <img src="{{ asset('assets/images/placeholder.png') }}" alt="Placeholder dokumen"
+
+                                                style="width:120px;height:120px;object-fit:contain;opacity:.75;background:transparent;box-shadow:none;">
+                                        </div>
                                 @endif
                             </div>
 
