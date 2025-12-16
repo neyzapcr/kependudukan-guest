@@ -38,7 +38,14 @@
     <div class="card shadow-sm">
       <div class="card-body">
 
-        <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+        <form
+    action="{{ auth()->user()->role === 'super-admin'
+        ? route('user.update', $user->id)
+        : route('user.profile.update') }}"
+    method="POST"
+    enctype="multipart/form-data"
+>
+
           @csrf
           @method('PUT')
 
@@ -50,17 +57,18 @@
                 <div class="d-flex align-items-center gap-3">
                   <div class="overflow-hidden d-flex align-items-center justify-content-center"
                        style="width:96px;height:96px;border-radius:50%;background:#fff;">
-                    @if (!empty($user->photo_profile) && file_exists(public_path('storage/'.$user->photo_profile)))
-                      <img id="photoPreview"
-                           src="{{ asset('storage/'.$user->photo_profile) }}"
-                           alt="Foto Profil {{ $user->name }}"
-                           style="width:100%;height:100%;object-fit:cover;display:block;">
-                    @else
-                      <img id="photoPreview"
-                           src="{{ asset('assets/img/placeholder.webp') }}"
-                           alt="Placeholder Foto Profil"
-                           style="width:100%;height:100%;object-fit:cover;display:block;opacity:.85;">
-                    @endif
+                    @if (!empty($user->photo_profile))
+  <img id="photoPreview"
+       src="{{ asset('storage/'.$user->photo_profile) }}"
+       alt="Foto Profil {{ $user->name }}"
+       style="width:100%;height:100%;object-fit:cover;display:block;">
+@else
+  <img id="photoPreview"
+       src="{{ asset('assets/img/placeholder.webp') }}"
+       alt="Placeholder Foto Profil"
+       style="width:100%;height:100%;object-fit:cover;display:block;opacity:.85;">
+@endif
+
                   </div>
 
                   <div>
