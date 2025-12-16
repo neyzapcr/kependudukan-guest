@@ -3,7 +3,7 @@
 @section('title', 'Detail Data Kematian | Sistem Kependudukan')
 
 @section('content')
-    <div class="main-content">
+    <div class="main-content kematian-show-page">
         <div class="container">
 
             {{-- PAGE HEADER --}}
@@ -34,9 +34,7 @@
             @php
                 $namaWarga = $kematian->warga->nama ?? 'NN';
                 $parts = explode(' ', trim($namaWarga));
-                $inisial = strtoupper(
-                    substr($parts[0], 0, 1) . (isset($parts[1]) ? substr($parts[1], 0, 1) : '')
-                );
+                $inisial = strtoupper(substr($parts[0], 0, 1) . (isset($parts[1]) ? substr($parts[1], 0, 1) : ''));
             @endphp
 
             <div class="row justify-content-center">
@@ -102,7 +100,7 @@
                                     </div>
                                 </div>
 
-                                {{-- KOLOM KANAN: DATA WARGA (opsional, bisa disesuaikan kolomnya) --}}
+                                {{-- KOLOM KANAN: DATA WARGA --}}
                                 <div class="col-12 col-md-6">
                                     <h5 class="mb-3">Data Warga</h5>
 
@@ -128,7 +126,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Kalau punya kolom alamat, bisa tampilkan juga --}}
                                     @if (isset($kematian->warga->alamat))
                                         <div class="row g-2 align-items-start">
                                             <div class="col-12 col-sm-5 text-muted fw-semibold">
@@ -173,7 +170,6 @@
                                                 <div
                                                     class="border rounded-3 px-3 py-2 h-100 d-flex align-items-center shadow-sm">
 
-                                                    {{-- ICON / THUMB KECIL --}}
                                                     <div class="flex-shrink-0 me-2">
                                                         @if ($isImage)
                                                             <img src="{{ $url }}" class="rounded"
@@ -185,7 +181,6 @@
                                                         @endif
                                                     </div>
 
-                                                    {{-- NAMA FILE (TRUNCATE) --}}
                                                     <div class="flex-grow-1 me-2" style="min-width:0; max-width:220px;">
                                                         @if ($isPreviewable)
                                                             <a href="#"
@@ -205,7 +200,6 @@
                                                         </small>
                                                     </div>
 
-                                                    {{-- ICON DOWNLOAD --}}
                                                     <a href="{{ route('kematian.downloadFile', $item->media_id) }}"
                                                         class="btn btn-sm btn-link text-primary p-0 flex-shrink-0"
                                                         title="Download file">
@@ -217,8 +211,11 @@
                                         @endforeach
                                     </div>
                                 @else
-                                    <div class="text-muted mb-2">
-                                        Belum ada dokumen / file pendukung yang diunggah.
+                                    <div class="text-muted mb-2">Belum ada dokumen / foto yang diunggah.</div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{{ asset('assets/images/placeholder.png') }}" alt="Placeholder dokumen"
+                                            style="width:120px;height:120px;object-fit:contain;opacity:.75;background:transparent;box-shadow:none;">
                                     </div>
                                 @endif
                             </div>
@@ -244,8 +241,8 @@
                                         <i class="fas fa-edit me-1"></i>Edit
                                     </a>
 
-                                    <form action="{{ route('kematian.destroy', $kematian->kematian_id) }}"
-                                        method="POST" class="d-inline"
+                                    <form action="{{ route('kematian.destroy', $kematian->kematian_id) }}" method="POST"
+                                        class="d-inline"
                                         onsubmit="return confirm('Hapus data kematian ini beserta dokumennya?')">
                                         @csrf
                                         @method('DELETE')

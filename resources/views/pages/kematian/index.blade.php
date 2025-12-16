@@ -168,9 +168,11 @@
 
                                         {{-- DETAIL --}}
                                         <a href="{{ route('kematian.show', $data->kematian_id) }}"
-                                            class="btn btn-info btn-sm">
+                                            class="btn btn-detail btn-sm">
                                             <i class="fas fa-eye me-1"></i>Detail
                                         </a>
+
+
 
                                         {{-- Edit / Hapus hanya untuk login --}}
                                         @if (session('is_logged_in'))
