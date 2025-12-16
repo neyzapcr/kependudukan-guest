@@ -13,8 +13,22 @@
                         <div class="item item-1">
                             <div class="header-text">
                                 <span class="category">Sistem Kependudukan</span>
-                                <h2>Selamat datang di Sistem Kependudukan Desa Andromeda</h2>
-                                <p>Lihat statistik warga dan informasi layanan kependudukan dengan mudah dan cepat.</p>
+                                <h2>Selamat datang di Sistem Data Penduduk Desa </h2>
+                                <p>Platform digital untuk mengelola dan menyajikan informasi kependudukan secara akurat dan terintegrasi.</p>
+                            </div>
+                        </div>
+                        <div class="item item-2">
+                            <div class="header-text">
+                                <span class="category">Sistem Kependudukan</span>
+                                <h2>Pusat Informasi dan Layanan Kependudukan</h2>
+                                <p>Akses data warga, kelahiran, kematian, dan administrasi kependudukan dengan mudah dan cepat.</p>
+                            </div>
+                        </div>
+                        <div class="item item-3">
+                            <div class="header-text">
+                                <span class="category">Sistem Kependudukan</span>
+                                <h2>Pengelolaan Data Penduduk Berbasis Digital</h2>
+                                <p>Solusi modern untuk mendukung pelayanan publik desa yang tertib dan transparan.</p>
                             </div>
                         </div>
                     </div>
@@ -34,7 +48,7 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="service-item">
                         <div class="icon">
-                            <img src="{{ asset('assets-guest/images/service-01.png') }}">
+                            <img src="{{ asset('assets-guest/images/total.png') }}">
                         </div>
                         <div class="main-content">
                             <h1 class="mb-0">{{ $totalWarga }}</h1>
@@ -48,7 +62,7 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="service-item">
                         <div class="icon">
-                            <img src="{{ asset('assets-guest/images/service-02.png') }}">
+                            <img src="{{ asset('assets-guest/images/lahir.png') }}">
                         </div>
                         <div class="main-content">
                             <h1 class="mb-0">{{ $kelahiranTahunIni }}</h1>
@@ -62,7 +76,7 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="service-item">
                         <div class="icon">
-                            <img src="{{ asset('assets-guest/images/service-03.png') }}">
+                            <img src="{{ asset('assets-guest/images/mati.png') }}">
                         </div>
                         <div class="main-content">
                             <h1 class="mb-0">{{ $kematianTahunIni }}</h1>
@@ -76,7 +90,7 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="service-item">
                         <div class="icon">
-                            <img src="{{ asset('assets-guest/images/service-02.png') }}">
+                            <img src="{{ asset('assets-guest/images/pindah.png') }}">
                         </div>
                         <div class="main-content">
                             <h1 class="mb-0">{{ $pindahTahunIni }}</h1>

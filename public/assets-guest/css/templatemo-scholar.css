@@ -630,7 +630,7 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url(../images/banner-bg.jpg);
+  background-image: url(../images/banner-bgg.png);
   background-position: right bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -638,24 +638,23 @@ Banner Style
 }
 
 .main-banner .item-1 {
-  background-image: url(../images/banner-item-01.jpg);
+  background-image: url(../images/banner-item-01.png) !important;
 }
 
 .main-banner .item-2 {
-  background-image: url(../images/banner-item-02.jpg);
+  background-image: url(../images/banner-item-02.jpg) !important;
 }
 
 .main-banner .item-3 {
-  background-image: url(../images/banner-item-03.jpg);
+  background-image: url(../images/banner-item-01.png) !important;
 }
 
 .main-banner .item {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  border-radius: 25px;
-  padding: 100px 100px;
-  margin-left: 130px;
+  border-radius: 30px;
+  padding: 80px 100px;
 }
 
 .main-banner .item span.category {
@@ -670,10 +669,10 @@ Banner Style
 }
 
 .main-banner .item h2 {
-  font-size: 48px;
+  font-size: 50px;
   font-weight: 700;
   color: #fff;
-  line-height: 70px;
+  line-height: 50px;
   width: 60%;
   margin-bottom: 40px;
 }
@@ -681,6 +680,8 @@ Banner Style
 .main-banner .item p {
   color: #fff;
   width: 65%;
+   font-size: 18px;   /* ← atur ukuran font di sini */
+  line-height: 1.6; /
 }
 
 .main-banner .item .buttons {
@@ -783,7 +784,7 @@ Services Style
   display: inline-block;
   text-align: center;
   line-height: 190px;
-  background-color: #3b82f6; /* Changed from #7a6ad8 */
+  background-color: #1e40af; /* Changed from #7a6ad8 */
   border-radius: 50%;
   position: absolute;
   right: 0;
@@ -1612,7 +1613,8 @@ Footer Style
 footer {
   margin-top: 150px;
   position: relative;
-  background-color: #3b82f6; /* Changed from #7a6ad8 */
+  background-color: #1e40af;
+; /* Changed from #7a6ad8 */
   vertical-align: middle;
   min-height: 150px;
   border-radius: 150px 150px 0px 0px;

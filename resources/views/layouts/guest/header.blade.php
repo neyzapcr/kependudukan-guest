@@ -1,61 +1,66 @@
-    <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a href="{{ route('pages.dashboard.index') }}" class="logo logo-only">
-                            <img src="{{ asset('assets/images/logo-horizontal.png') }}" alt="Logo" class="logo-img">
-                        </a>
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{{ route('pages.dashboard.index') }}" class="logo logo-only">
+                        <img src="{{ asset('assets/images/logo-horizontal.png') }}" alt="Logo" class="logo-img">
+                    </a>
+                    <!-- ***** Logo End ***** -->
 
-                        <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section">
+                            <a href="{{ route('warga.index') }}"
+                                class="{{ request()->routeIs('warga.*') ? 'active' : '' }}">
+                                <i class="fas fa-users me-2"></i>Data Warga
+                            </a>
+                        </li>
+                        <li class="scroll-to-section">
+                            <a href="{{ route('keluarga.index') }}"
+                                class="{{ request()->routeIs('keluarga.*') ? 'active' : '' }}">
+                                <i class="fas fa-house-user me-2"></i>Data Keluarga
+                            </a>
+                        </li>
 
+                        <!-- Dropdown Data Peristiwa -->
+                        <li class="nav-item dropdown scroll-to-section">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                class="{{ request()->routeIs('kelahiran.*') || request()->routeIs('kematian.*') || request()->routeIs('pindah.*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-alt me-2"></i>Data Peristiwa
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('kelahiran.index') }}"
+                                        class="dropdown-item {{ request()->routeIs('kelahiran.*') ? 'active' : '' }}">
+                                        <i class="fas fa-baby me-2"></i>Data Kelahiran
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('kematian.index') }}"
+                                        class="dropdown-item {{ request()->routeIs('kematian.*') ? 'active' : '' }}">
+                                        <i class="fas fa-cross me-2"></i>Data Kematian
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('pindah.index') }}"
+                                        class="dropdown-item {{ request()->routeIs('pindah.*') ? 'active' : '' }}">
+                                        <i class="fas fa-people-arrows me-2"></i>Data Perpindahan
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li class="scroll-to-section">
-                                <a href="{{ route('warga.index') }}"
-                                    class="{{ request()->routeIs('warga.*') ? 'active' : '' }}">
-                                    <i class="fas fa-users me-2"></i>Data Warga
-                                </a>
-                            </li>
-                            <li class="scroll-to-section">
-                                <a href="{{ route('keluarga.index') }}"
-                                    class="{{ request()->routeIs('keluarga.*') ? 'active' : '' }}">
-                                    <i class="fas fa-house-user me-2"></i>Data Keluarga
-                                </a>
-                            </li>
+                        <li class="scroll-to-section">
+                            <a href="{{ route('pages.about') }}"
+                                class="{{ request()->routeIs('pages.about') ? 'active' : '' }}">
+                                <i class="fas fa-info-circle me-2"></i>Tentang Kami
+                            </a>
+                        </li>
 
-                            <li class="scroll-to-section">
-                                <a href="{{ route('kelahiran.index') }}"
-                                    class="{{ request()->routeIs('kelahiran.*') ? 'active' : '' }}">
-                                    <i class="fas fa-house-user me-2"></i>Data Kelahiran
-                                </a>
-                            </li>
-
-                            <li class="scroll-to-section">
-                                <a href="  {{ route('kematian.index') }}"
-                                    class="{{ request()->routeIs('kematian.*') ? 'active' : '' }}">
-                                    <i class="fas fa-cross me-2"></i>Data Kematian
-                                </a>
-                            </li>
-
-                            <li class="scroll-to-section">
-                                <a href="{{ route('pindah.index') }}"
-                                    class="{{ request()->routeIs('pindah.*') ? 'active' : '' }}">
-                                    <i class="fas fa-people-arrows me-2"></i>Data Perpindahan
-                                </a>
-                            </li>
-
-                            <li class="scroll-to-section">
-                                <a href="{{ route('pages.about') }}"
-                                    class="{{ request()->routeIs('pages.about') ? 'active' : '' }}">
-                                    <i class="fas fa-info-circle me-2"></i>Tentang Kami
-                                </a>
-                            </li>
-
-                            <!-- Data User hanya muncul jika sudah login -->
-                            @auth
+                         @auth
                                 <li class="scroll-to-section">
                                     <a href="{{ route('user.index') }}"
                                         class="{{ request()->routeIs('user.*') ? 'active' : '' }}">
@@ -64,65 +69,94 @@
                                 </li>
                             @endauth
 
+                        <!-- Data User hanya muncul jika sudah login -->
+                        @auth
+                            @php
+                                $user = Auth::user();
 
-                            <!-- Auth Section -->
-                            @auth
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                        style="cursor: pointer;">
-                                        <i class="fa-regular fa-circle-user me-1" style="color: #4882e5;"></i>
-                                        <span class="username">{{ Auth::user()->name }}</span>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li>
-                                            <div class="dropdown-header text-dark">
-                                                <i class="fa-solid fa-user me-1" style="color: #296ce0;"></i>
-                                                {{ Auth::user()->name }}
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <hr class="dropdown-divider m-0">
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('user.profile.edit') }}"
-                                                style="color: #333 !important;">
-                                                <i class="fas fa-user-edit me-2"></i>Edit Profil
-                                            </a>
-                                        </li>
+                                // cek file beneran ada di storage/app/public/...
+                                $hasPhoto =
+                                    $user->photo_profile &&
+                                    file_exists(storage_path('app/public/' . $user->photo_profile));
+                            @endphp
 
-                                        <li>
-                                            <hr class="dropdown-divider m-0">
-                                        </li>
-                                        <li>
-                                            <form action="{{ route('logout') }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="dropdown-item text-danger logout-btn"
-                                                    style="border: none; background: none; width: 100%; text-align: left;">
-                                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
-                                                </button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            @else
-                                <li class="auth-links">
-                                    <a href="{{ route('login') }}" class="btn-login">
-                                        <i class="fas fa-sign-in-alt me-1"></i> Masuk
-                                    </a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
 
-                                    <a href="{{ route('register') }}" class="btn-register">
-                                        <i class="fas fa-user-plus me-1"></i> Daftar
-                                    </a>
-                                </li>
-                            @endauth
+                                    @if ($hasPhoto)
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($user->photo_profile) }}"
+                                            alt="Foto Profil" class="nav-profile-img me-2">
+                                    @else
+                                        <i class="fa-regular fa-circle-user me-2 nav-profile-icon"></i>
+                                    @endif
+
+                                    <span class="username">{{ $user->name }}</span>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+
+                                    <li class="dropdown-profile compact">
+    <div class="dp-wrap">
+        <span class="dp-avatar">
+            @if ($hasPhoto)
+                <img src="{{ \Illuminate\Support\Facades\Storage::url($user->photo_profile) }}" alt="Foto Profil">
+            @else
+                <i class="fa-solid fa-user"></i>
+            @endif
+        </span>
+
+        <span class="dp-name">{{ $user->name }}</span>
+    </div>
+</li>
+
+
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider m-0">
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{ route('user.profile.edit') }}">
+                                    <i class="fas fa-user-edit me-2"></i>Edit Profil
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider m-0">
+                            </li>
+
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger logout-btn"
+                                        style="border: none; background: none; width: 100%; text-align: left;">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
-                        <button class='menu-trigger'>
-                            <span></span>
-                        </button>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
+                        </li>
+                    @else
+                        <li class="auth-links">
+                            <a href="{{ route('login') }}" class="btn-login">
+                                <i class="fas fa-sign-in-alt me-1"></i> Masuk
+                            </a>
+
+                            <a href="{{ route('register') }}" class="btn-register">
+                                <i class="fas fa-user-plus me-1"></i> Daftar
+                            </a>
+                        </li>
+                    @endauth
+
+                    </ul>
+                    <button class='menu-trigger'>
+                        <span></span>
+                    </button>
+                    <!-- ***** Menu End ***** -->
+                </nav>
             </div>
         </div>
-    </header>
+    </div>
+</header>
