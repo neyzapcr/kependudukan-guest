@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h1 class="page-title">
-                            <i class="fas fa-route me-2"></i>Data Pindah
+                            <i class="fas fa-route me-2"></i>Data Perpindahan
                         </h1>
                         <p class="page-subtitle">
                             Kelola data kepindahan warga. Klik detail untuk informasi lengkap.
