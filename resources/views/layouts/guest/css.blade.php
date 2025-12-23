@@ -481,31 +481,34 @@
     }
 
     /* Samakan ukuran/feel tombol di action */
-.action-buttons .btn{
-    padding: 8px 16px;
-    border-radius: 8px; /* sama kayak edit & delete */
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
+    .action-buttons .btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        /* sama kayak edit & delete */
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
 
-/* DETAIL: warna biru muda tapi masih satu tema */
-.btn-detail{
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8); /* sky -> light sky */
-    border: none;
-    color: white;
-}
+    /* DETAIL: warna biru muda tapi masih satu tema */
+    .btn-detail {
+        background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+        /* sky -> light sky */
+        border: none;
+        color: white;
+    }
 
-/* Hover sama feel-nya seperti Edit/Hapus */
-.btn-detail:hover{
-    background: linear-gradient(135deg, #0284c7, #0ea5e9); /* lebih gelap pas hover */
-    transform: translateY(-2px);
-    color: white;
-    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.30);
-}
+    /* Hover sama feel-nya seperti Edit/Hapus */
+    .btn-detail:hover {
+        background: linear-gradient(135deg, #0284c7, #0ea5e9);
+        /* lebih gelap pas hover */
+        transform: translateY(-2px);
+        color: white;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.30);
+    }
 
 
     .btn-edit {
@@ -733,175 +736,116 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
-/* ==============================
+
+    /* ==============================
    ABOUT / PAGE LAYOUT STYLES
    ============================== */
-.about-row {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-}
+    .about-row {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+    }
 
-.about-image-wrapper {
-    flex: 1;
-    min-width: 300px;
-}
+    .about-image-wrapper {
+        flex: 1;
+        min-width: 300px;
+    }
 
-.about-image {
-    width: 100%;
-    max-width: 100%;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out 0.3s forwards;
-}
+    .about-image {
+        width: 100%;
+        max-width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out 0.3s forwards;
+    }
 
-.about-text {
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    opacity: 0;
-    transform: translateX(30px);
-    animation: slideIn 0.8s ease-out 0.6s forwards;
-}
-
-.page-teks {
-    color: #4a5568;
-    font-size: 16px;
-    line-height: 1.15;
-    padding: 0px 0px 10px 0px;
-    margin-bottom: 10px;
-}
-
-.about-content {
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    padding: 30px 20px;
-    background: white;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s ease-out 0.9s forwards;
-}
-
-.about-content p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1.15;
-    text-align: center;
-}
-
-.about-image:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-}
-
-.about-content:hover {
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease;
-}
-
-/* ==============================
-   ABOUT – 2 GAMBAR SAMPINGAN
-   ============================== */
-.about-images-row{
-    max-width: 980px;
-    margin: 14px auto 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
-
-/* Box gambar */
-.about-img-box{
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
-    background: #fff;
-    opacity: 0;
-}
-
-/* Gambar */
-.about-img-box img{
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    display: block;
-    transition: transform .35s ease;
-}
-
-/* Hover */
-.about-img-box:hover img{
-    transform: scale(1.04);
-}
-
-/* Animasi kiri */
-.animate-left{
-    transform: translateX(-36px);
-    animation: aboutSlideLeft .75s ease-out .15s forwards;
-}
-
-/* Animasi kanan */
-.animate-right{
-    transform: translateX(36px);
-    animation: aboutSlideRight .75s ease-out .15s forwards;
-}
-
-/* ==============================
-   ANIMATIONS
-   ============================== */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from {
+    .about-text {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         opacity: 0;
         transform: translateX(30px);
+        animation: slideIn 0.8s ease-out 0.6s forwards;
     }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 
-@keyframes fadeUp {
-    from {
+    .page-teks {
+        color: #4a5568;
+        font-size: 16px;
+        line-height: 1.15;
+        padding: 0px 0px 10px 0px;
+        margin-bottom: 10px;
+    }
+
+    .about-content {
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        padding: 30px 20px;
+        background: white;
         opacity: 0;
         transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes aboutSlideLeft{
-    from{ opacity: 0; transform: translateX(-36px); }
-    to  { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes aboutSlideRight{
-    from{ opacity: 0; transform: translateX(36px); }
-    to  { opacity: 1; transform: translateX(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px){
-    .about-images-row{
-        grid-template-columns: 1fr;
+        animation: fadeUp 0.8s ease-out 0.9s forwards;
     }
 
-    .about-img-box img{
-        height: 240px;
+    .about-content p {
+        margin-bottom: 20px;
+        font-size: 16px;
+        line-height: 1.15;
+        text-align: center;
     }
-}
+
+    .about-image:hover {
+        transform: scale(1.02);
+        transition: transform 0.3s ease;
+    }
+
+    .about-content:hover {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        transition: box-shadow 0.3s ease;
+    }
+
+    /* ==============================
+   ANIMATIONS
+   ============================== */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
     /* ==============================
    UTILITY CLASSES
@@ -1222,6 +1166,7 @@
 
     /* Style untuk mobile */
     @media (max-width: 768px) {
+
         /* Dropdown akan full width di mobile */
         .nav .dropdown-menu {
             width: 100%;
@@ -1510,8 +1455,22 @@
        ========================================================= */
 
     /* FIX GAP putih sebelum footer, khusus halaman kelahiran-show */
+
+    /* 1️⃣ Jadikan body sebagai flex-column */
+    body:has(.kelahiran-show-page) {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
     body:has(.kelahiran-show-page) footer {
         margin-top: 0 !important;
+        flex-shrink: 0 !important;
+        position: relative !important;
+        /* ❌ bukan fixed */
+        bottom: 0;
+        width: 100%;
+        /* background: #f8fafc; */
     }
 
     /* kurangi padding bawah konten supaya rapet sama footer */
@@ -1567,404 +1526,1147 @@
    FIX SCROLL & GAP – KHUSUS HALAMAN DETAIL KEMATIAN
    ===================================================== */
 
-/* Hilangkan dorongan footer (margin-top bawaan template) */
-body:has(.kematian-show-page) footer {
-    margin-top: 0 !important;
-}
-
-/* Kurangi tinggi konten supaya tidak perlu scroll */
-body:has(.kematian-show-page) .main-content {
-    margin-top: 90px;        /* sebelumnya 100px */
-    padding-top: 24px;
-    padding-bottom: 20px;
-}
-
-/* Card tampil lebih padat (tidak kepanjangan) */
-body:has(.kematian-show-page) .warga-card {
-    margin-bottom: 0;
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
-    border-radius: 18px;
-}
-
-/* Header card lebih ramping */
-body:has(.kematian-show-page) .warga-card-header {
-    padding: 16px 20px;
-}
-
-/* Avatar sedikit diperkecil */
-body:has(.kematian-show-page) .warga-avatar {
-    width: 54px;
-    height: 54px;
-    font-size: 20px;
-}
-
-/* Body card lebih hemat tinggi */
-body:has(.kematian-show-page) .warga-card-body {
-    padding: 18px 20px;
-}
-
-/* Section title */
-body:has(.kematian-show-page) h5 {
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 12px;
-}
-
-/* Footer card rapat */
-body:has(.kematian-show-page) .warga-card-footer {
-    padding: 14px 20px;
-}
-
-/* Dokumen card lebih kecil */
-body:has(.kematian-show-page) .border.rounded-3 {
-    padding: 10px 12px !important;
-}
-
-/* Tombol aksi biar tidak bikin tinggi nambah */
-body:has(.kematian-show-page) .action-buttons .btn {
-    padding: 8px 14px;
-    border-radius: 10px;
-}
-
-/* Mobile: pastikan tetap tanpa scroll aneh */
-@media (max-width: 576px) {
-    body:has(.kematian-show-page) .main-content {
-        margin-top: 80px;
-        padding-bottom: 16px;
+    /* Hilangkan dorongan footer (margin-top bawaan template) */
+    body:has(.kematian-show-page) footer {
+        margin-top: 0 !important;
     }
-}
-/* ==============================
+
+    /* Kurangi tinggi konten supaya tidak perlu scroll */
+    body:has(.kematian-show-page) .main-content {
+        margin-top: 90px;
+        /* sebelumnya 100px */
+        padding-top: 24px;
+        padding-bottom: 20px;
+    }
+
+    /* Card tampil lebih padat (tidak kepanjangan) */
+    body:has(.kematian-show-page) .warga-card {
+        margin-bottom: 0;
+        box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
+        border-radius: 18px;
+    }
+
+    /* Header card lebih ramping */
+    body:has(.kematian-show-page) .warga-card-header {
+        padding: 16px 20px;
+    }
+
+    /* Avatar sedikit diperkecil */
+    body:has(.kematian-show-page) .warga-avatar {
+        width: 54px;
+        height: 54px;
+        font-size: 20px;
+    }
+
+    /* Body card lebih hemat tinggi */
+    body:has(.kematian-show-page) .warga-card-body {
+        padding: 18px 20px;
+    }
+
+    /* Section title */
+    body:has(.kematian-show-page) h5 {
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 12px;
+    }
+
+    /* Footer card rapat */
+    body:has(.kematian-show-page) .warga-card-footer {
+        padding: 14px 20px;
+    }
+
+    /* Dokumen card lebih kecil */
+    body:has(.kematian-show-page) .border.rounded-3 {
+        padding: 10px 12px !important;
+    }
+
+    /* Tombol aksi biar tidak bikin tinggi nambah */
+    body:has(.kematian-show-page) .action-buttons .btn {
+        padding: 8px 14px;
+        border-radius: 10px;
+    }
+
+    /* Mobile: pastikan tetap tanpa scroll aneh */
+    @media (max-width: 576px) {
+        body:has(.kematian-show-page) .main-content {
+            margin-top: 80px;
+            padding-bottom: 16px;
+        }
+    }
+
+    /* ==============================
    ABOUT PAGE (RAPI + PADAT + GAMBAR BAWAH + ANIMASI)
    ============================== */
 
-.about-page .about-header-center{
-    text-align: center;
-    margin-bottom: 12px; /* rapetin */
-}
-
-.about-page .page-title{
-    font-size: 40px;      /* sedikit lebih kecil biar ga makan ruang */
-    font-weight: 800;
-    letter-spacing: -0.6px;
-    margin: 0 0 4px 0;    /* rapetin */
-    line-height: 1.15;
-}
-
-.about-page .page-teks{
-    margin: 0 auto 8px auto; /* rapetin */
-    max-width: 850px;
-    text-align: center;
-    line-height: 1.55;
-    font-size: 17px;
-    color: #64748b;
-    padding: 0;
-}
-
-/* Card teks (tetap ada, tapi ga kebesaran) */
-.about-page .about-content-center{
-    max-width: 980px;
-    margin: 10px auto 0 auto;     /* rapetin */
-    border-radius: 16px;
-    padding: 20px 20px;           /* rapetin */
-    background: #fff;
-    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
-    border: 1px solid rgba(59, 130, 246, 0.10);
-}
-
-.about-page .about-content-center p{
-    text-align: center;
-    color: #374151;
-    line-height: 1.65;     /* ✅ jangan 1.2, terlalu mepet */
-    font-size: 16px;
-    margin-bottom: 12px;   /* rapetin */
-}
-
-.about-page .about-content-center p:last-child{
-    margin-bottom: 0;
-}
-
-/* Wrapper gambar bawah (SATU KALI AJA, no duplicate) */
-.about-page .about-image-bottom-wrap{
-    max-width: 980px;
-    margin: 12px auto 0 auto;  /* rapetin */
-    display: flex;
-    justify-content: center;
-}
-
-/* GAMBAR POLOS: no border, no shadow, no radius */
-.about-page .about-image-bottom{
-    width: 100%;
-    max-width: 680px;
-    height: auto;
-    object-fit: contain;
-    border-radius: 0;
-    box-shadow: none;
-    background: transparent;
-    transition: transform .35s ease, opacity .35s ease;
-}
-
-/* Hover halus */
-.about-page .about-image-bottom:hover{
-    transform: translateY(-4px) scale(1.02);
-}
-
-/* Animasi masuk untuk card & gambar */
-.about-fadeup{
-    opacity: 0;
-    transform: translateY(12px);
-    animation: aboutFadeUp .6s ease-out .12s forwards;
-}
-
-.about-fadeup-delay{
-    opacity: 0;
-    transform: translateY(12px);
-    animation: aboutFadeUp .6s ease-out .24s forwards;
-}
-
-@keyframes aboutFadeUp{
-    from{ opacity: 0; transform: translateY(12px); }
-    to  { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px){
-    .about-page .page-title{ font-size: 30px; }
-    .about-page .page-teks{ font-size: 15px; }
-    .about-page .about-content-center{ padding: 16px; }
-    .about-page .about-content-center p{ font-size: 15px; }
-    .about-page .about-image-bottom{ max-width: 100%; }
-}
-/* ===== About Highlights (3 fitur) ===== */
-.about-page .about-highlights{
-    max-width: 980px;
-    margin: 12px auto 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.about-page .highlight-item{
-    background: #fff;
-    border: 1px solid rgba(59, 130, 246, 0.10);
-    border-radius: 16px;
-    padding: 16px 14px;
-    text-align: center;
-    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
-    transition: transform .25s ease, box-shadow .25s ease;
-}
-
-.about-page .highlight-item:hover{
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.14);
-}
-
-.about-page .highlight-icon{
-    width: 46px;
-    height: 46px;
-    margin: 0 auto 8px auto;
-    border-radius: 14px;
-    display: grid;
-    place-items: center;
-    background: rgba(59, 130, 246, 0.12);
-    color: #1e40af;
-    font-size: 18px;
-}
-
-.about-page .highlight-item h5{
-    margin: 0 0 6px 0;
-    font-weight: 800;
-    color: #0f172a;
-}
-
-.about-page .highlight-item p{
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.55;
-    color: #475569;
-}
-
-/* Responsive */
-@media (max-width: 768px){
-    .about-page .about-highlights{
-        grid-template-columns: 1fr;
+    .about-page .about-header-center {
+        text-align: center;
+        margin-bottom: 12px;
+        /* rapetin */
     }
-}
 
-.nav-profile-img{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #4882e5;
-}
-.nav-profile-icon{
-    font-size: 28px;
-    color: #4882e5;
-}
-/* ===== Dropdown Profile Header ===== */
-.dropdown-menu .dropdown-profile {
-    padding: 12px 14px;
-}
+    .about-page .page-title {
+        font-size: 40px;
+        /* sedikit lebih kecil biar ga makan ruang */
+        font-weight: 800;
+        letter-spacing: -0.6px;
+        margin: 0 0 4px 0;
+        /* rapetin */
+        line-height: 1.15;
+    }
 
-.dropdown-menu .dp-wrap{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 14px;
-    background: #f8fafc;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-}
+    .about-page .page-teks {
+        margin: 0 auto 8px auto;
+        /* rapetin */
+        max-width: 850px;
+        text-align: center;
+        line-height: 1.55;
+        font-size: 17px;
+        color: #64748b;
+        padding: 0;
+    }
 
-.dropdown-menu .dp-avatar{
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex: 0 0 46px;
-    border: 2px solid rgba(72, 130, 229, 0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-}
+    /* Card teks (tetap ada, tapi ga kebesaran) */
+    .about-page .about-content-center {
+        max-width: 980px;
+        margin: 10px auto 0 auto;
+        /* rapetin */
+        border-radius: 16px;
+        padding: 20px 20px;
+        /* rapetin */
+        background: #fff;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
+        border: 1px solid rgba(59, 130, 246, 0.10);
+    }
 
-.dropdown-menu .dp-avatar img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+    .about-page .about-content-center p {
+        text-align: center;
+        color: #374151;
+        line-height: 1.65;
+        /* ✅ jangan 1.2, terlalu mepet */
+        font-size: 16px;
+        margin-bottom: 12px;
+        /* rapetin */
+    }
 
-.dropdown-menu .dp-avatar i{
-    font-size: 22px;
-    color: #4882e5;
-}
+    .about-page .about-content-center p:last-child {
+        margin-bottom: 0;
+    }
 
-.dropdown-menu .dp-name{
-    font-weight: 800;
-    font-size: 16px;
-    color: #334155;
-    line-height: 1.2;
-}
+    /* Wrapper gambar bawah (SATU KALI AJA, no duplicate) */
+    .about-page .about-image-bottom-wrap {
+        max-width: 980px;
+        margin: 12px auto 0 auto;
+        /* rapetin */
+        display: flex;
+        justify-content: center;
+    }
 
-/* ===== Dropdown Profile Header (COMPACT) ===== */
-.dropdown-menu .dropdown-profile.compact{
-    padding: 8px 12px;
-}
+    /* GAMBAR POLOS: no border, no shadow, no radius */
+    .about-page .about-image-bottom {
+        width: 100%;
+        max-width: 680px;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        transition: transform .35s ease, opacity .35s ease;
+    }
 
-.dropdown-menu .dropdown-profile.compact .dp-wrap{
-    background: transparent;   /* hilangkan card besar */
-    border: 0;
-    padding: 6px 4px;
-    border-radius: 0;
-    gap: 10px;
-}
+    /* Hover halus */
+    .about-page .about-image-bottom:hover {
+        transform: translateY(-4px) scale(1.02);
+    }
 
-.dropdown-menu .dropdown-profile.compact .dp-avatar{
-    width: 30px;              /* kecil */
-    height: 30px;
-    flex: 0 0 30px;
-    border-radius: 50%;
-    border: 2px solid rgba(72, 130, 229, 0.55);
-    overflow: hidden;
-    background: #fff;
-}
+    /* Animasi masuk untuk card & gambar */
+    .about-fadeup {
+        opacity: 0;
+        transform: translateY(12px);
+        animation: aboutFadeUp .6s ease-out .12s forwards;
+    }
 
-.dropdown-menu .dropdown-profile.compact .dp-avatar img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+    .about-fadeup-delay {
+        opacity: 0;
+        transform: translateY(12px);
+        animation: aboutFadeUp .6s ease-out .24s forwards;
+    }
 
-.dropdown-menu .dropdown-profile.compact .dp-avatar i{
-    font-size: 14px;          /* icon ikut kecil */
-    color: #4882e5;
-}
+    @keyframes aboutFadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
 
-.dropdown-menu .dropdown-profile.compact .dp-name{
-    font-weight: 800;
-    font-size: 15px;
-    color: #0f172a;
-    line-height: 1.2;
-}
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-/* =====================================================
+    /* Responsive */
+    @media (max-width: 768px) {
+        .about-page .page-title {
+            font-size: 30px;
+        }
+
+        .about-page .page-teks {
+            font-size: 15px;
+        }
+
+        .about-page .about-content-center {
+            padding: 16px;
+        }
+
+        .about-page .about-content-center p {
+            font-size: 15px;
+        }
+
+        .about-page .about-image-bottom {
+            max-width: 100%;
+        }
+    }
+
+    /* ===== About Highlights (3 fitur) ===== */
+    .about-page .about-highlights {
+        max-width: 980px;
+        margin: 12px auto 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .about-page .highlight-item {
+        background: #fff;
+        border: 1px solid rgba(59, 130, 246, 0.10);
+        border-radius: 16px;
+        padding: 16px 14px;
+        text-align: center;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .about-page .highlight-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(59, 130, 246, 0.14);
+    }
+
+    .about-page .highlight-icon {
+        width: 46px;
+        height: 46px;
+        margin: 0 auto 8px auto;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(59, 130, 246, 0.12);
+        color: #1e40af;
+        font-size: 18px;
+    }
+
+    .about-page .highlight-item h5 {
+        margin: 0 0 6px 0;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .about-page .highlight-item p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.55;
+        color: #475569;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .about-page .about-highlights {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .nav-profile-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #4882e5;
+    }
+
+    .nav-profile-icon {
+        font-size: 28px;
+        color: #4882e5;
+    }
+
+    /* ===== Dropdown Profile Header ===== */
+    .dropdown-menu .dropdown-profile {
+        padding: 12px 14px;
+    }
+
+    .dropdown-menu .dp-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: #f8fafc;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .dropdown-menu .dp-avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex: 0 0 46px;
+        border: 2px solid rgba(72, 130, 229, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+    }
+
+    .dropdown-menu .dp-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .dropdown-menu .dp-avatar i {
+        font-size: 22px;
+        color: #4882e5;
+    }
+
+    .dropdown-menu .dp-name {
+        font-weight: 800;
+        font-size: 16px;
+        color: #334155;
+        line-height: 1.2;
+    }
+
+    /* ===== Dropdown Profile Header (COMPACT) ===== */
+    .dropdown-menu .dropdown-profile.compact {
+        padding: 8px 12px;
+    }
+
+    .dropdown-menu .dropdown-profile.compact .dp-wrap {
+        background: transparent;
+        /* hilangkan card besar */
+        border: 0;
+        padding: 6px 4px;
+        border-radius: 0;
+        gap: 10px;
+    }
+
+    .dropdown-menu .dropdown-profile.compact .dp-avatar {
+        width: 30px;
+        /* kecil */
+        height: 30px;
+        flex: 0 0 30px;
+        border-radius: 50%;
+        border: 2px solid rgba(72, 130, 229, 0.55);
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .dropdown-menu .dropdown-profile.compact .dp-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .dropdown-menu .dropdown-profile.compact .dp-avatar i {
+        font-size: 14px;
+        /* icon ikut kecil */
+        color: #4882e5;
+    }
+
+    .dropdown-menu .dropdown-profile.compact .dp-name {
+        font-weight: 800;
+        font-size: 15px;
+        color: #0f172a;
+        line-height: 1.2;
+    }
+
+    /* =====================================================
    FIX SCROLL & GAP – KHUSUS HALAMAN DETAIL PINDAH
    ===================================================== */
 
-/* Hilangkan dorongan footer (margin-top bawaan template) */
-body:has(.pindah-show-page) footer {
-    margin-top: 0 !important;
-}
-
-/* Kurangi tinggi konten supaya tidak perlu scroll */
-body:has(.pindah-show-page) .main-content {
-    margin-top: 90px;        /* sebelumnya 100px */
-    padding-top: 24px;
-    padding-bottom: 20px;
-}
-
-/* Card tampil lebih padat */
-body:has(.pindah-show-page) .warga-card {
-    margin-bottom: 0;
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
-    border-radius: 18px;
-}
-
-/* Header card lebih ramping */
-body:has(.pindah-show-page) .warga-card-header {
-    padding: 16px 20px;
-}
-
-/* Avatar sedikit diperkecil */
-body:has(.pindah-show-page) .warga-avatar {
-    width: 54px;
-    height: 54px;
-    font-size: 20px;
-}
-
-/* Body card lebih hemat tinggi */
-body:has(.pindah-show-page) .warga-card-body {
-    padding: 18px 20px;
-}
-
-/* Judul section */
-body:has(.pindah-show-page) h5 {
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 12px;
-}
-
-/* Dokumen card lebih kecil */
-body:has(.pindah-show-page) .border.rounded-3 {
-    padding: 10px 12px !important;
-}
-
-/* Placeholder dokumen biar ga bikin tinggi kebanyakan */
-body:has(.pindah-show-page) img[alt="Placeholder dokumen"] {
-    width: 95px !important;
-    height: 95px !important;
-    opacity: 0.7 !important;
-}
-
-/* Footer card rapat */
-body:has(.pindah-show-page) .warga-card-footer {
-    padding: 14px 20px;
-}
-
-/* Tombol aksi biar tidak bikin tinggi nambah */
-body:has(.pindah-show-page) .action-buttons .btn {
-    padding: 8px 14px;
-    border-radius: 10px;
-}
-
-@media (max-width: 576px) {
-    body:has(.pindah-show-page) .main-content {
-        margin-top: 80px;
-        padding-bottom: 16px;
+    /* Hilangkan dorongan footer (margin-top bawaan template) */
+    body:has(.pindah-show-page) footer {
+        margin-top: 0 !important;
     }
-}
 
+    /* Kurangi tinggi konten supaya tidak perlu scroll */
+    body:has(.pindah-show-page) .main-content {
+        margin-top: 90px;
+        /* sebelumnya 100px */
+        padding-top: 24px;
+        padding-bottom: 20px;
+    }
+
+    /* Card tampil lebih padat */
+    body:has(.pindah-show-page) .warga-card {
+        margin-bottom: 0;
+        box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
+        border-radius: 18px;
+    }
+
+    /* Header card lebih ramping */
+    body:has(.pindah-show-page) .warga-card-header {
+        padding: 16px 20px;
+    }
+
+    /* Avatar sedikit diperkecil */
+    body:has(.pindah-show-page) .warga-avatar {
+        width: 54px;
+        height: 54px;
+        font-size: 20px;
+    }
+
+    /* Body card lebih hemat tinggi */
+    body:has(.pindah-show-page) .warga-card-body {
+        padding: 18px 20px;
+    }
+
+    /* Judul section */
+    body:has(.pindah-show-page) h5 {
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 12px;
+    }
+
+    /* Dokumen card lebih kecil */
+    body:has(.pindah-show-page) .border.rounded-3 {
+        padding: 10px 12px !important;
+    }
+
+    /* Placeholder dokumen biar ga bikin tinggi kebanyakan */
+    body:has(.pindah-show-page) img[alt="Placeholder dokumen"] {
+        width: 95px !important;
+        height: 95px !important;
+        opacity: 0.7 !important;
+    }
+
+    /* Footer card rapat */
+    body:has(.pindah-show-page) .warga-card-footer {
+        padding: 14px 20px;
+    }
+
+    /* Tombol aksi biar tidak bikin tinggi nambah */
+    body:has(.pindah-show-page) .action-buttons .btn {
+        padding: 8px 14px;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 576px) {
+        body:has(.pindah-show-page) .main-content {
+            margin-top: 80px;
+            padding-bottom: 16px;
+        }
+    }
+
+    /* =====================================================
+   FINAL MOBILE ACTION BUTTON – RECTANGLE STYLE
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* FOOTER CARD: sejajar */
+        .warga-card-footer,
+        .anggota-card-footer,
+        .keluarga-card-footer {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 10px 12px !important;
+            flex-wrap: nowrap !important;
+        }
+
+        /* FORM HAPUS INLINE */
+        .warga-card-footer form,
+        .anggota-card-footer form,
+        .keluarga-card-footer form {
+            display: inline-block !important;
+            margin: 0 !important;
+        }
+
+        /* BUTTON STYLE – PERSEGI PANJANG */
+        .warga-card-footer .btn,
+        .anggota-card-footer .btn,
+        .keluarga-card-footer .btn {
+            width: auto !important;
+            padding: 6px 12px !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            /* 🔑 ini kuncinya */
+            line-height: 1.2 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        /* ICON */
+        .warga-card-footer .btn i,
+        .anggota-card-footer .btn i,
+        .keluarga-card-footer .btn i {
+            font-size: 13px !important;
+        }
+
+        /* HAPUS – outline tipis */
+        .btn-danger,
+        .btn-delete {
+            background: #fff !important;
+            border-width: 1.5px !important;
+        }
+
+        /* MATIKAN FULL WIDTH BOOTSTRAP */
+        .w-100 {
+            width: auto !important;
+        }
+
+        /* =========================
+       SEARCH BUTTON – KECIL & SEBARIS
+       ========================= */
+        .search-container {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        .search-box {
+            padding: 6px 10px !important;
+            font-size: 12px !important;
+            border-radius: 8px !important;
+        }
+
+        .btn-search {
+            padding: 6px 12px !important;
+            font-size: 12px !important;
+            border-radius: 8px !important;
+            width: auto !important;
+        }
+    }
+
+    /* =====================================================
+   MOBILE COMPACT CARD – KHUSUS HP
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* =========================
+       CARD UTAMA
+       ========================= */
+        .warga-card,
+        .anggota-card,
+        .keluarga-card {
+            border-radius: 12px !important;
+            margin-bottom: 12px !important;
+            box-shadow: 0 6px 18px rgba(30, 64, 175, 0.08) !important;
+        }
+
+        /* =========================
+       HEADER CARD
+       ========================= */
+        .warga-card-header,
+        .anggota-card-header,
+        .keluarga-card-header {
+            padding: 10px 12px !important;
+            min-height: unset !important;
+        }
+
+        .warga-avatar,
+        .anggota-avatar,
+        .keluarga-avatar {
+            width: 44px !important;
+            height: 44px !important;
+            font-size: 16px !important;
+            margin-right: 8px !important;
+        }
+
+        .warga-name,
+        .anggota-name,
+        .keluarga-name {
+            font-size: 14.5px !important;
+            margin-bottom: 2px !important;
+        }
+
+        .warga-nik,
+        .anggota-kk,
+        .keluarga-nomor {
+            font-size: 12px !important;
+            opacity: 0.85;
+        }
+
+        /* =========================
+       BODY CARD
+       ========================= */
+        .warga-card-body,
+        .anggota-card-body,
+        .keluarga-card-body {
+            padding: 10px 12px !important;
+        }
+
+        .info-row {
+            margin-bottom: 5px !important;
+        }
+
+        .info-label {
+            font-size: 12px !important;
+            width: auto !important;
+            margin-bottom: 2px !important;
+        }
+
+        .info-value {
+            font-size: 12.5px !important;
+            line-height: 1.3 !important;
+        }
+
+        /* badge jumlah anggota */
+        .badge,
+        .badge-primary {
+            font-size: 11px !important;
+            padding: 3px 6px !important;
+            border-radius: 6px !important;
+        }
+
+        /* =========================
+       FOOTER CARD
+       ========================= */
+        .warga-card-footer,
+        .anggota-card-footer,
+        .keluarga-card-footer {
+            padding: 8px 10px !important;
+        }
+
+        /* tanggal */
+        .warga-card-footer small,
+        .anggota-card-footer small {
+            font-size: 11px !important;
+        }
+
+    }
+
+    /* =====================================================
+   MOBILE: CARD CONTENT 2 KOLOM (KIRI–KANAN)
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* BODY CARD JADI GRID */
+        .warga-card-body,
+        .anggota-card-body,
+        .keluarga-card-body {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            /* 🔑 2 kolom */
+            column-gap: 12px;
+            row-gap: 8px;
+            padding: 10px 12px !important;
+        }
+
+        /* SETIAP BARIS INFO */
+        .info-row {
+            display: block !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* LABEL */
+        .info-label {
+            width: auto !important;
+            font-size: 11.5px !important;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 2px;
+        }
+
+        /* VALUE */
+        .info-value {
+            font-size: 12.5px !important;
+            line-height: 1.3 !important;
+            color: #0f172a;
+        }
+
+        /* BADGE JUMLAH ANGGOTA */
+        .badge,
+        .badge-primary {
+            font-size: 11px !important;
+            padding: 3px 6px !important;
+            border-radius: 6px !important;
+        }
+
+        /* BIKIN ITEM TERAKHIR FULL WIDTH (OPSIONAL) */
+        .info-row.full {
+            grid-column: span 2;
+        }
+    }
+
+    /* =====================================================
+   KELUARGA.INDEX – FIX BUTTON EDIT & HAPUS (HP ONLY)
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* FOOTER CARD KHUSUS KELUARGA */
+        .keluarga-card .keluarga-card-footer {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 2px !important;
+            padding: 8px 10px !important;
+        }
+
+        /* ACTION BUTTONS SEJAJAR */
+        .keluarga-card .action-buttons {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 6px !important;
+            width: 100%;
+        }
+
+        /* FORM HAPUS JANGAN BIKIN TURUN */
+        .keluarga-card .action-buttons form {
+            margin: 0 !important;
+            /* padding: 0 !important; */
+            display: inline-block !important;
+        }
+
+        /* BUTTON STYLE KECIL & PERSEGI */
+        .keluarga-card .action-buttons .btn {
+            width: auto !important;
+            padding: 4px 8px !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            line-height: 1.2 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 3px !important;
+        }
+
+        /* ICON */
+        .keluarga-card .action-buttons .btn i {
+            font-size: 11.5px !important;
+            margin: 0 !important;
+        }
+
+        /* HAPUS: OUTLINE TIPIS */
+        .keluarga-card .btn-delete {
+            border-width: 1.2px !important;
+            background: #fff !important;
+        }
+
+        /* MATIKAN FULL WIDTH BOOTSTRAP */
+        .keluarga-card .w-100 {
+            width: auto !important;
+        }
+    }
+
+    /* =====================================================
+   ANGGOTA.INDEX – BUTTON FIX (HP ONLY)
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* =========================
+       HEADER BUTTON (KECILKAN)
+       ========================= */
+        .anggota-page .page-header .btn {
+            padding: 6px 10px !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            line-height: 1.2 !important;
+        }
+
+        .anggota-page .page-header .btn i {
+            font-size: 13px !important;
+        }
+
+        /* jarak antar tombol header */
+        .anggota-page .page-header .d-flex.gap-2 {
+            gap: 6px !important;
+        }
+
+        /* =========================
+       CARD FOOTER – BUTTON EDIT & HAPUS
+       ========================= */
+        .anggota-page .warga-card-footer {
+            padding: 8px 10px !important;
+        }
+
+        .anggota-page .warga-card-footer>.d-flex {
+            gap: 6px !important;
+        }
+
+        .anggota-page .warga-card-footer .btn {
+            padding: 5px 10px !important;
+            font-size: 11.5px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            line-height: 1.15 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .anggota-page .warga-card-footer .btn i {
+            font-size: 12px !important;
+        }
+
+        /* HAPUS – outline tipis */
+        .anggota-page .btn-delete {
+            border-width: 1.2px !important;
+            background: #fff !important;
+        }
+    }
+
+    /* =====================================================
+   GLOBAL MOBILE BUTTON FIX – SEMUA HALAMAN PERISTIWA
+   (Detail / Edit / Hapus)
+   DESKTOP AMAN
+   ===================================================== */
+    /* =====================================================
+   FIX FINAL – BUTTON ACTION SEJAJAR (HP ONLY)
+   BERLAKU UNTUK SEMUA CARD
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* FOOTER CARD: JANGAN COLUMN */
+        .warga-card-footer,
+        .anggota-card-footer,
+        .keluarga-card-footer {
+            display: flex !important;
+            flex-direction: row !important;
+            /* 🔑 KUNCI */
+            justify-content: space-between !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 8px 12px !important;
+        }
+
+        /* TANGGAL BIAR TIDAK DORONG TOMBOL */
+        .warga-card-footer small,
+        .anggota-card-footer small,
+        .keluarga-card-footer small {
+            font-size: 11px !important;
+            white-space: nowrap;
+        }
+
+        /* WRAPPER BUTTON */
+        .action-buttons {
+            display: flex !important;
+            flex-direction: row !important;
+            /* 🔥 SEJAJAR */
+            align-items: center !important;
+            justify-content: flex-end !important;
+            gap: 6px !important;
+            width: auto !important;
+            /* ❌ JANGAN 100% */
+            flex-wrap: nowrap !important;
+        }
+
+        /* FORM HAPUS JANGAN BIKIN BARIS BARU */
+        .action-buttons form {
+            display: inline-flex !important;
+            margin: 0 !important;
+        }
+
+        /* TOMBOL: TEBAL KE ATAS (BESAR NYAMAN) */
+        .action-buttons .btn {
+            padding: 8px 12px !important;
+            /* 🔑 ini bikin "tinggi" */
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            line-height: 1.2 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            white-space: nowrap !important;
+            width: auto !important;
+        }
+
+        /* ICON */
+        .action-buttons .btn i {
+            font-size: 12px !important;
+            margin: 0 !important;
+        }
+
+        /* HAPUS – OUTLINE RAPI */
+        .btn-delete {
+            background: #fff !important;
+            border-width: 1.2px !important;
+        }
+
+        /* MATIKAN FULL WIDTH BOOTSTRAP */
+        .w-100 {
+            width: auto !important;
+        }
+    }
+
+    /* =====================================================
+   MOBILE – SEARCH 1 BARIS, FILTER 3 KOLOM SEJAJAR
+   ===================================================== */
+
+    /* =====================================================
+   FIX FINAL – HP: SEARCH 1 BARIS + FILTER 3 SEJAJAR
+   TANPA UBAH HTML
+   ===================================================== */
+    @media (max-width: 576px) {
+
+        /* TARGET WRAPPER SEARCH + FILTER */
+        .card.shadow-sm.mb-3 form>.d-flex.flex-column.flex-xl-row {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            /* 🔥 3 SEBARIS */
+            gap: 6px !important;
+            align-items: center !important;
+        }
+
+        /* SEARCH (BIKIN FULL WIDTH DI ATAS) */
+        .card.shadow-sm.mb-3 .input-group.flex-grow-1 {
+            grid-column: span 3;
+            /* 🔑 search 1 baris penuh */
+            width: 100%;
+        }
+
+        /* INPUT SEARCH */
+        .search-box {
+            padding: 6px 10px !important;
+            font-size: 12px !important;
+            border-radius: 8px !important;
+        }
+
+        .btn-search {
+            padding: 6px 12px !important;
+            font-size: 12px !important;
+            border-radius: 8px !important;
+            white-space: nowrap;
+        }
+
+        /* FILTER: TEMPAT / TAHUN / BULAN */
+        input.form-control-sm,
+        select.form-select-sm {
+            width: 100% !important;
+            max-width: 100% !important;
+            /* ⛔ matikan inline style */
+            padding: 6px 8px !important;
+            font-size: 11.5px !important;
+            height: 34px !important;
+            border-radius: 8px !important;
+        }
+
+        /* RESET BUTTON (IKUT GRID) */
+        a.btn-outline-secondary {
+            width: 100%;
+            height: 34px;
+            padding: 6px !important;
+            font-size: 12px !important;
+            border-radius: 8px !important;
+        }
+
+        /* MATIKAN FLEX BOOTSTRAP YANG NGANGGU */
+        .flex-grow-0,
+        .flex-grow-1 {
+            flex: unset !important;
+        }
+    }
+
+    @media (max-width: 576px) {
+
+        /* ===============================
+     BODY CARD: COLUMN UTAMA
+     =============================== */
+        .kelahiran-show-page .warga-card-body,
+        .kematian-show-page .warga-card-body,
+        .pindah-show-page .warga-card-body {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        /* ===============================
+     INFORMASI + DATA → TETAP 2 KOLOM
+     =============================== */
+        .kelahiran-show-page .warga-card-body>.row.g-4,
+        .kematian-show-page .warga-card-body>.row.g-4,
+        .pindah-show-page .warga-card-body>.row.g-4 {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            /* 🔑 KUNCI 2 KOLOM */
+            gap: 10px !important;
+            margin: 0 !important;
+        }
+
+        /* KOTAK MASING-MASING KOLOM */
+        .kelahiran-show-page .col-12.col-md-6,
+        .kematian-show-page .col-12.col-md-6,
+        .pindah-show-page .col-12.col-md-6 {
+            padding: 10px !important;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        /* ===============================
+     JUDUL SECTION
+     =============================== */
+        .kelahiran-show-page h5,
+        .kematian-show-page h5,
+        .pindah-show-page h5 {
+            font-size: 14.5px !important;
+            font-weight: 800 !important;
+            margin-bottom: 8px !important;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        /* ===============================
+     ISI DALAM BIAR LEGA
+     =============================== */
+        .kelahiran-show-page .info-row,
+        .kematian-show-page .info-row,
+        .pindah-show-page .info-row {
+            margin-bottom: 8px !important;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0 !important;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            font-size: 11.5px !important;
+            font-weight: 600 !important;
+            color: #64748b !important;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 12.5px !important;
+            line-height: 1.45 !important;
+            color: #0f172a !important;
+        }
+
+        /* ===============================
+     DOKUMEN → TURUN KE BAWAH
+     =============================== */
+        .kelahiran-show-page .pt-3.mt-4.border-top,
+        .kematian-show-page .pt-3.mt-4.border-top,
+        .pindah-show-page .pt-3.mt-4.border-top {
+            margin-top: 6px !important;
+            padding-top: 10px !important;
+            text-align: center !important;
+            max-height: 240px !important;
+            overflow-y: auto !important;
+        }
+
+        /* GRID FILE DOKUMEN */
+        .kelahiran-show-page .pt-3.mt-4.border-top .row.g-3,
+        .kematian-show-page .pt-3.mt-4.border-top .row.g-3,
+        .pindah-show-page .pt-3.mt-4.border-top .row.g-3 {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 8px !important;
+        }
+
+        /* CARD FILE */
+        .kelahiran-show-page .kelahiran-doc-card,
+        .kematian-show-page .kelahiran-doc-card,
+        .pindah-show-page .kelahiran-doc-card {
+            padding: 8px !important;
+            border-radius: 10px !important;
+            min-height: 64px !important;
+        }
+
+        /* PLACEHOLDER DOKUMEN – SERAGAMM */
+        img[alt*="Placeholder"] {
+            width: 88px !important;
+            height: 88px !important;
+            margin: 8px auto 0 auto !important;
+            display: block !important;
+            opacity: 0.75 !important;
+        }
+
+        /* SCROLLBAR TIPIS */
+        .pt-3.mt-4.border-top::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .pt-3.mt-4.border-top::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, .4);
+            border-radius: 10px;
+        }
+    }
+
+    /* ===== FOTO PROFIL ===== */
+    .photo-wrapper {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+        border: 3px solid #e5e7eb;
+        flex-shrink: 0;
+    }
+
+    .photo-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* tombol hapus */
+    .btn-delete-photo {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, .9);
+        color: #dc2626;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(.85);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+        transition: all .25s ease;
+    }
+
+    .photo-wrapper:hover .btn-delete-photo {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .btn-delete-photo:hover {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    /* info user */
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .profile-info .name {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .profile-info .email {
+        font-size: 13px;
+        color: #6b7280;
+    }
 </style>
