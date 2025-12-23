@@ -246,9 +246,6 @@
                                 <i class="fas fa-plus me-1"></i>Tambah Data Kelahiran
                             </a>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-primary">
-                                <i class="fas fa-sign-in-alt me-1"></i>Login untuk menambah data
-                            </a>
                         @endif
                     </div>
                 </div>

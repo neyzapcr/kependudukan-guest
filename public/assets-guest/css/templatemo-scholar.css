@@ -597,6 +597,8 @@ Header Style
   }
 }
 
+
+
 @media (max-width: 767px) {
   .header-area {
     padding: 0 15px;
@@ -788,7 +790,7 @@ Services Style
   border-radius: 50%;
   position: absolute;
   right: 0;
-  top: -95px;
+  top: -40px !important;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
   transition: all .3s ease;
 }
@@ -1681,7 +1683,134 @@ body {
     display: inline-block;
     margin: 0px 10px;
   }
+    /* ============================
+     SERVICES – FORCE 2x2 (HP)
+     ============================ */
+
+  /* Parent jadi grid */
+  .services .row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px;
+  }
+
+  /* MATIKAN COL BOOTSTRAP */
+  .services .row > [class*="col"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: unset !important;
+  }
+
+    /* delay biar muncul bergantian */
+  .services .service-item:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .services .service-item:nth-child(2) {
+    animation-delay: 0.12s;
+  }
+  .services .service-item:nth-child(3) {
+    animation-delay: 0.18s;
+  }
+  .services .service-item:nth-child(4) {
+    animation-delay: 0.24s;
+  }
+  /* ITEM */
+  .services .service-item {
+    position: relative;
+    margin-top: 0 !important;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: serviceFadeUp 0.6s ease-out forwards;
+  }
+  }
+
+  /* ICON */
+  .services .service-item .icon {
+    position: absolute !important;
+    top: -26px !important;
+    right: 50% !important;
+    transform: translateX(50%) !important;
+    width: 62px !important;
+    height: 62px !important;
+    line-height: 62px !important;
+    z-index: 2;
+        animation: iconPop 0.5s ease-out forwards;
+
+  }
+
+   @keyframes serviceFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes iconPop {
+    from {
+      transform: translateX(50%) scale(0.85);
+    }
+    to {
+      transform: translateX(50%) scale(1);
+    }
+  }
+  .services .service-item .icon img {
+    max-width: 30px !important;
+    margin-top: 0 !important;
+  }
+
+  /* CARD */
+  .services .service-item .main-content {
+    margin-right: 0 !important;
+    padding: 46px 14px 18px 14px !important;
+    text-align: center;
+  }
+
+  .services .service-item h4 {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 6px;
+  }
+
+  .services .service-item p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 0;
+  }
+    /* ============================
+     RAPETIN JARAK SERVICES (HP)
+     ============================ */
+
+  .services {
+    margin-top: 0 !important; /* sebelumnya 80px */
+    padding-top: 0 !important;
+  }
+
+  .services .row {
+    margin-top: 0 !important; /* sebelumnya 80px */
+    padding-top: 0 !important;
+    gap: 1px !important; /* jarak antar card */
+  }
+
+  .services .service-item {
+    margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  height: 160px !important;
 }
+  /* rapetin jarak bawah card */
+  .services .service-item .main-content {
+    height: 100% !important;
+    padding-top: 42px !important;  /* cukup buat icon */
+  padding-bottom: 14px !important;
+  margin-top: 40px !important;
+  }
+
+
+
+
 
 @media (max-width: 992px) {
   .header-area .main-nav #search input,
@@ -1883,3 +2012,65 @@ body {
   }
 }
 
+/* =====================================================
+   SERVICES – EXTRA COMPACT DESKTOP
+   ===================================================== */
+
+@media (min-width: 993px) {
+
+ /* ==== SERVICES CARD FINAL FIX ==== */
+
+.services .row {
+  display: grid !important;
+  justify-content: center !important;
+  align-items: flex-start;
+   grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0px;
+}
+
+.services .service-item {
+  position: relative;
+}
+
+.services .service-item .main-content {
+  width: 230px;
+  min-height: 200px;
+  padding: 72px 20px 24px;
+  text-align: center;
+  border-radius: 22px;
+  background: #f3f4ff;
+}
+
+.services .service-item .icon {
+  position: absolute;
+  top: -48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #1e40af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  z-index: 5;
+}
+
+.services .service-item .icon img {
+  width: 44px;
+  height: auto;
+}
+
+.services .service-item h4 {
+  font-size: 15px;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.services .service-item p {
+  font-size: 12.5px;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+}

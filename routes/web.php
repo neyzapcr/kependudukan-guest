@@ -1,17 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnggotaKeluargaController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WargaController;
-use App\Http\Controllers\PindahController;
-use App\Http\Controllers\KematianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelahiranController;
 use App\Http\Controllers\KeluargaKKController;
-use App\Http\Controllers\TambahDataController;
-use App\Http\Controllers\AnggotaKeluargaController;
+use App\Http\Controllers\KematianController;
+use App\Http\Controllers\PindahController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaController;
+use Illuminate\Support\Facades\Route;
 
 // Login
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -75,9 +73,11 @@ Route::resource('kelahiran', KelahiranController::class);
 Route::get('/kelahiran/file/{id}/download', [KelahiranController::class, 'downloadFile'])
     ->name('kelahiran.downloadFile');
 
-        // PROFIL SENDIRI (SEMUA USER LOGIN BOLEH)
+// PROFIL SENDIRI (SEMUA USER LOGIN BOLEH)
 Route::get('/profil', [UserController::class, 'editProfile'])->name('user.profile.edit');
 Route::put('/profil', [UserController::class, 'updateProfile'])->name('user.profile.update');
+Route::delete('/profil/hapus-foto', [UserController::class, 'deleteOwnPhoto'])
+    ->name('user.profile.photo.delete');
 
 // User (KHUSUS SUPER-ADMIN)
 Route::middleware('checkrole:super-admin')->group(function () {
@@ -87,6 +87,9 @@ Route::middleware('checkrole:super-admin')->group(function () {
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    // 🔥 HAPUS FOTO PROFIL USER
+    Route::delete('/user/{user}/hapus-foto', [UserController::class, 'deletePhoto'])
+        ->name('user.photo.delete');
 });
 
 // Kematian
@@ -113,4 +116,3 @@ Route::get('/pindah/file/{id}/preview', [PindahController::class, 'previewFile']
 
 Route::get('/pindah/file/{id}/download', [PindahController::class, 'downloadFile'])
     ->name('pindah.downloadFile');
-

@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h1 class="page-title">
-                            <i class="fas fa-route me-2"></i>Data Perpindahan
+                            <i class="fas fa-route me-2"></i>Data Pindah
                         </h1>
                         <p class="page-subtitle">
                             Kelola data kepindahan warga. Klik detail untuk informasi lengkap.
@@ -220,7 +220,7 @@
                     </div>
                 @endif
             @else
-                {{-- EMPTY STATE --}}
+                {{-- EMPTY STATEEE --}}
                 <div class="card shadow-sm">
                     <div class="card-body text-center py-5">
                         <i class="fas fa-route fa-3x text-muted mb-3"></i>
@@ -229,9 +229,6 @@
 
                         @if (session('is_logged_in'))
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-primary">
-                                <i class="fas fa-sign-in-alt me-1"></i>Login untuk menambah data
-                            </a>
                         @endif
                     </div>
                 </div>

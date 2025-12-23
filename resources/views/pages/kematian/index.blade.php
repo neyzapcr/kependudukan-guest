@@ -232,9 +232,6 @@
 
                         @if (session('is_logged_in'))
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-primary">
-                                <i class="fas fa-sign-in-alt me-1"></i>Login untuk menambah data
-                            </a>
                         @endif
                     </div>
                 </div>
