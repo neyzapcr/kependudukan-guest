@@ -16,7 +16,7 @@
 
         <h2>Selamat Datang!</h2>
         <p>Silakan masuk ke akun Anda</p>
-        <p><small>Sistem Informasi Kependudukan Desa Andromeda</small></p>
+        <p><small>Sistem Data Penduduk Desa</small></p>
       </div>
     </div>
 
@@ -63,7 +63,7 @@
 </form>
 
       <div class="footer-copyright">
-        <small><center>Copyright © 2025 Bina Desa. All Rights Reserved.</center></small>
+        <small><center> <i class="fas fa-copyright"></i> 2025 Data Penduduk. All Rights Reserved.</center></small>
       </div>
     </div>
   </div>
