@@ -36,7 +36,7 @@ class KelahiranController extends Controller
      */
     public function create()
     {
-       
+
         $warga = Warga::whereNotIn('warga_id', function ($query) {
             $query->select('warga_id')->from('peristiwa_kelahiran');
         })->get();
@@ -110,8 +110,7 @@ class KelahiranController extends Controller
      * Display the specified resource.
      */
     public function show(Kelahiran $kelahiran)
-    {
-        // Ambil semua media terkait kelahiran ini
+    {   
         $media = Media::where('ref_table', 'peristiwa_kelahiran')
             ->where('ref_id', $kelahiran->kelahiran_id)
             ->get();
@@ -126,22 +125,19 @@ class KelahiranController extends Controller
      */
     public function edit(Kelahiran $kelahiran)
     {
-        // Ambil SEMUA media terkait kelahiran ini
         $media = Media::where('ref_table', 'peristiwa_kelahiran')
             ->where('ref_id', $kelahiran->kelahiran_id)
             ->get();
 
-        // Data dropdown
+
         $warga = Warga::all();
-        // Ambil old value jika exist, kalau tidak pakai value dari database
         $selectedAyah = old('ayah_warga_id', $kelahiran->ayah_warga_id);
         $selectedIbu  = old('ibu_warga_id', $kelahiran->ibu_warga_id);
 
-// Ambil daftar ayah & ibu (tetap laki/perempuan)
+
         $ayah = Warga::where('jenis_kelamin', 'L')->get();
         $ibu  = Warga::where('jenis_kelamin', 'P')->get();
 
-// Kirim juga selected ke blade
         return view('pages.kelahiran.edit', compact('kelahiran', 'warga', 'ayah', 'ibu', 'media', 'selectedAyah', 'selectedIbu'));
 
     }
@@ -163,7 +159,7 @@ class KelahiranController extends Controller
         ]);
 
         try {
-            // Update data kelahiran
+
             $kelahiran->update([
                 'tgl_lahir'     => $request->tgl_lahir,
                 'tempat_lahir'  => $request->tempat_lahir,
@@ -172,7 +168,7 @@ class KelahiranController extends Controller
                 'no_akta'       => $request->no_akta,
             ]);
 
-            // Handle upload foto akta baru (boleh lebih dari satu)
+
             if ($request->hasFile('foto_akta')) {
                 foreach ($request->file('foto_akta') as $file) {
                     $fileName = 'akta_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();

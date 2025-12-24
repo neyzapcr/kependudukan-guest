@@ -129,9 +129,9 @@
                                                 alt="Foto Profil {{ $user->name }}"
                                                 style="width:100%;height:100%;object-fit:cover;display:block;">
                                         @else
-                                            <span style="font-weight:700;">
-                                                {{ $inisial1 }}{{ $inisial2 }}
-                                            </span>
+                                            <img src="{{ asset('assets/images/placeholder-noprofile.png') }}"
+                                                alt="Foto Profil {{ $user->name }}"
+                                                style="width:100%;height:100%;object-fit:cover;display:block;">
                                         @endif
                                     </div>
 

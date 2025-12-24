@@ -35,8 +35,7 @@ class KematianController extends Controller
      */
     public function create()
     {
-                                                // Data warga untuk dropdown
-        $warga = Warga::orderBy('nama')->get(); // sesuaikan nama kolom
+        $warga = Warga::orderBy('nama')->get();
 
         return view('pages.kematian.create', compact('warga'));
     }
@@ -106,7 +105,6 @@ class KematianController extends Controller
      */
     public function show(Kematian $kematian)
     {
-        // Ambil semua media terkait kematian ini
         $media = Media::where('ref_table', 'peristiwa_kematian')
             ->where('ref_id', $kematian->kematian_id)
             ->get();
@@ -121,13 +119,11 @@ class KematianController extends Controller
      */
     public function edit(Kematian $kematian)
     {
-        // Ambil SEMUA media terkait kematian ini
         $media = Media::where('ref_table', 'peristiwa_kematian')
             ->where('ref_id', $kematian->kematian_id)
             ->get();
 
-                                                // Data dropdown warga
-        $warga = Warga::orderBy('nama')->get(); // sesuaikan nama kolom
+        $warga = Warga::orderBy('nama')->get();
 
         return view('pages.kematian.edit', compact('kematian', 'warga', 'media'));
     }
@@ -195,7 +191,6 @@ class KematianController extends Controller
     public function destroy(Kematian $kematian)
     {
         try {
-            // Hapus semua file media terkait (kalau ada > 1)
             $mediaList = Media::where('ref_table', 'peristiwa_kematian')
                 ->where('ref_id', $kematian->kematian_id)
                 ->get();
@@ -205,7 +200,6 @@ class KematianController extends Controller
                 $media->delete();
             }
 
-            // Hapus data kematian
             $kematian->delete();
 
             return redirect()->route('kematian.index')

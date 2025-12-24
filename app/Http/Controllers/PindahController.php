@@ -16,12 +16,11 @@ class PindahController extends Controller
     public function index(Request $request)
     {
         $pindah = Pindah::with(['warga'])
-            ->search($request->search)                         // scopeSearch di model Pindah (opsional, tapi disarankan)
-            ->filter($request->only(['alamat_tujuan', 'tahun', 'bulan'])) // scopeFilter di model Pindah
+            ->search($request->search)
+            ->filter($request->only(['alamat_tujuan', 'tahun', 'bulan']))
             ->orderBy('tgl_pindah', 'desc')
             ->paginate(10);
 
-        // ambil satu media tiap record (misal surat pindah)
         foreach ($pindah as $item) {
             $item->media = Media::where('ref_table', 'peristiwa_pindah')
                 ->where('ref_id', $item->pindah_id)
@@ -36,7 +35,6 @@ class PindahController extends Controller
      */
     public function create()
     {
-        // Data warga untuk dropdown
         $warga = Warga::orderBy('nama')->get();
 
         return view('pages.pindah.create', compact('warga'));
@@ -123,12 +121,10 @@ class PindahController extends Controller
      */
     public function edit(Pindah $pindah)
     {
-        // Ambil SEMUA media terkait pindah ini
         $media = Media::where('ref_table', 'peristiwa_pindah')
             ->where('ref_id', $pindah->pindah_id)
             ->get();
 
-        // Data dropdown warga (kalau kamu mau izinkan pindah diganti orangnya)
         $warga = Warga::orderBy('nama')->get();
 
         return view('pages.pindah.edit', compact('pindah', 'warga', 'media'));
@@ -198,7 +194,6 @@ class PindahController extends Controller
     public function destroy(Pindah $pindah)
     {
         try {
-            // Hapus semua file media terkait (kalau ada > 1)
             $mediaList = Media::where('ref_table', 'peristiwa_pindah')
                 ->where('ref_id', $pindah->pindah_id)
                 ->get();
@@ -208,7 +203,6 @@ class PindahController extends Controller
                 $media->delete();
             }
 
-            // Hapus data pindah
             $pindah->delete();
 
             return redirect()->route('pindah.index')
