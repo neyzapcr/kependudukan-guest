@@ -26,23 +26,41 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', [DashboardController::class, 'index'])->name('pages.dashboard.index');
 
 // Warga
+
 Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
+
+
 Route::get('/warga/create', [WargaController::class, 'create'])->name('pages.warga.create');
+
+
 Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
+
 Route::get('/warga/{warga}/edit', [WargaController::class, 'edit'])->name('pages.warga.edit');
 Route::put('/warga/{warga}', [WargaController::class, 'update'])->name('warga.update');
+
+
 Route::delete('/warga/{warga}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
 // Keluarga
 Route::resource('keluarga', KeluargaKKController::class);
+
+
 Route::get('keluarga/{keluarga}/edit', [KeluargaKKController::class, 'edit'])->name('keluarga.edit');
 
 // Anggota Keluarga
+
 Route::get('/anggota/{kk}', [AnggotaKeluargaController::class, 'index'])->name('anggota.index');
+
+
 Route::get('/anggota/{kk}/create', [AnggotaKeluargaController::class, 'create'])->name('anggota.create');
+
+
 Route::post('/anggota/{kk}/store', [AnggotaKeluargaController::class, 'store'])->name('anggota.store');
+
 Route::get('/anggota/{anggota}/edit', [AnggotaKeluargaController::class, 'edit'])->name('anggota.edit');
 Route::put('/anggota/{anggota}/update', [AnggotaKeluargaController::class, 'update'])->name('anggota.update');
+
+
 Route::delete('/anggota/{anggota}', [AnggotaKeluargaController::class, 'destroy'])->name('anggota.destroy');
 
 // User
@@ -65,6 +83,7 @@ Route::delete('/kelahiran/hapus-foto/{media_id}',
 )->name('kelahiran.hapusFoto');
 
 // web.php
+
 Route::resource('kelahiran', KelahiranController::class);
 
 /// PREVIEW FILE LANGSUNG TAMPIL DI TAB YANG SAMA

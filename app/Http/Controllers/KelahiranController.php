@@ -17,8 +17,8 @@ class KelahiranController extends Controller
     public function index(Request $request)
     {
         $kelahiran = Kelahiran::with(['warga', 'ayah', 'ibu'])
-            ->search($request->search)                                   // scope search dari model
-            ->filter($request->only(['tempat_lahir', 'tahun', 'bulan'])) // scope filter dari model
+            ->search($request->search)
+            ->filter($request->only(['tempat_lahir', 'tahun', 'bulan']))
             ->orderBy('tgl_lahir', 'desc')
             ->paginate(10);
 
@@ -36,15 +36,13 @@ class KelahiranController extends Controller
      */
     public function create()
     {
-        // Ambil data warga untuk dropdown (kecuali yang sudah punya data kelahiran)
+       
         $warga = Warga::whereNotIn('warga_id', function ($query) {
             $query->select('warga_id')->from('peristiwa_kelahiran');
         })->get();
 
-        // Ambil data warga untuk ayah (laki-laki)
         $ayah = Warga::where('jenis_kelamin', 'L')->get();
 
-        // Ambil data warga untuk ibu (perempuan)
         $ibu = Warga::where('jenis_kelamin', 'P')->get();
 
         return view('pages.kelahiran.create', compact('warga', 'ayah', 'ibu'));

@@ -14,9 +14,9 @@ class Warga extends Model
         'pekerjaan', 'telp', 'email', 'alamat'
     ];
 
-    public function keluarga()
+   public function kepalaKeluarga()
     {
-        return $this->belongsTo(Keluarga::class, 'kk_id');
+        return $this->hasOne(Keluarga::class, 'kepala_keluarga_warga_id', 'warga_id');
     }
 
     public function kelahiran()

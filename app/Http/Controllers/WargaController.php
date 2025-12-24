@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Warga;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class WargaController extends Controller
@@ -65,17 +64,20 @@ class WargaController extends Controller
 
     public function destroy(Warga $warga)
     {
+        if ($warga->kepalaKeluarga()->exists()) {
+            return redirect()->route('warga.index')
+                ->with('error', 'Data warga tidak dapat dihapus karena masih terdaftar sebagai kepala keluarga.');
+        }
+
         try {
             $warga->delete();
-            return redirect()->route('warga.index')->with('success', 'Data warga berhasil dihapus!');
-        } catch (QueryException $e) {
-            if ($e->getCode() == 23000) {
-                return redirect()->route('warga.index')
-                    ->with('error', 'Data warga tidak dapat dihapus karena masih digunakan sebagai kepala keluarga!');
-            }
 
+            return redirect()->route('warga.index')
+                ->with('success', 'Data warga berhasil dihapus.');
+        } catch (\Exception $e) {
             return redirect()->route('warga.index')
                 ->with('error', 'Terjadi kesalahan saat menghapus data warga.');
         }
     }
+
 }

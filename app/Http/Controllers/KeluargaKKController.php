@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class KeluargaKKController extends Controller
 {
     /**
-     * Tampilkan daftar KK
+     *
      */
     public function index(Request $request)
 {
@@ -28,7 +28,7 @@ class KeluargaKKController extends Controller
 
     $kk = Keluarga::with('kepalaKeluarga','anggotaKeluarga')
             ->searchAndFilter($search, $filters)
-            ->sort($sortBy, $sortOrder)   // sorting tetap boleh dipakai opsional
+            ->sort($sortBy, $sortOrder)
             ->paginate(6)
             ->withQueryString();
 
@@ -136,7 +136,7 @@ class KeluargaKKController extends Controller
     }
 
     /**
-     * Update data KK
+     * 
      */
     public function update(Request $request, $kk_id)
     {
