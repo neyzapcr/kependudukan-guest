@@ -16,7 +16,7 @@ class CreateWargaDummy extends Seeder
     {
         $faker = Faker::create('id_ID'); // Faker bahasa Indonesia
 
-        for ($i = 0; $i < 50; $i++) { // Generate 50 data dummy
+        for ($i = 0; $i < 100; $i++) { // Generate 50 data dummy
             DB::table('warga')->insert([
                 'no_ktp' => $faker->numerify('32############'), // 16 digit
                 'nama' => $faker->name,
