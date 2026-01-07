@@ -6,6 +6,7 @@ use App\Models\Warga;
 use App\Models\Kelahiran;
 use App\Models\Kematian;
 use App\Models\Pindah;
+use App\Models\Keluarga;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -15,11 +16,12 @@ class DashboardController extends Controller
         $tahun = now()->year;
 
         // ===============================
-        // 1. TOTAL WARGA & GENDER
+        // 1. TOTAL DATA UTAMA
         // ===============================
-        $totalWarga       = Warga::count();
-        $jumlahLaki       = Warga::where('jenis_kelamin', 'L')->count();
-        $jumlahPerempuan  = Warga::where('jenis_kelamin', 'P')->count();
+        $totalWarga      = Warga::count();
+        $jumlahKeluarga  = Keluarga::count();
+        $jumlahLaki      = Warga::where('jenis_kelamin', 'L')->count();
+        $jumlahPerempuan = Warga::where('jenis_kelamin', 'P')->count();
 
         // ===============================
         // 2. PERISTIWA TAHUN INI
@@ -28,18 +30,19 @@ class DashboardController extends Controller
         $kematianTahunIni  = Kematian::whereYear('tgl_meninggal', $tahun)->count();
         $pindahTahunIni    = Pindah::whereYear('tgl_pindah', $tahun)->count();
 
-        // 3. GRAFIK KELAHIRAN PER BULAN
+        // ===============================
+        // 3. GRAFIK KELAHIRAN PER BULAN (TAHUN INI)
         // ===============================
         $kelahiranPerBulan = Kelahiran::select(
                 DB::raw('MONTH(tgl_lahir) as bulan'),
                 DB::raw('COUNT(*) as total')
             )
             ->whereYear('tgl_lahir', $tahun)
-            ->groupBy('bulan')
+            ->groupBy(DB::raw('MONTH(tgl_lahir)'))
             ->pluck('total', 'bulan')
             ->toArray();
 
-        // Fix bulan kosong
+        // Lengkapi bulan kosong
         $grafikKelahiran = [];
         for ($i = 1; $i <= 12; $i++) {
             $grafikKelahiran[$i] = $kelahiranPerBulan[$i] ?? 0;
@@ -49,26 +52,34 @@ class DashboardController extends Controller
         // 4. GRAFIK GENDER
         // ===============================
         $grafikGender = [
-            'Laki-laki'  => $jumlahLaki,
-            'Perempuan'  => $jumlahPerempuan,
+            'Laki-laki' => $jumlahLaki,
+            'Perempuan' => $jumlahPerempuan,
         ];
 
         // ===============================
-        // 5. TREN DATA 5 TAHUN
+        // 5. TREN DATA 5 TAHUN TERAKHIR
         // ===============================
-        $tahunGrafik      = [];
-        $grafikPenduduk   = [];
-        $grafikLahir      = [];
-        $grafikMati       = [];
-        $grafikPindah     = [];
+        $tahunGrafik    = [];
+        $grafikPenduduk = [];
+        $grafikLahir    = [];
+        $grafikMati     = [];
+        $grafikPindah   = [];
 
         for ($i = $tahun - 4; $i <= $tahun; $i++) {
 
-            $tahunGrafik[]    = $i;
-            $grafikPenduduk[] = Warga::whereYear('created_at', '<=', $i)->count();
-            $grafikLahir[]    = Kelahiran::whereYear('tgl_lahir', $i)->count();
-            $grafikMati[]     = Kematian::whereYear('tgl_meninggal', $i)->count();
-            $grafikPindah[]   = Pindah::whereYear('tgl_pindah', $i)->count();
+            $tahunGrafik[] = $i;
+
+            // Penduduk AKUMULATIF sampai akhir tahun
+            $grafikPenduduk[] = Warga::whereDate(
+                'created_at',
+                '<=',
+                $i . '-12-31'
+            )->count();
+
+            // Peristiwa per tahun
+            $grafikLahir[]  = Kelahiran::whereYear('tgl_lahir', $i)->count();
+            $grafikMati[]   = Kematian::whereYear('tgl_meninggal', $i)->count();
+            $grafikPindah[] = Pindah::whereYear('tgl_pindah', $i)->count();
         }
 
         // ===============================
@@ -81,6 +92,7 @@ class DashboardController extends Controller
 
         return view("pages.dashboard", compact(
             "totalWarga",
+            "jumlahKeluarga",
             "jumlahLaki",
             "jumlahPerempuan",
             "kelahiranTahunIni",
@@ -96,8 +108,6 @@ class DashboardController extends Controller
             "pengumuman"
         ));
     }
-
-
 
     /**
      * Show the form for creating a new resource.

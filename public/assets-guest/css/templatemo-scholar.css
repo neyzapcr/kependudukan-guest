@@ -800,15 +800,26 @@ Services Style
   transition: all .2s;
 }
 
-.services .service-item .main-content {
-  border-radius: 25px;
-  padding: 80px 30px 50px 30px;
-  background-color: #f1f0fe;
-  margin-bottom: 30px;
-  margin-right: 80px;
-  transition: all .4s;
-  border: 1px solid #e0e0ff;
+.service-item .main-content {
+  position: relative;
+  background: #f5f6ff;              /* lebih soft */
+  border-radius: 20px;
+  border: 1px solid #e4e6ff;
+
+  padding: 56px 20px 34px;          /* 🔥 DIPERKECIL */
+  text-align: center;
+
+  transition: all .3s ease;
 }
+
+
+.services {
+  padding-top: 80px;
+  padding-bottom: 30px; /* 🔥 RUANG AMAN KE GRAFIK */
+  position: relative;
+  z-index: 1;
+}
+
 
 .services .service-item:hover .main-content {
   background: #ffffff;
@@ -826,6 +837,73 @@ Services Style
 .services .service-item p {
   color: #4a4a4a;
   margin-bottom: 25px;
+}
+/* WRAPPER YANG MEMUSATKAN CARD */
+.cards-wrapper {
+  display: flex;
+  justify-content: center;   /* 🔥 INI KUNCINYA */
+  gap: 28px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+/* CARD */
+.service-item {
+  width: 300px;              /* 🔥 lebar tetap */
+}
+
+/* ISI CARD */
+.service-item .main-content {
+  position: relative;
+  background: #f1f0fe;
+  border-radius: 22px;
+  border: 1px solid #e0e0ff;
+  padding: 70px 24px 40px;
+  text-align: center;
+}
+
+/* ICON (DI DALAM CARD, TIDAK NGARUH KE CENTER) */
+.service-item .icon {
+  position: absolute;
+  top: -28px;           /* 🔥 lebih turun */
+  right: 20px;
+
+  width: 64px;          /* 🔥 lebih kecil */
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 6px 18px rgba(37,99,235,.35);
+}
+
+.service-item .icon img {
+  max-width: 32px;
+}
+
+.service-item .icon img {
+  max-width: 36px;
+}
+
+/* TEKS */
+.service-item h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+
+.service-item h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.service-item small {
+  color: #6b7280;
 }
 
 /*
