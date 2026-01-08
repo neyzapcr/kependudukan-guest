@@ -194,7 +194,7 @@
                                             <a href="{{ route('keluarga.edit', $data->kk_id) }}" class="btn btn-edit">
                                                 <i class="fas fa-edit me-1"></i>Edit
                                             </a>
-
+                                            
                                             <form action="{{ route('keluarga.destroy', $data->kk_id) }}" method="POST"
                                                 class="m-0">
                                                 @csrf

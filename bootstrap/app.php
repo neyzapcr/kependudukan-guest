@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'checkrole' => CheckRole::class,
+            'block.download.warga' => BlockDownloadForWarga::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

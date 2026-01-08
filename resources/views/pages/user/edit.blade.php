@@ -135,7 +135,7 @@
         <div class="col-md-6">
             <label class="form-label fw-semibold">Role</label>
             <select name="role" class="form-select">
-                @foreach (['super-admin','administrator','admin','petugas','warga'] as $r)
+                @foreach (['super-admin','admin','warga'] as $r)
                     <option value="{{ $r }}" {{ $user->role === $r ? 'selected' : '' }}>
                         {{ ucfirst(str_replace('-', ' ', $r)) }}
                     </option>

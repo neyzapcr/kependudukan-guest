@@ -9,18 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckRole
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        //ini sebelum edit
-        if (Auth::check() && Auth::user()->role == $role) {
-          return $next($request);
-      }
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized');
+        }
 
-      return abort('403','Akses ditolak. Anda tidak punya izin.');
+        if (!in_array(Auth::user()->role, $roles)) {
+            abort(403, 'Akses ditolak. Anda tidak punya izin.');
+        }
+
+        return $next($request);
     }
 }
