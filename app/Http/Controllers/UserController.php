@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the users.
+     * Display a listing of the userss.
      */
     public function index(Request $request)
 {
