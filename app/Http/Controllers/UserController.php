@@ -25,6 +25,7 @@ class UserController extends Controller
     // ambil filter status
     $filters = [
         'status' => $request->status,
+        'role'   => $request->role,
     ];
 
     // handle sorting

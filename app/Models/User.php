@@ -58,16 +58,15 @@ class User extends Authenticatable
     array $filters = []
 ): Builder {
 
-    // search name/email
+    // search name / email / role
     $query->when($search, function (Builder $q) use ($search) {
         $q->where(function (Builder $qq) use ($search) {
             $qq->where('name', 'like', "%{$search}%")
-               ->orWhere('email', 'like', "%{$search}%")
-               ->orWhere('role', 'like', "%{$search}%");
+               ->orWhere('email', 'like', "%{$search}%");
         });
     });
 
-    // filter status aktif / nonaktif
+    // filter STATUS
     $query->when($filters['status'] ?? null, function (Builder $q) use ($filters) {
         if ($filters['status'] === 'aktif') {
             $q->where('is_active', 1);
@@ -76,8 +75,14 @@ class User extends Authenticatable
         }
     });
 
+    // ✅ FILTER ROLE (BARU)
+    $query->when($filters['role'] ?? null, function (Builder $q) use ($filters) {
+        $q->where('role', $filters['role']);
+    });
+
     return $query;
 }
+
 
 
     /**

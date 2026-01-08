@@ -63,46 +63,67 @@
                         </div>
 
                         <div class="col-md-6">
-                            <form action="{{ route('user.index') }}" method="GET" class="d-flex gap-2">
-                                {{-- Hidden untuk menjaga search --}}
-                                @if (request('search'))
-                                    <input type="hidden" name="search" value="{{ request('search') }}">
-                                @endif
+    <form action="{{ route('user.index') }}" method="GET" class="d-flex gap-2">
 
-                                <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
-                                    <option value="">-- Urutkan berdasarkan --</option>
-                                    <option value="created_at_desc"
-                                        {{ request('sort') == 'created_at_desc' ? 'selected' : '' }}>
-                                        Tanggal Terbaru
-                                    </option>
-                                    <option value="created_at_asc"
-                                        {{ request('sort') == 'created_at_asc' ? 'selected' : '' }}>
-                                        Tanggal Terlama
-                                    </option>
-                                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>
-                                        Nama A-Z
-                                    </option>
-                                    <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>
-                                        Nama Z-A
-                                    </option>
-                                </select>
+        {{-- JAGA SEARCH --}}
+        @if (request('search'))
+            <input type="hidden" name="search" value="{{ request('search') }}">
+        @endif
 
-                                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-                                    <option value="">-- Status --</option>
-                                    <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif
-                                    </option>
-                                    <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>
-                                        Nonaktif</option>
-                                </select>
+        {{-- SORT --}}
+        <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="">-- Urutkan --</option>
+            <option value="created_at_desc" {{ request('sort') == 'created_at_desc' ? 'selected' : '' }}>
+                Terbaru
+            </option>
+            <option value="created_at_asc" {{ request('sort') == 'created_at_asc' ? 'selected' : '' }}>
+                Terlama
+            </option>
+            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>
+                Nama A–Z
+            </option>
+            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>
+                Nama Z–A
+            </option>
+        </select>
 
-                                @if (request('search') || request('sort') || request('status'))
-                                    <a href="{{ route('user.index') }}"
-                                        class="btn btn-outline-secondary btn-sm rounded-0 ms-1" title="Reset semua filter">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                @endif
-                            </form>
-                        </div>
+        {{-- ✅ FILTER ROLE (BARU) --}}
+        <select name="role" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="">-- Role --</option>
+            <option value="super-admin" {{ request('role') == 'super-admin' ? 'selected' : '' }}>
+                Super Admin
+            </option>
+            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>
+                Admin
+            </option>
+            <option value="warga" {{ request('role') == 'warga' ? 'selected' : '' }}>
+                Warga
+            </option>
+        </select>
+
+        {{-- FILTER STATUS --}}
+        <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="">-- Status --</option>
+            <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>
+                Aktif
+            </option>
+            <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>
+                Nonaktif
+            </option>
+        </select>
+
+        {{-- RESET --}}
+        @if (request('search') || request('sort') || request('status') || request('role'))
+            <a href="{{ route('user.index') }}"
+                class="btn btn-outline-secondary btn-sm rounded-0"
+                title="Reset filter">
+                <i class="fas fa-times"></i>
+            </a>
+        @endif
+
+    </form>
+</div>
+
                     </div>
                 </div>
             </div>
