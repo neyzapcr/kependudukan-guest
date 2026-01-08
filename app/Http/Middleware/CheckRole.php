@@ -16,6 +16,7 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
+        //ini sebelum edit
         if (Auth::check() && Auth::user()->role == $role) {
           return $next($request);
       }
